@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.296" tests="23" errors="12" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.467" tests="23" errors="12" skipped="0" failures="0">
   <properties>
-    <property name="java.specification.version" value="26"/>
+    <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.class.path" value="C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\target\test-classes;C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\target\classes;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.0\junit-jupiter-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite\1.10.0\junit-platform-suite-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-api\1.10.0\junit-platform-suite-api-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-engine\1.10.0\junit-platform-suite-engine-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-commons\1.10.0\junit-platform-suite-commons-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-launcher\1.10.0\junit-platform-launcher-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\mockito\mockito-core\5.11.0\mockito-core-5.11.0.jar;C:\Users\dentaa\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\dentaa\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\dentaa\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\dentaa\.m2\repository\org\mockito\mockito-junit-jupiter\5.11.0\mockito-junit-jupiter-5.11.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-core\7.14.0\cucumber-core-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-gherkin\7.14.0\cucumber-gherkin-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.14.0\cucumber-gherkin-messages-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\gherkin\26.2.0\gherkin-26.2.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\messages\22.0.0\messages-22.0.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\tag-expressions\5.0.6\tag-expressions-5.0.6.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-expressions\16.1.2\cucumber-expressions-16.1.2.jar;C:\Users\dentaa\.m2\repository\io\cucumber\datatable\7.14.0\datatable-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-plugin\7.14.0\cucumber-plugin-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\docstring\7.14.0\docstring-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\html-formatter\20.4.0\html-formatter-20.4.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\junit-xml-formatter\0.2.0\junit-xml-formatter-0.2.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\ci-environment\9.2.0\ci-environment-9.2.0.jar;C:\Users\dentaa\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-junit-platform-engine\7.14.0\cucumber-junit-platform-engine-7.14.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="user.timezone" value="Asia/Jakarta"/>
     <property name="os.name" value="Windows 11"/>
-    <property name="java.vm.specification.version" value="26"/>
+    <property name="java.vm.specification.version" value="25"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-26.0.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\dentaa\AppData\Local\Temp\surefire13112643946579328872\surefirebooter-20260512214146721_3.jar C:\Users\dentaa\AppData\Local\Temp\surefire13112643946579328872 2026-05-12T21-41-46_571-jvmRun1 surefire-20260512214146721_1tmp surefire_0-20260512214146721_2tmp"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\dentaa\AppData\Local\Temp\surefire13633586632022882917\surefirebooter-20260512224449547_3.jar C:\Users\dentaa\AppData\Local\Temp\surefire13633586632022882917 2026-05-12T22-44-49_334-jvmRun1 surefire-20260512224449547_1tmp surefire_0-20260512224449547_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\target\test-classes;C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\target\classes;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.0\junit-jupiter-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite\1.10.0\junit-platform-suite-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-api\1.10.0\junit-platform-suite-api-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-engine\1.10.0\junit-platform-suite-engine-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-suite-commons\1.10.0\junit-platform-suite-commons-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-launcher\1.10.0\junit-platform-launcher-1.10.0.jar;C:\Users\dentaa\.m2\repository\org\mockito\mockito-core\5.11.0\mockito-core-5.11.0.jar;C:\Users\dentaa\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\dentaa\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\dentaa\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\dentaa\.m2\repository\org\mockito\mockito-junit-jupiter\5.11.0\mockito-junit-jupiter-5.11.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-core\7.14.0\cucumber-core-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-gherkin\7.14.0\cucumber-gherkin-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.14.0\cucumber-gherkin-messages-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\gherkin\26.2.0\gherkin-26.2.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\messages\22.0.0\messages-22.0.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\tag-expressions\5.0.6\tag-expressions-5.0.6.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-expressions\16.1.2\cucumber-expressions-16.1.2.jar;C:\Users\dentaa\.m2\repository\io\cucumber\datatable\7.14.0\datatable-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-plugin\7.14.0\cucumber-plugin-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\docstring\7.14.0\docstring-7.14.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\html-formatter\20.4.0\html-formatter-20.4.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\junit-xml-formatter\0.2.0\junit-xml-formatter-0.2.0.jar;C:\Users\dentaa\.m2\repository\io\cucumber\ci-environment\9.2.0\ci-environment-9.2.0.jar;C:\Users\dentaa\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\dentaa\.m2\repository\io\cucumber\cucumber-junit-platform-engine\7.14.0\cucumber-junit-platform-engine-7.14.0.jar;C:\Users\dentaa\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -23,54 +23,55 @@
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2026-04-21"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-26.0.1"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot"/>
     <property name="file.separator" value="\"/>
     <property name="basedir" value="C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\dentaa\AppData\Local\Temp\surefire13112643946579328872\surefirebooter-20260512214146721_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\dentaa\AppData\Local\Temp\surefire13633586632022882917\surefirebooter-20260512224449547_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="26.0.1+8-34"/>
+    <property name="java.runtime.version" value="25.0.3+9-LTS"/>
     <property name="user.name" value="dentaa"/>
     <property name="stdout.encoding" value="Cp1252"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.3+9"/>
     <property name="localRepository" value="C:\Users\dentaa\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="java.io.tmpdir" value="C:\Users\dentaa\AppData\Local\Temp\"/>
-    <property name="java.version" value="26.0.1"/>
+    <property name="java.version" value="25.0.3"/>
     <property name="user.dir" value="C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-26.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\Users\dentaa\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\dentaa\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Microsoft VS Code;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\AtlasModules;C:\WINDOWS\AtlasModules\Tools;C:\WINDOWS\AtlasModules\Scripts;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\dotnet\;C:\apache-maven-3.9.15\bin;C:\Program Files\Java\jdk-26.0.1\bin;C:\msys64\ucrt64\bin;C:\Program Files\playit_gg\bin\;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\Program Files\Java\jdk-26.0.1\bin;C:\Users\dentaa\.local\bin;C:\Users\dentaa\AppData\Local\Microsoft\WindowsApps;C:\Users\dentaa\AppData\Local\Python\bin;C:\Users\dentaa\AppData\Local\GitHubDesktop\bin;C:\Users\dentaa\AppData\Local\Programs\Antigravity\bin;c:\Users\dentaa\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;."/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\Users\dentaa\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\dentaa\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Microsoft VS Code;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\AtlasModules;C:\WINDOWS\AtlasModules\Tools;C:\WINDOWS\AtlasModules\Scripts;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\dotnet\;C:\apache-maven-3.9.15\bin;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\msys64\ucrt64\bin;C:\Program Files\playit_gg\bin\;C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin;C:\Program Files\Java\jdk-26.0.1\bin;C:\Users\dentaa\.local\bin;C:\Users\dentaa\AppData\Local\Microsoft\WindowsApps;C:\Users\dentaa\AppData\Local\Python\bin;C:\Users\dentaa\AppData\Local\GitHubDesktop\bin;C:\Users\dentaa\AppData\Local\Programs\Antigravity\bin;c:\Users\dentaa\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="Cp1252"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="26.0.1+8-34"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.3+9-LTS"/>
     <property name="stdin.encoding" value="Cp1252"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="70.0"/>
+    <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="Grade A mendapatkan EffectiveRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.068"/>
-  <testcase name="Grade B mendapatkan EffectiveRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
-  <testcase name="Grade C mendapatkan FlatRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
-  <testcase name="Grade D mendapatkan FlatRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
-  <testcase name="Strategy ditentukan otomatis tidak bisa diubah borrower" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
-  <testcase name="Loan berhasil dibuat dengan status SUBMITTED lalu VALIDATED" classname="Pembuatan Loan dan Penentuan Strategy" time="0.013"/>
-  <testcase name="Loan tidak bisa dibuat jika validasi amount gagal" classname="Pembuatan Loan dan Penentuan Strategy" time="0.002"/>
+  <testcase name="Grade A mendapatkan EffectiveRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.135"/>
+  <testcase name="Grade B mendapatkan EffectiveRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.006"/>
+  <testcase name="Grade C mendapatkan FlatRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.012"/>
+  <testcase name="Grade D mendapatkan FlatRateStrategy" classname="Pembuatan Loan dan Penentuan Strategy" time="0.011"/>
+  <testcase name="Strategy ditentukan otomatis tidak bisa diubah borrower" classname="Pembuatan Loan dan Penentuan Strategy" time="0.007"/>
+  <testcase name="Loan berhasil dibuat dengan status SUBMITTED lalu VALIDATED" classname="Pembuatan Loan dan Penentuan Strategy" time="0.015"/>
+  <testcase name="Loan tidak bisa dibuat jika validasi amount gagal" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
   <testcase name="Loan tidak bisa dibuat jika validasi tenor gagal" classname="Pembuatan Loan dan Penentuan Strategy" time="0.002"/>
-  <testcase name="Loan yang tervalidasi masuk ke fase FUNDING" classname="Pembuatan Loan dan Penentuan Strategy" time="0.002"/>
-  <testcase name="Funding deadline ditetapkan 14 hari kerja" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
+  <testcase name="Loan yang tervalidasi masuk ke fase FUNDING" classname="Pembuatan Loan dan Penentuan Strategy" time="0.003"/>
+  <testcase name="Funding deadline ditetapkan 14 hari kerja" classname="Pembuatan Loan dan Penentuan Strategy" time="0.006"/>
   <testcase name="Total terkumpul awal adalah nol" classname="Pembuatan Loan dan Penentuan Strategy" time="0.002"/>
-  <testcase name="Borrower grade A memiliki limit Rp 500 juta" classname="Validasi Pengajuan Pinjaman" time="0.036">
+  <testcase name="Borrower grade A memiliki limit Rp 500 juta" classname="Validasi Pengajuan Pinjaman" time="0.049">
     <error message="The step &apos;limit maksimal pinjamannya adalah 500000000&apos; is undefined.&#10;You can implement this step using the snippet(s) below:&#10;&#10;@Then(&quot;limit maksimal pinjamannya adalah {int}&quot;)&#10;public void limit_maksimal_pinjamannya_adalah(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'limit maksimal pinjamannya adalah 500000000' is undefined.
 You can implement this step using the snippet(s) below:
@@ -90,11 +91,11 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Borrower grade B memiliki limit Rp 200 juta" classname="Validasi Pengajuan Pinjaman" time="0.004">
+  <testcase name="Borrower grade B memiliki limit Rp 200 juta" classname="Validasi Pengajuan Pinjaman" time="0.005">
     <error message="The step &apos;limit maksimal pinjamannya adalah 200000000&apos; is undefined.&#10;You can implement this step using the snippet(s) below:&#10;&#10;@Then(&quot;limit maksimal pinjamannya adalah {int}&quot;)&#10;public void limit_maksimal_pinjamannya_adalah(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'limit maksimal pinjamannya adalah 200000000' is undefined.
 You can implement this step using the snippet(s) below:
@@ -114,8 +115,8 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
   <testcase name="Borrower grade C memiliki limit Rp 50 juta" classname="Validasi Pengajuan Pinjaman" time="0.005">
@@ -138,11 +139,11 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Borrower grade D memiliki limit Rp 10 juta" classname="Validasi Pengajuan Pinjaman" time="0.003">
+  <testcase name="Borrower grade D memiliki limit Rp 10 juta" classname="Validasi Pengajuan Pinjaman" time="0.004">
     <error message="The step &apos;limit maksimal pinjamannya adalah 10000000&apos; is undefined.&#10;You can implement this step using the snippet(s) below:&#10;&#10;@Then(&quot;limit maksimal pinjamannya adalah {int}&quot;)&#10;public void limit_maksimal_pinjamannya_adalah(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'limit maksimal pinjamannya adalah 10000000' is undefined.
 You can implement this step using the snippet(s) below:
@@ -162,11 +163,11 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan" classname="Validasi Pengajuan Pinjaman" time="0.007">
+  <testcase name="Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan" classname="Validasi Pengajuan Pinjaman" time="0.005">
     <error message="The step &apos;tenor yang diizinkan adalah 3 6 12 24&apos; is undefined.&#10;You can implement this step using the snippet(s) below:&#10;&#10;@Then(&quot;tenor yang diizinkan adalah {int} {int} {int} {int}&quot;)&#10;public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2, Integer int3, Integer int4) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'tenor yang diizinkan adalah 3 6 12 24' is undefined.
 You can implement this step using the snippet(s) below:
@@ -186,11 +187,11 @@ public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2, Integer int3
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan" classname="Validasi Pengajuan Pinjaman" time="0.006">
+  <testcase name="Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan" classname="Validasi Pengajuan Pinjaman" time="0.008">
     <error message="The step &apos;tenor yang diizinkan adalah 1 3&apos; is undefined.&#10;You can implement this step using the snippet(s) below:&#10;&#10;@Then(&quot;tenor yang diizinkan adalah {int} {int}&quot;)&#10;public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'tenor yang diizinkan adalah 1 3' is undefined.
 You can implement this step using the snippet(s) below:
@@ -210,11 +211,11 @@ public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan ditolak jika amount nol" classname="Validasi Pengajuan Pinjaman" time="0.005">
+  <testcase name="Pengajuan ditolak jika amount nol" classname="Validasi Pengajuan Pinjaman" time="0.01">
     <error message="The step &apos;borrower mengajukan pinjaman sebesar 0&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan pinjaman sebesar {int}&quot;)&#10;public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan ditolak dengan pesan {string}&quot;)&#10;public void pengajuan_ditolak_dengan_pesan(String string) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan pinjaman sebesar 0' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -239,11 +240,11 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan ditolak jika amount negatif" classname="Validasi Pengajuan Pinjaman" time="0.009">
+  <testcase name="Pengajuan ditolak jika amount negatif" classname="Validasi Pengajuan Pinjaman" time="0.01">
     <error message="The step &apos;borrower mengajukan pinjaman sebesar -1000000&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan pinjaman sebesar {int}&quot;)&#10;public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan ditolak dengan pesan {string}&quot;)&#10;public void pengajuan_ditolak_dengan_pesan(String string) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan pinjaman sebesar -1000000' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -268,11 +269,11 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan ditolak jika amount melebihi limit grade" classname="Validasi Pengajuan Pinjaman" time="0.005">
+  <testcase name="Pengajuan ditolak jika amount melebihi limit grade" classname="Validasi Pengajuan Pinjaman" time="0.006">
     <error message="The step &apos;borrower mengajukan pinjaman sebesar 100000000&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan pinjaman sebesar {int}&quot;)&#10;public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan ditolak dengan pesan {string}&quot;)&#10;public void pengajuan_ditolak_dengan_pesan(String string) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan pinjaman sebesar 100000000' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -297,11 +298,11 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan diterima jika amount dalam batas grade" classname="Validasi Pengajuan Pinjaman" time="0.003">
+  <testcase name="Pengajuan diterima jika amount dalam batas grade" classname="Validasi Pengajuan Pinjaman" time="0.005">
     <error message="The step &apos;borrower mengajukan pinjaman sebesar 30000000&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan pinjaman sebesar {int}&quot;)&#10;public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan tidak ditolak karena amount&quot;)&#10;public void pengajuan_tidak_ditolak_karena_amount() {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan pinjaman sebesar 30000000' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -326,11 +327,11 @@ public void pengajuan_tidak_ditolak_karena_amount() {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan ditolak jika tenor tidak tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.005">
+  <testcase name="Pengajuan ditolak jika tenor tidak tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.004">
     <error message="The step &apos;borrower mengajukan tenor 12 bulan&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan tenor {int} bulan&quot;)&#10;public void borrower_mengajukan_tenor_bulan(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan ditolak dengan pesan {string}&quot;)&#10;public void pengajuan_ditolak_dengan_pesan(String string) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan tenor 12 bulan' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -355,11 +356,11 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="Pengajuan diterima jika tenor tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.003">
+  <testcase name="Pengajuan diterima jika tenor tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.007">
     <error message="The step &apos;borrower mengajukan tenor 3 bulan&apos; and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@When(&quot;borrower mengajukan tenor {int} bulan&quot;)&#10;public void borrower_mengajukan_tenor_bulan(Integer int1) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@Then(&quot;pengajuan tidak ditolak karena tenor&quot;)&#10;public void pengajuan_tidak_ditolak_karena_tenor() {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.platform.engine.UndefinedStepException"><![CDATA[io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower mengajukan tenor 3 bulan' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -384,8 +385,8 @@ public void pengajuan_tidak_ditolak_karena_tenor() {
 	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
 	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
 </testsuite>
