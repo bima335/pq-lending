@@ -5,6 +5,9 @@ import com.pq.domain.model.enums.LoanState;
 import com.pq.domain.model.enums.Tenor;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
+import com.pq.domain.model.loan.strategy.InterestStrategy;
+import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
+import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class Loan {
     private Money amount;
     private Tenor tenor;
     private Grade grade;
+    private InterestStrategy interestStrategy;
     private String strategyType;
     private LoanState state;
     private LocalDate fundingDeadline;
@@ -30,12 +34,50 @@ public class Loan {
         this.payments = new ArrayList<>();
     }
 
-    // TODO: semua method diimplementasi
-    // oleh masing-masing anggota
-    public void submit(Borrower borrower,
-                       Money amount,
-                       Tenor tenor) {
-        // TODO: Anggota 1
+    public void determineStrategy(Grade grade) {
+        if (this.interestStrategy != null) {
+            throw new IllegalStateException("Strategy has already been determined and is immutable.");
+        }
+        this.grade = grade;
+        switch (grade.getStrategyType()) {
+            case "EFFECTIVE":
+                this.interestStrategy = new EffectiveRateStrategy();
+                break;
+            case "FLAT":
+                this.interestStrategy = new FlatRateStrategy();
+                break;
+            default:
+                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+        }
+        this.strategyType = this.interestStrategy.getClass().getSimpleName();
+    }
+    public InterestStrategy getInterestStrategy() {
+        return interestStrategy;
+    }
+
+    public void submit(Borrower borrower, Money amount, Tenor tenor) {
+        if (this.state != LoanState.SUBMITTED) {
+            throw new IllegalStateException("Loan can only be submitted once and is in state: " + this.state);
+        }
+
+        Grade borrowerGrade = borrower.getCreditGrade();
+
+        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        }
+
+        if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
+            throw new IllegalArgumentException("Amount melebihi limit grade");
+        }
+
+        if (tenor == null || !borrowerGrade.getAllowedTenors().contains(tenor)) {
+            throw new IllegalArgumentException("Tenor tidak tersedia untuk grade ini");
+        }
+
+        this.amount = amount;
+        this.tenor = tenor;
+        determineStrategy(borrowerGrade);
+        this.state = LoanState.VALIDATED;
     }
 
     public void validate() {
@@ -43,7 +85,8 @@ public class Loan {
     }
 
     public void startFunding() {
-        // TODO: Anggota 2
+        this.state = LoanState.FUNDING;
+        this.fundingDeadline = LocalDate.now().plusDays(20); // Pendekatan kasar 14 hari kerja
     }
 
     public void addFunding(LenderId lenderId,
@@ -85,12 +128,19 @@ public class Loan {
     public List<Payment> getPayments() { return payments; }
 
     public Money getTotalFunded() {
-        // TODO: Anggota 3
-        return new Money(java.math.BigDecimal.ZERO);
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        for (Funding funding : fundings) {
+            total = total.add(funding.getAmount().getAmount());
+        }
+        return new Money(total);
     }
 
     public double getFundingPercentage() {
-        // TODO: Anggota 3
-        return 0.0;
+        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
+            return 0.0;
+        }
+        java.math.BigDecimal fundedAmount = getTotalFunded().getAmount();
+        java.math.BigDecimal targetAmount = amount.getAmount();
+        return fundedAmount.divide(targetAmount, 4, java.math.RoundingMode.HALF_UP).doubleValue() * 100.0;
     }
 }

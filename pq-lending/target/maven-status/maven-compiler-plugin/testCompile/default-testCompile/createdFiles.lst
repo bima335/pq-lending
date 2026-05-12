@@ -1,0 +1,6 @@
+com\pq\bdd\steps\LoanStrategyAndCreationSteps.class
+com\pq\domain\LoanTest.class
+com\pq\bdd\cucumberRunner.class
+com\pq\bdd\steps\loanValidationSteps.class
+com\pq\application\LoanServiceTest.class
+com\pq\domain\LoanStrategyAndCreationTest.class
