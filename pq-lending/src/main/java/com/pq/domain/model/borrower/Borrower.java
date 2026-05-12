@@ -1,5 +1,6 @@
 package com.pq.domain.model.borrower;
 
+import com.pq.domain.model.valueobject.BorrowerId;
 import com.pq.domain.model.enums.Grade;
 import com.pq.domain.model.valueobject.Money;
 
