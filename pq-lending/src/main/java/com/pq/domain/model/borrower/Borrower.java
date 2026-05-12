@@ -1,6 +1,6 @@
 package com.p2plending.domain.model.borrower;
 
-import com.p2plending.domain.enums.Grade;
+import com.p2plending.domain.model.enums.Grade;
 import com.p2plending.domain.model.valueobject.Money;
 
 public class Borrower {
