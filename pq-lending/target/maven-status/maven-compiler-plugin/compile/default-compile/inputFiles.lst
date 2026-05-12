@@ -1,1 +1,19 @@
-C:\Users\Suparno\Documents\Izzul\Daigaku\KBM\Semester 2\Teknik Pemrograman\Praktek\pq-lending\pq-lending\src\main\java\com\pq\App.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/strategy/InterestStrategy.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/strategy/FlatRateStrategy.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/enums/Grade.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/borrower/Borrower.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/App.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/Money.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/strategy/EffectiveRateStrategy.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/PaymentId.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/Loan.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/LenderId.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/BorrowerId.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/lender/Lender.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/enums/Tenor.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/Payment.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/FundingId.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/loan/Funding.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/enums/PaymentStatus.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/valueobject/LoanId.java
+/home/bap/Dev/Python/pq-lending/pq-lending/src/main/java/com/pq/domain/model/enums/LoanState.java
