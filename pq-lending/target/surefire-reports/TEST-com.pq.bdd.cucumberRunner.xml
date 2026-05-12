@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.388" tests="14" errors="14" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.312" tests="14" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -7,12 +7,13 @@
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Jakarta"/>
     <property name="os.name" value="Linux"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-17.0.12-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512191119291_3.jar /home/bap/Dev/Python/pq-lending/pq-lending/target/surefire 2026-05-12T19-11-19_179-jvmRun1 surefire-20260512191119291_1tmp surefire_0-20260512191119291_2tmp"/>
+    <property name="sun.java.command" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512192611257_3.jar /home/bap/Dev/Python/pq-lending/pq-lending/target/surefire 2026-05-12T19-26-11_146-jvmRun1 surefire-20260512192611257_1tmp surefire_0-20260512192611257_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/test-classes:/home/bap/Dev/Python/pq-lending/pq-lending/target/classes:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/home/bap/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite/1.10.0/junit-platform-suite-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-api/1.10.0/junit-platform-suite-api-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-engine/1.10.0/junit-platform-suite-engine-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-commons/1.10.0/junit-platform-suite-commons-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-launcher/1.10.0/junit-platform-launcher-1.10.0.jar:/home/bap/.m2/repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar:/home/bap/.m2/repository/net/bytebuddy/byte-buddy/1.14.12/byte-buddy-1.14.12.jar:/home/bap/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar:/home/bap/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/bap/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-java/7.14.0/cucumber-java-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-core/7.14.0/cucumber-core-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-gherkin/7.14.0/cucumber-gherkin-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-gherkin-messages/7.14.0/cucumber-gherkin-messages-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/gherkin/26.2.0/gherkin-26.2.0.jar:/home/bap/.m2/repository/io/cucumber/messages/22.0.0/messages-22.0.0.jar:/home/bap/.m2/repository/io/cucumber/tag-expressions/5.0.6/tag-expressions-5.0.6.jar:/home/bap/.m2/repository/io/cucumber/cucumber-expressions/16.1.2/cucumber-expressions-16.1.2.jar:/home/bap/.m2/repository/io/cucumber/datatable/7.14.0/datatable-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-plugin/7.14.0/cucumber-plugin-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/docstring/7.14.0/docstring-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/html-formatter/20.4.0/html-formatter-20.4.0.jar:/home/bap/.m2/repository/io/cucumber/junit-xml-formatter/0.2.0/junit-xml-formatter-0.2.0.jar:/home/bap/.m2/repository/io/cucumber/ci-environment/9.2.0/ci-environment-9.2.0.jar:/home/bap/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/bap/.m2/repository/io/cucumber/cucumber-junit-platform-engine/7.14.0/cucumber-junit-platform-engine-7.14.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512191119291_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512192611257_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.12+8-LTS-286"/>
     <property name="user.name" value="bap"/>
@@ -51,88 +52,18 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Jadwal cicilan dibuat sekaligus saat loan DISBURSED" classname="Repayment dan Penutupan Loan" time="0.098">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_yang_baru_disbursed(repaymentDanCloseSteps.java:35)
-	at ✽.loan tenor 6 bulan yang baru DISBURSED(classpath:features/repaymentDanClose.feature:5)
-]]></error>
-  </testcase>
-  <testcase name="Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED" classname="Repayment dan Penutupan Loan" time="0.011">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_yang_disbursed_pada_tanggal_januari(repaymentDanCloseSteps.java:70)
-	at ✽.loan yang DISBURSED pada tanggal 1 Januari 2025(classpath:features/repaymentDanClose.feature:10)
-]]></error>
-  </testcase>
-  <testcase name="Tanggal cicilan berikutnya setiap 1 bulan setelahnya" classname="Repayment dan Penutupan Loan" time="0.009">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_yang_disbursed_pada_tanggal_januari(repaymentDanCloseSteps.java:65)
-	at ✽.loan tenor 3 bulan yang DISBURSED pada tanggal 1 Januari 2025(classpath:features/repaymentDanClose.feature:14)
-]]></error>
-  </testcase>
-  <testcase name="Cicilan flat rate sama setiap bulan" classname="Repayment dan Penutupan Loan" time="0.008">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_c_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:20)
-	at ✽.loan grade C dengan pokok 12000000 tenor 3 bulan rate 20 persen per tahun(classpath:features/repaymentDanClose.feature:20)
-]]></error>
-  </testcase>
-  <testcase name="Perhitungan cicilan flat rate benar" classname="Repayment dan Penutupan Loan" time="0.007">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_c_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:20)
-	at ✽.loan grade C dengan pokok 12000000 tenor 3 bulan rate 20 persen per tahun(classpath:features/repaymentDanClose.feature:26)
-]]></error>
-  </testcase>
-  <testcase name="Cicilan effective rate mengecil setiap bulan" classname="Repayment dan Penutupan Loan" time="0.011">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_a_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:15)
-	at ✽.loan grade A dengan pokok 12000000 tenor 3 bulan rate 12 persen per tahun(classpath:features/repaymentDanClose.feature:32)
-]]></error>
-  </testcase>
-  <testcase name="Komponen bunga effective rate dihitung dari sisa pokok" classname="Repayment dan Penutupan Loan" time="0.01">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_a_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:15)
-	at ✽.loan grade A dengan pokok 12000000 tenor 3 bulan rate 12 persen per tahun(classpath:features/repaymentDanClose.feature:38)
-]]></error>
-  </testcase>
-  <testcase name="Pembayaran cicilan berhasil mengubah status menjadi PAID" classname="Repayment dan Penutupan Loan" time="0.008">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_status_repayment_dan_cicilan_pertama_unpaid(repaymentDanCloseSteps.java:50)
-	at ✽.loan dengan status REPAYMENT dan cicilan pertama UNPAID(classpath:features/repaymentDanClose.feature:45)
-]]></error>
-  </testcase>
-  <testcase name="Pembayaran ditolak jika tidak ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.006">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_semua_cicilan_sudah_paid(repaymentDanCloseSteps.java:60)
-	at ✽.loan dengan semua cicilan sudah PAID(classpath:features/repaymentDanClose.feature:51)
-]]></error>
-  </testcase>
-  <testcase name="Pembayaran ditolak jika amount tidak sesuai" classname="Repayment dan Penutupan Loan" time="0.006">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_cicilan_pertama_sebesar(repaymentDanCloseSteps.java:55)
-	at ✽.loan dengan cicilan pertama sebesar 1000000(classpath:features/repaymentDanClose.feature:56)
-]]></error>
-  </testcase>
-  <testcase name="Distribusi ke lender dilakukan saat cicilan dibayar" classname="Repayment dan Penutupan Loan" time="0.007">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_dua_lender_porsi_dan(repaymentDanCloseSteps.java:25)
-	at ✽.loan dengan dua lender porsi 0.7 dan 0.3(classpath:features/repaymentDanClose.feature:61)
-]]></error>
-  </testcase>
-  <testcase name="Loan otomatis CLOSED setelah semua cicilan PAID" classname="Repayment dan Penutupan Loan" time="0.006">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_dengan_status_repayment(repaymentDanCloseSteps.java:45)
-	at ✽.loan tenor 1 bulan dengan status REPAYMENT(classpath:features/repaymentDanClose.feature:69)
-]]></error>
-  </testcase>
-  <testcase name="Loan tidak CLOSED jika masih ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.006">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_dengan_status_repayment(repaymentDanCloseSteps.java:45)
-	at ✽.loan tenor 3 bulan dengan status REPAYMENT(classpath:features/repaymentDanClose.feature:74)
-]]></error>
-  </testcase>
-  <testcase name="Loan CLOSED tidak bisa diubah dalam kondisi apapun" classname="Repayment dan Penutupan Loan" time="0.005">
-    <error message="TODO: implement me" type="io.cucumber.java.PendingException"><![CDATA[io.cucumber.java.PendingException: TODO: implement me
-	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_status_closed(repaymentDanCloseSteps.java:40)
-	at ✽.loan dengan status CLOSED(classpath:features/repaymentDanClose.feature:79)
-]]></error>
-  </testcase>
+  <testcase name="Jadwal cicilan dibuat sekaligus saat loan DISBURSED" classname="Repayment dan Penutupan Loan" time="0.097"/>
+  <testcase name="Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED" classname="Repayment dan Penutupan Loan" time="0.011"/>
+  <testcase name="Tanggal cicilan berikutnya setiap 1 bulan setelahnya" classname="Repayment dan Penutupan Loan" time="0.01"/>
+  <testcase name="Cicilan flat rate sama setiap bulan" classname="Repayment dan Penutupan Loan" time="0.01"/>
+  <testcase name="Perhitungan cicilan flat rate benar" classname="Repayment dan Penutupan Loan" time="0.009"/>
+  <testcase name="Cicilan effective rate mengecil setiap bulan" classname="Repayment dan Penutupan Loan" time="0.009"/>
+  <testcase name="Komponen bunga effective rate dihitung dari sisa pokok" classname="Repayment dan Penutupan Loan" time="0.007"/>
+  <testcase name="Pembayaran cicilan berhasil mengubah status menjadi PAID" classname="Repayment dan Penutupan Loan" time="0.017"/>
+  <testcase name="Pembayaran ditolak jika tidak ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.007"/>
+  <testcase name="Pembayaran ditolak jika amount tidak sesuai" classname="Repayment dan Penutupan Loan" time="0.006"/>
+  <testcase name="Distribusi ke lender dilakukan saat cicilan dibayar" classname="Repayment dan Penutupan Loan" time="0.007"/>
+  <testcase name="Loan otomatis CLOSED setelah semua cicilan PAID" classname="Repayment dan Penutupan Loan" time="0.006"/>
+  <testcase name="Loan tidak CLOSED jika masih ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.006"/>
+  <testcase name="Loan CLOSED tidak bisa diubah dalam kondisi apapun" classname="Repayment dan Penutupan Loan" time="0.005"/>
 </testsuite>
