@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.744" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.domain.LoanRepaymentTest" time="1.886" tests="8" errors="7" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -52,18 +52,108 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Jadwal cicilan dibuat sekaligus saat loan DISBURSED" classname="Repayment dan Penutupan Loan" time="0.23"/>
-  <testcase name="Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED" classname="Repayment dan Penutupan Loan" time="0.018"/>
-  <testcase name="Tanggal cicilan berikutnya setiap 1 bulan setelahnya" classname="Repayment dan Penutupan Loan" time="0.014"/>
-  <testcase name="Cicilan flat rate sama setiap bulan" classname="Repayment dan Penutupan Loan" time="0.019"/>
-  <testcase name="Perhitungan cicilan flat rate benar" classname="Repayment dan Penutupan Loan" time="0.021"/>
-  <testcase name="Cicilan effective rate mengecil setiap bulan" classname="Repayment dan Penutupan Loan" time="0.019"/>
-  <testcase name="Komponen bunga effective rate dihitung dari sisa pokok" classname="Repayment dan Penutupan Loan" time="0.016"/>
-  <testcase name="Pembayaran cicilan berhasil mengubah status menjadi PAID" classname="Repayment dan Penutupan Loan" time="0.021"/>
-  <testcase name="Pembayaran ditolak jika tidak ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.023"/>
-  <testcase name="Pembayaran ditolak jika amount tidak sesuai" classname="Repayment dan Penutupan Loan" time="0.019"/>
-  <testcase name="Distribusi ke lender dilakukan saat cicilan dibayar" classname="Repayment dan Penutupan Loan" time="0.02"/>
-  <testcase name="Loan otomatis CLOSED setelah semua cicilan PAID" classname="Repayment dan Penutupan Loan" time="0.02"/>
-  <testcase name="Loan tidak CLOSED jika masih ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.016"/>
-  <testcase name="Loan CLOSED tidak bisa diubah dalam kondisi apapun" classname="Repayment dan Penutupan Loan" time="0.01"/>
+  <testcase name="testPerhitunganCicilanFlatRate" classname="com.pq.domain.LoanRepaymentTest" time="1.692">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testPerhitunganCicilanFlatRate(LoanRepaymentTest.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testPerhitunganCicilanEffectiveRate" classname="com.pq.domain.LoanRepaymentTest" time="0.012">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testPerhitunganCicilanEffectiveRate(LoanRepaymentTest.java:125)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testLoanClosedTidakBisaDiubah" classname="com.pq.domain.LoanRepaymentTest" time="0.011">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testLoanClosedTidakBisaDiubah(LoanRepaymentTest.java:212)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testTanggalCicilanDanJatuhTempo" classname="com.pq.domain.LoanRepaymentTest" time="0.012">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testTanggalCicilanDanJatuhTempo(LoanRepaymentTest.java:82)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testLoanOtomatisClosed" classname="com.pq.domain.LoanRepaymentTest" time="0.011">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testLoanOtomatisClosed(LoanRepaymentTest.java:193)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testPembayaranDitolakJikaAmountTidakSesuai" classname="com.pq.domain.LoanRepaymentTest" time="0.009">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testPembayaranDitolakJikaAmountTidakSesuai(LoanRepaymentTest.java:146)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
+  <testcase name="testJadwalCicilanDibuatSaatDisbursed" classname="com.pq.domain.LoanRepaymentTest" time="0.021">
+    <failure message="Status loan harus DISBURSED ==&gt; expected: &lt;DISBURSED&gt; but was: &lt;SUBMITTED&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Status loan harus DISBURSED ==> expected: <DISBURSED> but was: <SUBMITTED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1152)
+	at com.pq.domain.LoanRepaymentTest.testJadwalCicilanDibuatSaatDisbursed(LoanRepaymentTest.java:60)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></failure>
+  </testcase>
+  <testcase name="testPembayaranCicilanBerhasil" classname="com.pq.domain.LoanRepaymentTest" time="0.009">
+    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.pq.domain.LoanRepaymentTest.testPembayaranCicilanBerhasil(LoanRepaymentTest.java:168)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+  </testcase>
 </testsuite>
