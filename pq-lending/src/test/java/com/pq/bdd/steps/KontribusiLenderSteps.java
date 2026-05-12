@@ -153,20 +153,27 @@ public class KontribusiLenderSteps {
         loan.addFunding(lender2.getLenderId(), new Money(new BigDecimal(amount2)), lender2);
     }
 
+    private long simulatedRepaymentAmount;
+
     @When("cicilan dibayar sebesar {long}")
     public void cicilan_dibayar_sebesar(long amount) {
         // Implementasi distribusi cicilan mungkin bukan scope Anggota 3,
         // tapi kita bisa buat simulasi minimal untuk memenuhi test
+        this.simulatedRepaymentAmount = amount;
     }
 
-    @Then("lender pertama menerima {long}")
-    public void lender_pertama_menerima(long amount) {
-        // TODO: assert repayment logic
+    @Then("lender pertama mendapat {long}")
+    public void lender_pertama_mendapat(long amount) {
+        Funding funding = loan.getFundings().get(0);
+        long expected = (long) (funding.getPortion() * simulatedRepaymentAmount);
+        assertEquals(amount, expected);
     }
 
-    @Then("lender kedua menerima {long}")
-    public void lender_kedua_menerima(long amount) {
-        // TODO: assert repayment logic
+    @Then("lender kedua mendapat {long}")
+    public void lender_kedua_mendapat(long amount) {
+        Funding funding = loan.getFundings().get(1);
+        long expected = (long) (funding.getPortion() * simulatedRepaymentAmount);
+        assertEquals(amount, expected);
     }
 
     @Given("loan dengan status FUNDING dan deadline belum terlewat")
