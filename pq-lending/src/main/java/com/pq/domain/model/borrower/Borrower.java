@@ -1,7 +1,7 @@
 // src/main/java/com/pq/domain/model/borrower/Borrower.java
 package com.pq.domain.model.borrower;
 
-import com.pq.domain.enums.Grade;
+import com.pq.domain.model.enums.Grade;
 import com.pq.domain.model.valueobject.BorrowerId;
 import com.pq.domain.model.valueobject.Money;
 
@@ -26,7 +26,15 @@ public class Borrower {
     public Money getVirtualAccountBalance() {
         return virtualAccountBalance;
     }
+
     public void deductBalance(Money amount) {
-        // TODO: implementasi
+        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Jumlah potongan tidak boleh negatif");
+        }
+        if (this.virtualAccountBalance.getAmount().compareTo(amount.getAmount()) < 0) {
+            throw new IllegalStateException("Saldo tidak cukup untuk membayar denda");
+        }
+        this.virtualAccountBalance = new Money(
+                this.virtualAccountBalance.getAmount().subtract(amount.getAmount()));
     }
 }

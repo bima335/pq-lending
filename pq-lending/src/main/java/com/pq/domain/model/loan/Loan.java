@@ -35,30 +35,99 @@ public class Loan {
     public void submit(Borrower borrower,
                        Money amount,
                        Tenor tenor) {
-        // TODO: Anggota 1
+        this.amount = amount;
+        this.tenor = tenor;
+        this.state = LoanState.SUBMITTED;
     }
 
     public void validate() {
-        // TODO: Anggota 2
+        this.state = LoanState.VALIDATED;
     }
 
     public void startFunding() {
-        // TODO: Anggota 2
+        this.state = LoanState.FUNDING;
     }
 
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        // TODO: Anggota 3
+        double portion = 0.0;
+        if (this.amount != null && this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) > 0) {
+            portion = amount.getAmount()
+                    .divide(this.amount.getAmount(), 4, java.math.RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+        this.fundings.add(new Funding(new FundingId("F" + (fundings.size() + 1)), lenderId, amount, portion));
+        if (this.state == LoanState.SUBMITTED || this.state == LoanState.VALIDATED) {
+            this.state = LoanState.FUNDING;
+        }
     }
 
     public void cancel(Borrower borrower,
                        List<Lender> lenders) {
-        // TODO: Anggota 4
+        if (this.state == LoanState.DISBURSED
+                || this.state == LoanState.REPAYMENT
+                || this.state == LoanState.CLOSED) {
+            throw new IllegalStateException("Loan tidak dapat dibatalkan setelah dana cair");
+        }
+
+        Money totalFunded = getTotalFunded();
+        if (totalFunded.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
+            this.state = LoanState.CANCELLED;
+            return;
+        }
+
+        double percent = getFundingPercentage();
+        java.math.BigDecimal rate = java.math.BigDecimal.ZERO;
+        if (percent > 0 && percent <= 50) {
+            rate = new java.math.BigDecimal("0.01");
+        } else if (percent > 50 && percent < 100) {
+            rate = new java.math.BigDecimal("0.02");
+        }
+
+        java.math.BigDecimal feeAmount = totalFunded.getAmount().multiply(rate)
+                .setScale(0, java.math.RoundingMode.HALF_UP);
+        Money fee = new Money(feeAmount);
+
+        if (borrower.getVirtualAccountBalance().getAmount().compareTo(feeAmount) < 0) {
+            throw new IllegalStateException("Saldo tidak cukup untuk membayar denda");
+        }
+
+        if (feeAmount.compareTo(java.math.BigDecimal.ZERO) > 0) {
+            borrower.deductBalance(fee);
+        }
+
+        if (lenders != null) {
+            for (Funding funding : fundings) {
+                for (Lender lender : lenders) {
+                    if (lender.getLenderId().getValue().equals(funding.getLenderId().getValue())) {
+                        lender.addBalance(funding.getAmount());
+                    }
+                }
+            }
+        }
+
+        this.state = LoanState.CANCELLED;
     }
 
     public void disburse() {
-        // TODO: Anggota 4
+        if (getFundingPercentage() >= 100.0) {
+            this.state = LoanState.DISBURSED;
+            if (this.tenor != null && this.amount != null) {
+                int months = this.tenor.getMonths();
+                java.math.BigDecimal principalPerInstallment = this.amount.getAmount()
+                        .divide(new java.math.BigDecimal(months), 0, java.math.RoundingMode.HALF_UP);
+                for (int i = 1; i <= months; i++) {
+                    PaymentId paymentId = new PaymentId("P" + i);
+                    java.time.LocalDate dueDate = java.time.LocalDate.now().plusMonths(i);
+                    Money principal = new Money(principalPerInstallment);
+                    Money interest = new Money(java.math.BigDecimal.ZERO);
+                    Money totalAmount = new Money(principalPerInstallment);
+                    this.payments.add(new Payment(paymentId, i, dueDate, principal, interest, totalAmount));
+                }
+                this.state = LoanState.REPAYMENT;
+            }
+        }
     }
 
     public void makeRepayment(PaymentId paymentId,
@@ -68,6 +137,18 @@ public class Loan {
 
     public void close() {
         // TODO: Anggota 5
+    }
+
+    public void setAmount(Money amount) {
+        this.amount = amount;
+    }
+
+    public void setTenor(Tenor tenor) {
+        this.tenor = tenor;
+    }
+
+    public void setState(LoanState state) {
+        this.state = state;
     }
 
     // Getters
@@ -85,12 +166,21 @@ public class Loan {
     public List<Payment> getPayments() { return payments; }
 
     public Money getTotalFunded() {
-        // TODO: Anggota 3
-        return new Money(java.math.BigDecimal.ZERO);
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        for (Funding funding : fundings) {
+            total = total.add(funding.getAmount().getAmount());
+        }
+        return new Money(total);
     }
 
     public double getFundingPercentage() {
-        // TODO: Anggota 3
-        return 0.0;
+        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
+            return 0.0;
+        }
+        java.math.BigDecimal total = getTotalFunded().getAmount();
+        java.math.BigDecimal percent = total
+                .multiply(new java.math.BigDecimal("100"))
+                .divide(this.amount.getAmount(), 2, java.math.RoundingMode.HALF_UP);
+        return percent.doubleValue();
     }
 }
