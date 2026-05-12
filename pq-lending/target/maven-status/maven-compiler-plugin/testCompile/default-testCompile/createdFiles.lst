@@ -1,6 +1,0 @@
-com/pq/domain/LoanTest.class
-com/pq/bdd/cucumberRunner.class
-com/pq/bdd/steps/KontribusiLenderSteps.class
-com/pq/domain/KontribusiLenderTest.class
-com/pq/application/LoanServiceTest.class
-com/pq/bdd/steps/loanValidationSteps.class
