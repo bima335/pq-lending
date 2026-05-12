@@ -17,13 +17,13 @@ Feature: Validasi Pengajuan Pinjaman
     Given borrower dengan grade D
     Then limit maksimal pinjamannya adalah 10000000
 
-  Scenario: Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan
+  Scenario: Borrower grade A tenor yang diizinkan adalah "3 6 12 24" bulan
     Given borrower dengan grade A
-    Then tenor yang diizinkan adalah 3 6 12 24
+    Then tenor yang diizinkan adalah "3 6 12 24"
 
   Scenario: Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan
     Given borrower dengan grade D
-    Then tenor yang diizinkan adalah 1 3
+    Then tenor yang diizinkan adalah "1 3"
 
   # BR-02: Validasi Amount
   Scenario: Pengajuan ditolak jika amount nol
