@@ -36,6 +36,13 @@ public class Borrower {
     }
 
     public void deductBalance(Money amount) {
-        // TODO: implementasi
+        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Jumlah potongan tidak boleh negatif");
+        }
+        if (this.virtualAccountBalance.getAmount().compareTo(amount.getAmount()) < 0) {
+            throw new IllegalStateException("Saldo tidak cukup untuk membayar denda");
+        }
+        this.virtualAccountBalance = new Money(
+                this.virtualAccountBalance.getAmount().subtract(amount.getAmount()));
     }
 }
