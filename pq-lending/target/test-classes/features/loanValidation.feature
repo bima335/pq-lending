@@ -27,12 +27,12 @@ Feature: Validasi Pengajuan Pinjaman
 
   # BR-02: Validasi Amount
   Scenario: Pengajuan ditolak jika amount nol
-    Given borrower dengan grade C
+    Given borrower mengajukan pinjaman
     When borrower mengajukan pinjaman sebesar 0
     Then pengajuan ditolak dengan pesan "Amount harus lebih dari 0"
 
   Scenario: Pengajuan ditolak jika amount negatif
-    Given borrower dengan grade C
+    Given borrower mengajukan pinjaman
     When borrower mengajukan pinjaman sebesar -1000000
     Then pengajuan ditolak dengan pesan "Amount harus lebih dari 0"
 
@@ -44,7 +44,7 @@ Feature: Validasi Pengajuan Pinjaman
   Scenario: Pengajuan diterima jika amount dalam batas grade
     Given borrower dengan grade C
     When borrower mengajukan pinjaman sebesar 30000000
-    Then pengajuan tidak ditolak karena amount
+    Then pengajuan tidak ditolak karena amount sesuai dengan limit grade
 
   # BR-03: Validasi Tenor
   Scenario: Pengajuan ditolak jika tenor tidak tersedia untuk grade

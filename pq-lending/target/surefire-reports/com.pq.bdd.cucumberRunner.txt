@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.pq.bdd.cucumberRunner
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 12, Skipped: 0, Time elapsed: 0.309 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
-Validasi Pengajuan Pinjaman.Borrower grade A memiliki limit Rp 500 juta -- Time elapsed: 0.095 s <<< ERROR!
+Tests run: 12, Failures: 0, Errors: 12, Skipped: 0, Time elapsed: 0.363 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
+Validasi Pengajuan Pinjaman.Borrower grade A memiliki limit Rp 500 juta -- Time elapsed: 0.134 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade A' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -30,7 +30,7 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Borrower grade B memiliki limit Rp 200 juta -- Time elapsed: 0.011 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Borrower grade B memiliki limit Rp 200 juta -- Time elapsed: 0.006 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade B' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -58,7 +58,7 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Borrower grade C memiliki limit Rp 50 juta -- Time elapsed: 0.009 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Borrower grade C memiliki limit Rp 50 juta -- Time elapsed: 0.006 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade C' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -114,7 +114,7 @@ public void limit_maksimal_pinjamannya_adalah(Integer int1) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan -- Time elapsed: 0.008 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan -- Time elapsed: 0.005 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade A' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -142,7 +142,7 @@ public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2, Integer int3
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan -- Time elapsed: 0.005 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan -- Time elapsed: 0.006 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade D' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -170,7 +170,7 @@ public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount nol -- Time elapsed: 0.008 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount nol -- Time elapsed: 0.005 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade C' and 2 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -203,7 +203,7 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount negatif -- Time elapsed: 0.006 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount negatif -- Time elapsed: 0.005 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade C' and 2 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -236,7 +236,7 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount melebihi limit grade -- Time elapsed: 0.007 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount melebihi limit grade -- Time elapsed: 0.005 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade C' and 2 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -335,7 +335,7 @@ public void pengajuan_ditolak_dengan_pesan(String string) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-Validasi Pengajuan Pinjaman.Pengajuan diterima jika tenor tersedia untuk grade -- Time elapsed: 0.005 s <<< ERROR!
+Validasi Pengajuan Pinjaman.Pengajuan diterima jika tenor tersedia untuk grade -- Time elapsed: 0.004 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'borrower dengan grade D' and 2 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
