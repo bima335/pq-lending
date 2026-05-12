@@ -1,4 +1,20 @@
 .vscode/
 
+# Maven build output
 target/
-*.class
+
+# IDE — IntelliJ IDEA
+.idea/
+*.iml
+
+# IDE — Eclipse
+.project
+.classpath
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log & temp files
+*.log
