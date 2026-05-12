@@ -1,8 +1,7 @@
-// src/main/java/com/pq/domain/model/borrower/Borrower.java
 package com.pq.domain.model.borrower;
 
-import com.pq.domain.model.enums.Grade;
 import com.pq.domain.model.valueobject.BorrowerId;
+import com.pq.domain.model.enums.Grade;
 import com.pq.domain.model.valueobject.Money;
 
 public class Borrower {
@@ -12,17 +11,26 @@ public class Borrower {
     private Money virtualAccountBalance;
 
     public Borrower(BorrowerId borrowerId, String name,
-                    Grade creditGrade,
-                    Money virtualAccountBalance) {
+            Grade creditGrade,
+            Money virtualAccountBalance) {
         this.borrowerId = borrowerId;
         this.name = name;
         this.creditGrade = creditGrade;
         this.virtualAccountBalance = virtualAccountBalance;
     }
 
-    public BorrowerId getBorrowerId() { return borrowerId; }
-    public String getName() { return name; }
-    public Grade getCreditGrade() { return creditGrade; }
+    public BorrowerId getBorrowerId() {
+        return borrowerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Grade getCreditGrade() {
+        return creditGrade;
+    }
+
     public Money getVirtualAccountBalance() {
         return virtualAccountBalance;
     }
