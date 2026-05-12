@@ -29,7 +29,7 @@ public class CancelDanDisbursementSteps {
         }
     }
 
-    @Given("loan dengan status {string}")
+    @Given("loan dengan status {word}")
     public void loanDenganStatus(String status) {
         LoanState parsed = LoanState.valueOf(status);
         LoanId loanId = new LoanId("L001");
@@ -68,11 +68,6 @@ public class CancelDanDisbursementSteps {
         this.borrower = new Borrower(borrowerId, "Borrower1", Grade.A, new Money(BigDecimal.valueOf(saldo)));
     }
 
-    @Given("loan dengan status DISBURSED")
-    public void loanDenganStatusDISBURSED() {
-        loanDenganStatus("DISBURSED");
-    }
-
     @Given("loan dengan target {long} dan tenor {int} bulan")
     public void loanDenganTargetDanTenorBulan(long target, int tenor) {
         ensureLoanExists();
@@ -101,12 +96,28 @@ public class CancelDanDisbursementSteps {
         this.lenders.add(lender);
         this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
         this.loan.addFunding(lenderId, fundingAmount, lender);
+        if (this.loan.getFundingPercentage() >= 100.0) {
+            this.loan.disburse();
+        }
     }
 
     @When("funding mencapai {int} persen")
     public void fundingMencapaiPersen(int persen) {
         ensureLoanExists();
         if (persen == 100) {
+            Money amount = this.loan.getAmount();
+            if (amount == null) {
+                throw new IllegalStateException("Jumlah pinjaman harus ditetapkan sebelum funding 100 persen");
+            }
+            long funded = this.loan.getTotalFunded().getAmount().longValue();
+            long needed = amount.getAmount().longValue() - funded;
+            if (needed > 0) {
+                LenderId lenderId = new LenderId("L100");
+                Lender lender = new Lender(lenderId, "Lender100", new Money(BigDecimal.valueOf(needed)));
+                this.lenders.add(lender);
+                this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
+                this.loan.addFunding(lenderId, new Money(BigDecimal.valueOf(needed)), lender);
+            }
             this.loan.disburse();
         }
     }
@@ -116,7 +127,7 @@ public class CancelDanDisbursementSteps {
         borrowerMembatalkanPinjaman();
     }
 
-    @Then("status loan berubah menjadi {string}")
+    @Then("status loan berubah menjadi {word}")
     public void statusLoanBerubahMenjadi(String expected) {
         LoanState expectedState = LoanState.valueOf(expected);
         Assertions.assertEquals(expectedState, this.loan.getState());
@@ -149,7 +160,7 @@ public class CancelDanDisbursementSteps {
         Assertions.assertEquals(pesan, this.exception.getMessage());
     }
 
-    @Then("status loan tetap {string}")
+    @Then("status loan tetap {word}")
     public void statusLoanTetap(String state) {
         LoanState expectedState = LoanState.valueOf(state);
         Assertions.assertEquals(expectedState, this.loan.getState());
