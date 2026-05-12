@@ -1,6 +1,6 @@
-package com.p2plending.domain.model.lender;
+package com.pq.domain.model.lender;
 
-import com.p2plending.domain.model.valueobject.Money;
+import com.pq.domain.model.valueobject.Money;
 
 public class Lender {
     private final LenderId lenderId;

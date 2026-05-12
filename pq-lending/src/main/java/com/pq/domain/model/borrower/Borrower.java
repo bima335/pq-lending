@@ -1,7 +1,7 @@
-package com.p2plending.domain.model.borrower;
+package com.pq.domain.model.borrower;
 
-import com.p2plending.domain.model.enums.Grade;
-import com.p2plending.domain.model.valueobject.Money;
+import com.pq.domain.model.enums.Grade;
+import com.pq.domain.model.valueobject.Money;
 
 public class Borrower {
     private final BorrowerId borrowerId;
