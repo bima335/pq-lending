@@ -192,8 +192,8 @@ public class KontribusiLenderSteps {
         lender1 = new Lender(new LenderId("LDR1"), "Lender 1", new Money(new BigDecimal("10000000")));
         loan.addFunding(lender1.getLenderId(), new Money(new BigDecimal(amount)), lender1);
         setField(loan, "fundingDeadline", LocalDate.now().minusDays(1)); // set back to expired
-        // simulate deducting balance since Anggota 3 doesn't do it
-        setField(lender1, "virtualAccountBalance", lender1.getVirtualAccountBalance().subtract(new Money(new BigDecimal(amount))));
+        setField(lender1, "virtualAccountBalance",
+                lender1.getVirtualAccountBalance().subtract(new Money(new BigDecimal(amount))));
         balanceBeforeRefund = lender1.getVirtualAccountBalance().getAmount();
     }
 
@@ -204,9 +204,9 @@ public class KontribusiLenderSteps {
             loan.addFunding(lender2.getLenderId(), new Money(new BigDecimal("1000000")), lender2);
         } catch (IllegalStateException e) {
             thrownException = e;
-            // Simulate Anggota 4's cancel and refund process since we are only implementing Anggota 3
             if (loan.getState() == LoanState.CANCELLED) {
-                setField(lender1, "virtualAccountBalance", lender1.getVirtualAccountBalance().add(new Money(new BigDecimal("2000000"))));
+                setField(lender1, "virtualAccountBalance",
+                        lender1.getVirtualAccountBalance().add(new Money(new BigDecimal("2000000"))));
             }
         } catch (Exception e) {
             thrownException = e;
