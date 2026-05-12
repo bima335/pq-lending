@@ -1,7 +1,5 @@
-// src/main/java/com/pq/domain/model/lender/Lender.java
 package com.pq.domain.model.lender;
 
-import com.pq.domain.model.valueobject.LenderId;
 import com.pq.domain.model.valueobject.Money;
 
 public class Lender {
