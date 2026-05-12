@@ -20,7 +20,12 @@ public class Lender {
     public Money getVirtualAccountBalance() {
         return virtualAccountBalance;
     }
+
     public void addBalance(Money amount) {
-        // TODO: implementasi
+        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Jumlah refund tidak boleh negatif");
+        }
+        this.virtualAccountBalance = new Money(
+                this.virtualAccountBalance.getAmount().add(amount.getAmount()));
     }
 }
