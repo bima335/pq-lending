@@ -66,16 +66,20 @@ public class Loan {
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        double portion = 0.0;
-        if (this.amount != null && this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) > 0) {
-            portion = amount.getAmount()
-                    .divide(this.amount.getAmount(), 4, java.math.RoundingMode.HALF_UP)
-                    .doubleValue();
+        if (fundingDeadline != null && LocalDate.now().isAfter(fundingDeadline)) {
+            this.state = LoanState.CANCELLED;
+            throw new IllegalStateException("Deadline terlewat");
         }
-        this.fundings.add(new Funding(new FundingId("F" + (fundings.size() + 1)), lenderId, amount, portion));
-        if (this.state == LoanState.SUBMITTED || this.state == LoanState.VALIDATED) {
-            this.state = LoanState.FUNDING;
+        if (amount.getAmount().compareTo(new java.math.BigDecimal("100000")) < 0) {
+            throw new IllegalArgumentException("Minimum kontribusi adalah Rp 100.000");
         }
+        
+        Money sisaTarget = this.amount.subtract(getTotalFunded());
+        Money acceptedAmount = amount.min(sisaTarget);
+        
+        double portion = acceptedAmount.getAmount().doubleValue() / this.amount.getAmount().doubleValue();
+        Funding funding = new Funding(new FundingId(java.util.UUID.randomUUID().toString()), lenderId, acceptedAmount, portion);
+        this.fundings.add(funding);
     }
 
     public void cancel(Borrower borrower,
@@ -209,8 +213,8 @@ public class Loan {
 
     public Money getTotalFunded() {
         java.math.BigDecimal total = java.math.BigDecimal.ZERO;
-        for (Funding funding : fundings) {
-            total = total.add(funding.getAmount().getAmount());
+        for (Funding f : fundings) {
+            total = total.add(f.getAmount().getAmount());
         }
         return new Money(total);
     }
@@ -219,10 +223,6 @@ public class Loan {
         if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
             return 0.0;
         }
-        java.math.BigDecimal total = getTotalFunded().getAmount();
-        java.math.BigDecimal percent = total
-                .multiply(new java.math.BigDecimal("100"))
-                .divide(this.amount.getAmount(), 2, java.math.RoundingMode.HALF_UP);
-        return percent.doubleValue();
+        return getTotalFunded().getAmount().doubleValue() / this.amount.getAmount().doubleValue();
     }
 }
