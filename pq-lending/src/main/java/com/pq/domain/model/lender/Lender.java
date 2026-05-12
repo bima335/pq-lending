@@ -3,6 +3,7 @@ package com.pq.domain.model.lender;
 
 import com.pq.domain.model.valueobject.LenderId;
 import com.pq.domain.model.valueobject.Money;
+import java.math.BigDecimal;
 
 public class Lender {
     private final LenderId lenderId;
@@ -22,6 +23,8 @@ public class Lender {
         return virtualAccountBalance;
     }
     public void addBalance(Money amount) {
-        // TODO: implementasi
+        BigDecimal newBalance = this.virtualAccountBalance.getAmount()
+            .add(amount.getAmount());
+        this.virtualAccountBalance = new Money(newBalance);
     }
 }

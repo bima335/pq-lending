@@ -3,6 +3,7 @@ package com.pq.domain.model.loan;
 import com.pq.domain.model.enums.PaymentStatus;
 import com.pq.domain.model.valueobject.Money;
 import com.pq.domain.model.valueobject.PaymentId;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Payment {
@@ -26,6 +27,17 @@ public class Payment {
         this.dueDate = dueDate;
         this.principal = principal;
         this.interest = interest;
+        this.totalAmount = totalAmount;
+        this.status = PaymentStatus.UNPAID;
+    }
+
+    // Constructor overload untuk minimal implementation
+    public Payment(PaymentId paymentId, Money totalAmount) {
+        this.paymentId = paymentId;
+        this.installmentNumber = 0;
+        this.dueDate = LocalDate.now();
+        this.principal = totalAmount;
+        this.interest = new Money(BigDecimal.ZERO);
         this.totalAmount = totalAmount;
         this.status = PaymentStatus.UNPAID;
     }
