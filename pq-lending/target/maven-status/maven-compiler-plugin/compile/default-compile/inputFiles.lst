@@ -1,1 +1,19 @@
-C:\Users\Suparno\Documents\Izzul\Daigaku\KBM\Semester 2\Teknik Pemrograman\Praktek\pq-lending\pq-lending\src\main\java\com\pq\App.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\App.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\borrower\Borrower.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\enums\Grade.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\enums\LoanState.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\enums\PaymentStatus.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\enums\Tenor.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\lender\Lender.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\Funding.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\Loan.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\Payment.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\strategy\EffectiveRateStrategy.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\strategy\FlatRateStrategy.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\loan\strategy\InterestStrategy.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\BorrowerId.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\FundingId.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\LenderId.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\LoanId.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\Money.java
+C:\Users\dentaa\Documents\GitHub\pq-lending\pq-lending\src\main\java\com\pq\domain\model\valueobject\PaymentId.java
