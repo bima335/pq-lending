@@ -1,10 +1,9 @@
 // src/main/java/com/pq/domain/model/borrower/Borrower.java
 package com.pq.domain.model.borrower;
 
-import com.pq.domain.model.enums.Grade;
+import com.pq.domain.enums.Grade;
 import com.pq.domain.model.valueobject.BorrowerId;
 import com.pq.domain.model.valueobject.Money;
-import java.math.BigDecimal;
 
 public class Borrower {
     private final BorrowerId borrowerId;
@@ -28,11 +27,6 @@ public class Borrower {
         return virtualAccountBalance;
     }
     public void deductBalance(Money amount) {
-        BigDecimal newBalance = this.virtualAccountBalance.getAmount()
-            .subtract(amount.getAmount());
-        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Saldo tidak cukup");
-        }
-        this.virtualAccountBalance = new Money(newBalance);
+        // TODO: implementasi
     }
 }

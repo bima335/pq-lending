@@ -6,8 +6,6 @@ import com.pq.domain.model.enums.Tenor;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.valueobject.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,92 +35,30 @@ public class Loan {
     public void submit(Borrower borrower,
                        Money amount,
                        Tenor tenor) {
-        this.amount = amount;
-        this.tenor = tenor;
-        this.grade = borrower.getCreditGrade();
+        // TODO: Anggota 1
     }
 
     public void validate() {
-        this.state = LoanState.VALIDATED;
+        // TODO: Anggota 2
     }
 
     public void startFunding() {
-        this.state = LoanState.FUNDING;
+        // TODO: Anggota 2
     }
 
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        FundingId fundingId = new FundingId("funding-" + System.nanoTime());
-        double portion = amount.getAmount().doubleValue() / this.amount.getAmount().doubleValue();
-        Funding funding = new Funding(fundingId, lenderId, amount, portion);
-        this.fundings.add(funding);
-        
-        // Set state menjadi DISBURSED ketika funding mencapai 100%
-        if (getFundingPercentage() >= 100.0) {
-            this.state = LoanState.DISBURSED;
-        }
+        // TODO: Anggota 3
     }
 
     public void cancel(Borrower borrower,
                        List<Lender> lenders) {
-        // Check state - tidak bisa cancel setelah DISBURSED
-        if (this.state == LoanState.DISBURSED || this.state == LoanState.REPAYMENT || this.state == LoanState.CLOSED) {
-            throw new RuntimeException("Loan tidak dapat dibatalkan setelah dana cair");
-        }
-        
-        // Hitung denda berdasarkan funding percentage
-        double fundingPercent = getFundingPercentage();
-        BigDecimal totalTerkumpul = getTotalFunded().getAmount();
-        BigDecimal denda = BigDecimal.ZERO;
-        
-        if (fundingPercent == 0) {
-            denda = BigDecimal.ZERO;
-        } else if (fundingPercent <= 50) {
-            denda = totalTerkumpul.multiply(new BigDecimal("0.01")).setScale(0, RoundingMode.HALF_UP); // 1% dari total terkumpul
-        } else {
-            denda = totalTerkumpul.multiply(new BigDecimal("0.02")).setScale(0, RoundingMode.HALF_UP); // 2% dari total terkumpul
-        }
-        
-        // Check saldo borrower cukup untuk denda
-        if (borrower.getVirtualAccountBalance().getAmount().compareTo(denda) < 0) {
-            throw new RuntimeException("Saldo tidak cukup untuk membayar denda");
-        }
-        
-        // Potong saldo borrower
-        if (denda.compareTo(BigDecimal.ZERO) > 0) {
-            borrower.deductBalance(new Money(denda));
-        }
-        
-        // Refund semua lender sesuai porsi mereka
-        for (Funding funding : this.fundings) {
-            for (Lender lender : lenders) {
-                if (lender.getLenderId().equals(funding.getLenderId())) {
-                    lender.addBalance(funding.getAmount());
-                }
-            }
-        }
-        
-        this.state = LoanState.CANCELLED;
+        // TODO: Anggota 4
     }
 
     public void disburse() {
-        if (getFundingPercentage() >= 100.0) {
-            this.state = LoanState.DISBURSED;
-            
-            // Create payments sesuai tenor
-            int numPayments = this.tenor.getMonths();
-            BigDecimal perPayment = this.amount.getAmount()
-                .divide(BigDecimal.valueOf(numPayments), RoundingMode.HALF_UP);
-            
-            for (int i = 1; i <= numPayments; i++) {
-                PaymentId paymentId = new PaymentId("payment-" + i + "-" + System.nanoTime());
-                Payment payment = new Payment(paymentId, new Money(perPayment));
-                this.payments.add(payment);
-            }
-            
-            this.state = LoanState.REPAYMENT;
-        }
+        // TODO: Anggota 4
     }
 
     public void makeRepayment(PaymentId paymentId,
@@ -149,18 +85,12 @@ public class Loan {
     public List<Payment> getPayments() { return payments; }
 
     public Money getTotalFunded() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Funding funding : fundings) {
-            total = total.add(funding.getAmount().getAmount());
-        }
-        return new Money(total);
+        // TODO: Anggota 3
+        return new Money(java.math.BigDecimal.ZERO);
     }
 
     public double getFundingPercentage() {
-        if (this.amount == null || this.amount.getAmount().compareTo(BigDecimal.ZERO) == 0) {
-            return 0.0;
-        }
-        BigDecimal total = getTotalFunded().getAmount();
-        return (total.doubleValue() / this.amount.getAmount().doubleValue()) * 100.0;
+        // TODO: Anggota 3
+        return 0.0;
     }
 }
