@@ -81,7 +81,18 @@ public class Loan {
     }
 
     public void validate() {
-        // TODO: Anggota 2
+        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        }
+        if (this.grade == null) {
+            throw new IllegalStateException("Grade borrower belum ditentukan");
+        }
+        if (this.amount.getAmount().compareTo(this.grade.getMaxAmount().getAmount()) > 0) {
+            throw new IllegalArgumentException("Amount melebihi limit grade");
+        }
+        if (this.tenor == null || !this.grade.getAllowedTenors().contains(this.tenor)) {
+            throw new IllegalArgumentException("Tenor tidak tersedia untuk grade ini");
+        }
     }
 
     public void startFunding() {
