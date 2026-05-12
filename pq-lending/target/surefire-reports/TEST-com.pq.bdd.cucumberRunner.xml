@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.312" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.358" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,8 +12,8 @@
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-17.0.12-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512192611257_3.jar /home/bap/Dev/Python/pq-lending/pq-lending/target/surefire 2026-05-12T19-26-11_146-jvmRun1 surefire-20260512192611257_1tmp surefire_0-20260512192611257_2tmp"/>
+    <property name="sun.boot.library.path" value="C:\java17\jdk-17\bin"/>
+    <property name="sun.java.command" value="C:\Users\Suparno\AppData\Local\Temp\surefire8254720687138298965\surefirebooter-20260512210457773_3.jar C:\Users\Suparno\AppData\Local\Temp\surefire8254720687138298965 2026-05-12T21-04-54_919-jvmRun1 surefire-20260512210457773_1tmp surefire_0-20260512210457773_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/test-classes:/home/bap/Dev/Python/pq-lending/pq-lending/target/classes:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/home/bap/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/home/bap/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite/1.10.0/junit-platform-suite-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-api/1.10.0/junit-platform-suite-api-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-engine/1.10.0/junit-platform-suite-engine-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-suite-commons/1.10.0/junit-platform-suite-commons-1.10.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-launcher/1.10.0/junit-platform-launcher-1.10.0.jar:/home/bap/.m2/repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar:/home/bap/.m2/repository/net/bytebuddy/byte-buddy/1.14.12/byte-buddy-1.14.12.jar:/home/bap/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar:/home/bap/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/bap/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-java/7.14.0/cucumber-java-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-core/7.14.0/cucumber-core-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-gherkin/7.14.0/cucumber-gherkin-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-gherkin-messages/7.14.0/cucumber-gherkin-messages-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/gherkin/26.2.0/gherkin-26.2.0.jar:/home/bap/.m2/repository/io/cucumber/messages/22.0.0/messages-22.0.0.jar:/home/bap/.m2/repository/io/cucumber/tag-expressions/5.0.6/tag-expressions-5.0.6.jar:/home/bap/.m2/repository/io/cucumber/cucumber-expressions/16.1.2/cucumber-expressions-16.1.2.jar:/home/bap/.m2/repository/io/cucumber/datatable/7.14.0/datatable-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/cucumber-plugin/7.14.0/cucumber-plugin-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/docstring/7.14.0/docstring-7.14.0.jar:/home/bap/.m2/repository/io/cucumber/html-formatter/20.4.0/html-formatter-20.4.0.jar:/home/bap/.m2/repository/io/cucumber/junit-xml-formatter/0.2.0/junit-xml-formatter-0.2.0.jar:/home/bap/.m2/repository/io/cucumber/ci-environment/9.2.0/ci-environment-9.2.0.jar:/home/bap/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/bap/.m2/repository/io/cucumber/cucumber-junit-platform-engine/7.14.0/cucumber-junit-platform-engine-7.14.0.jar:/home/bap/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,8 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/bap/Dev/Python/pq-lending/pq-lending/target/surefire/surefirebooter-20260512192611257_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Suparno\AppData\Local\Temp\surefire8254720687138298965\surefirebooter-20260512210457773_3.jar"/>
+    <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.12+8-LTS-286"/>
     <property name="user.name" value="bap"/>
@@ -52,18 +53,16 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Jadwal cicilan dibuat sekaligus saat loan DISBURSED" classname="Repayment dan Penutupan Loan" time="0.097"/>
-  <testcase name="Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED" classname="Repayment dan Penutupan Loan" time="0.011"/>
-  <testcase name="Tanggal cicilan berikutnya setiap 1 bulan setelahnya" classname="Repayment dan Penutupan Loan" time="0.01"/>
-  <testcase name="Cicilan flat rate sama setiap bulan" classname="Repayment dan Penutupan Loan" time="0.01"/>
-  <testcase name="Perhitungan cicilan flat rate benar" classname="Repayment dan Penutupan Loan" time="0.009"/>
-  <testcase name="Cicilan effective rate mengecil setiap bulan" classname="Repayment dan Penutupan Loan" time="0.009"/>
-  <testcase name="Komponen bunga effective rate dihitung dari sisa pokok" classname="Repayment dan Penutupan Loan" time="0.007"/>
-  <testcase name="Pembayaran cicilan berhasil mengubah status menjadi PAID" classname="Repayment dan Penutupan Loan" time="0.017"/>
-  <testcase name="Pembayaran ditolak jika tidak ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.007"/>
-  <testcase name="Pembayaran ditolak jika amount tidak sesuai" classname="Repayment dan Penutupan Loan" time="0.006"/>
-  <testcase name="Distribusi ke lender dilakukan saat cicilan dibayar" classname="Repayment dan Penutupan Loan" time="0.007"/>
-  <testcase name="Loan otomatis CLOSED setelah semua cicilan PAID" classname="Repayment dan Penutupan Loan" time="0.006"/>
-  <testcase name="Loan tidak CLOSED jika masih ada cicilan UNPAID" classname="Repayment dan Penutupan Loan" time="0.006"/>
-  <testcase name="Loan CLOSED tidak bisa diubah dalam kondisi apapun" classname="Repayment dan Penutupan Loan" time="0.005"/>
+  <testcase name="Borrower grade A memiliki limit Rp 500 juta" classname="Validasi Pengajuan Pinjaman" time="0.088"/>
+  <testcase name="Borrower grade B memiliki limit Rp 200 juta" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
+  <testcase name="Borrower grade C memiliki limit Rp 50 juta" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
+  <testcase name="Borrower grade D memiliki limit Rp 10 juta" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
+  <testcase name="Borrower grade A tenor yang diizinkan adalah &quot;3 6 12 24&quot; bulan" classname="Validasi Pengajuan Pinjaman" time="0.005"/>
+  <testcase name="Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan" classname="Validasi Pengajuan Pinjaman" time="0.002"/>
+  <testcase name="Pengajuan ditolak jika amount nol" classname="Validasi Pengajuan Pinjaman" time="0.005"/>
+  <testcase name="Pengajuan ditolak jika amount negatif" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
+  <testcase name="Pengajuan ditolak jika amount melebihi limit grade" classname="Validasi Pengajuan Pinjaman" time="0.003"/>
+  <testcase name="Pengajuan diterima jika amount dalam batas grade" classname="Validasi Pengajuan Pinjaman" time="0.006"/>
+  <testcase name="Pengajuan ditolak jika tenor tidak tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
+  <testcase name="Pengajuan diterima jika tenor tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
 </testsuite>

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.pq.bdd.cucumberRunner
+Test set: com.pq.domain.LoanValidationTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.358 s -- in com.pq.bdd.cucumberRunner
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.948 s -- in com.pq.domain.LoanValidationTest
