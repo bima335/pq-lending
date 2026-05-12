@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="1.277" tests="12" errors="0" skipped="0" failures="4">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.domain.LoanValidationTest$AmountValidationTest" time="0.018" tests="4" errors="0" skipped="0" failures="3">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,36 +58,44 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Borrower grade A memiliki limit Rp 500 juta" classname="Validasi Pengajuan Pinjaman" time="0.385"/>
-  <testcase name="Borrower grade B memiliki limit Rp 200 juta" classname="Validasi Pengajuan Pinjaman" time="0.003"/>
-  <testcase name="Borrower grade C memiliki limit Rp 50 juta" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Borrower grade D memiliki limit Rp 10 juta" classname="Validasi Pengajuan Pinjaman" time="0.005"/>
-  <testcase name="Borrower grade A tenor yang diizinkan adalah &quot;3 6 12 24&quot; bulan" classname="Validasi Pengajuan Pinjaman" time="0.008"/>
-  <testcase name="Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Pengajuan ditolak jika amount nol" classname="Validasi Pengajuan Pinjaman" time="0.021">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:32)
+  <testcase name="submit_amountNegatif_throwsException" classname="com.pq.domain.LoanValidationTest$AmountValidationTest" time="0.003">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at com.pq.domain.LoanValidationTest$AmountValidationTest.submit_amountNegatif_throwsException(LoanValidationTest.java:143)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></failure>
   </testcase>
-  <testcase name="Pengajuan ditolak jika amount negatif" classname="Validasi Pengajuan Pinjaman" time="0.006">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:37)
+  <testcase name="submit_amountNol_throwsException" classname="com.pq.domain.LoanValidationTest$AmountValidationTest" time="0.002">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at com.pq.domain.LoanValidationTest$AmountValidationTest.submit_amountNol_throwsException(LoanValidationTest.java:131)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></failure>
   </testcase>
-  <testcase name="Pengajuan ditolak jika amount melebihi limit grade" classname="Validasi Pengajuan Pinjaman" time="0.005">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount melebihi limit grade"(classpath:features/loanValidation.feature:42)
+  <testcase name="submit_amountMelebihiLimitGrade_throwsException" classname="com.pq.domain.LoanValidationTest$AmountValidationTest" time="0.002">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at com.pq.domain.LoanValidationTest$AmountValidationTest.submit_amountMelebihiLimitGrade_throwsException(LoanValidationTest.java:156)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></failure>
   </testcase>
-  <testcase name="Pengajuan diterima jika amount dalam batas grade" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Pengajuan ditolak jika tenor tidak tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.004">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Tenor tidak tersedia untuk grade ini"(classpath:features/loanValidation.feature:53)
-]]></failure>
-  </testcase>
-  <testcase name="Pengajuan diterima jika tenor tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.003"/>
+  <testcase name="submit_amountDalamBatasGrade_berhasil" classname="com.pq.domain.LoanValidationTest$AmountValidationTest" time="0.002"/>
 </testsuite>

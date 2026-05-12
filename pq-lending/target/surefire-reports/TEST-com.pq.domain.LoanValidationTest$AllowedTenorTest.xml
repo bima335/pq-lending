@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="1.277" tests="12" errors="0" skipped="0" failures="4">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.domain.LoanValidationTest$AllowedTenorTest" time="0.031" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,36 +58,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Borrower grade A memiliki limit Rp 500 juta" classname="Validasi Pengajuan Pinjaman" time="0.385"/>
-  <testcase name="Borrower grade B memiliki limit Rp 200 juta" classname="Validasi Pengajuan Pinjaman" time="0.003"/>
-  <testcase name="Borrower grade C memiliki limit Rp 50 juta" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Borrower grade D memiliki limit Rp 10 juta" classname="Validasi Pengajuan Pinjaman" time="0.005"/>
-  <testcase name="Borrower grade A tenor yang diizinkan adalah &quot;3 6 12 24&quot; bulan" classname="Validasi Pengajuan Pinjaman" time="0.008"/>
-  <testcase name="Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Pengajuan ditolak jika amount nol" classname="Validasi Pengajuan Pinjaman" time="0.021">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:32)
-]]></failure>
-  </testcase>
-  <testcase name="Pengajuan ditolak jika amount negatif" classname="Validasi Pengajuan Pinjaman" time="0.006">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:37)
-]]></failure>
-  </testcase>
-  <testcase name="Pengajuan ditolak jika amount melebihi limit grade" classname="Validasi Pengajuan Pinjaman" time="0.005">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Amount melebihi limit grade"(classpath:features/loanValidation.feature:42)
-]]></failure>
-  </testcase>
-  <testcase name="Pengajuan diterima jika amount dalam batas grade" classname="Validasi Pengajuan Pinjaman" time="0.004"/>
-  <testcase name="Pengajuan ditolak jika tenor tidak tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.004">
-    <failure message="Seharusnya ada exception tapi tidak ada ==&gt; expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
-	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
-	at ✽.pengajuan ditolak dengan pesan "Tenor tidak tersedia untuk grade ini"(classpath:features/loanValidation.feature:53)
-]]></failure>
-  </testcase>
-  <testcase name="Pengajuan diterima jika tenor tersedia untuk grade" classname="Validasi Pengajuan Pinjaman" time="0.003"/>
+  <testcase name="gradeA_allowedTenors" classname="com.pq.domain.LoanValidationTest$AllowedTenorTest" time="0.006"/>
+  <testcase name="gradeD_allowedTenors" classname="com.pq.domain.LoanValidationTest$AllowedTenorTest" time="0.004"/>
 </testsuite>

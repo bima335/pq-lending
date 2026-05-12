@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.pq.bdd.cucumberRunner
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.342 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount nol -- Time elapsed: 0.019 s <<< FAILURE!
+Tests run: 12, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.277 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount nol -- Time elapsed: 0.021 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
 	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
 	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:32)
@@ -12,12 +12,12 @@ org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==>
 	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
 	at ✽.pengajuan ditolak dengan pesan "Amount harus lebih dari 0"(classpath:features/loanValidation.feature:37)
 
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount melebihi limit grade -- Time elapsed: 0.009 s <<< FAILURE!
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount melebihi limit grade -- Time elapsed: 0.005 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
 	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
 	at ✽.pengajuan ditolak dengan pesan "Amount melebihi limit grade"(classpath:features/loanValidation.feature:42)
 
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika tenor tidak tersedia untuk grade -- Time elapsed: 0.007 s <<< FAILURE!
+Validasi Pengajuan Pinjaman.Pengajuan ditolak jika tenor tidak tersedia untuk grade -- Time elapsed: 0.004 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Seharusnya ada exception tapi tidak ada ==> expected: not <null>
 	at com.pq.bdd.steps.loanValidationSteps.pengajuan_ditolak_dengan_pesan(loanValidationSteps.java:123)
 	at ✽.pengajuan ditolak dengan pesan "Tenor tidak tersedia untuk grade ini"(classpath:features/loanValidation.feature:53)
