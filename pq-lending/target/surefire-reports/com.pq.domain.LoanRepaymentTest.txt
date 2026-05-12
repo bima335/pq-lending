@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.pq.domain.LoanRepaymentTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 1, Errors: 7, Skipped: 0, Time elapsed: 1.886 s <<< FAILURE! -- in com.pq.domain.LoanRepaymentTest
-com.pq.domain.LoanRepaymentTest.testPerhitunganCicilanFlatRate -- Time elapsed: 1.692 s <<< ERROR!
+Tests run: 8, Failures: 1, Errors: 7, Skipped: 0, Time elapsed: 2.091 s <<< FAILURE! -- in com.pq.domain.LoanRepaymentTest
+com.pq.domain.LoanRepaymentTest.testPerhitunganCicilanFlatRate -- Time elapsed: 1.921 s <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
 	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
@@ -26,19 +26,15 @@ java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testLoanClosedTidakBisaDiubah -- Time elapsed: 0.011 s <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
-	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
-	at java.base/java.util.Objects.checkIndex(Objects.java:359)
-	at java.base/java.util.ArrayList.get(ArrayList.java:427)
-	at com.pq.domain.LoanRepaymentTest.testLoanClosedTidakBisaDiubah(LoanRepaymentTest.java:212)
+com.pq.domain.LoanRepaymentTest.testLoanClosedTidakBisaDiubah -- Time elapsed: 0.010 s <<< ERROR!
+java.lang.IllegalArgumentException: Tenor tidak tersedia untuk grade ini
+	at com.pq.domain.model.loan.Loan.submit(Loan.java:48)
+	at com.pq.domain.LoanRepaymentTest.testLoanClosedTidakBisaDiubah(LoanRepaymentTest.java:208)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testTanggalCicilanDanJatuhTempo -- Time elapsed: 0.012 s <<< ERROR!
+com.pq.domain.LoanRepaymentTest.testTanggalCicilanDanJatuhTempo -- Time elapsed: 0.007 s <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
 	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
@@ -50,31 +46,23 @@ java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testLoanOtomatisClosed -- Time elapsed: 0.011 s <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
-	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
-	at java.base/java.util.Objects.checkIndex(Objects.java:359)
-	at java.base/java.util.ArrayList.get(ArrayList.java:427)
-	at com.pq.domain.LoanRepaymentTest.testLoanOtomatisClosed(LoanRepaymentTest.java:193)
+com.pq.domain.LoanRepaymentTest.testLoanOtomatisClosed -- Time elapsed: 0.013 s <<< ERROR!
+java.lang.IllegalArgumentException: Tenor tidak tersedia untuk grade ini
+	at com.pq.domain.model.loan.Loan.submit(Loan.java:48)
+	at com.pq.domain.LoanRepaymentTest.testLoanOtomatisClosed(LoanRepaymentTest.java:189)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testPembayaranDitolakJikaAmountTidakSesuai -- Time elapsed: 0.009 s <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
-	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
-	at java.base/java.util.Objects.checkIndex(Objects.java:359)
-	at java.base/java.util.ArrayList.get(ArrayList.java:427)
-	at com.pq.domain.LoanRepaymentTest.testPembayaranDitolakJikaAmountTidakSesuai(LoanRepaymentTest.java:146)
+com.pq.domain.LoanRepaymentTest.testPembayaranDitolakJikaAmountTidakSesuai -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.IllegalArgumentException: Tenor tidak tersedia untuk grade ini
+	at com.pq.domain.model.loan.Loan.submit(Loan.java:48)
+	at com.pq.domain.LoanRepaymentTest.testPembayaranDitolakJikaAmountTidakSesuai(LoanRepaymentTest.java:142)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testJadwalCicilanDibuatSaatDisbursed -- Time elapsed: 0.021 s <<< FAILURE!
+com.pq.domain.LoanRepaymentTest.testJadwalCicilanDibuatSaatDisbursed -- Time elapsed: 0.020 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Status loan harus DISBURSED ==> expected: <DISBURSED> but was: <SUBMITTED>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -86,7 +74,7 @@ org.opentest4j.AssertionFailedError: Status loan harus DISBURSED ==> expected: <
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-com.pq.domain.LoanRepaymentTest.testPembayaranCicilanBerhasil -- Time elapsed: 0.009 s <<< ERROR!
+com.pq.domain.LoanRepaymentTest.testPembayaranCicilanBerhasil -- Time elapsed: 0.007 s <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
 	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
