@@ -5,6 +5,9 @@ import com.pq.domain.model.enums.LoanState;
 import com.pq.domain.model.enums.Tenor;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
+import com.pq.domain.model.loan.strategy.InterestStrategy;
+import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
+import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class Loan {
     private Money amount;
     private Tenor tenor;
     private Grade grade;
+    private InterestStrategy interestStrategy;
     private String strategyType;
     private LoanState state;
     private LocalDate fundingDeadline;
@@ -30,56 +34,76 @@ public class Loan {
         this.payments = new ArrayList<>();
     }
 
-    
+    public void determineStrategy(Grade grade) {
+        if (this.interestStrategy != null) {
+            throw new IllegalStateException("Strategy has already been determined and is immutable.");
+        }
+        this.grade = grade;
+        switch (grade.getStrategyType()) {
+            case "EFFECTIVE":
+                this.interestStrategy = new EffectiveRateStrategy();
+                break;
+            case "FLAT":
+                this.interestStrategy = new FlatRateStrategy();
+                break;
+            default:
+                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+        }
+        this.strategyType = this.interestStrategy.getClass().getSimpleName();
+    }
+    public InterestStrategy getInterestStrategy() {
+        return interestStrategy;
+    }
+
     public void submit(Borrower borrower, Money amount, Tenor tenor) {
-        // BR-02: Validasi Amount
-        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        if (this.state != LoanState.SUBMITTED) {
+            throw new IllegalStateException("Loan can only be submitted once and is in state: " + this.state);
         }
 
         Grade borrowerGrade = borrower.getCreditGrade();
+
+        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        }
 
         if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
             throw new IllegalArgumentException("Amount melebihi limit grade");
         }
 
-        // BR-03: Validasi Tenor
-        if (!borrowerGrade.getAllowedTenors().contains(tenor)) {
+        if (tenor == null || !borrowerGrade.getAllowedTenors().contains(tenor)) {
             throw new IllegalArgumentException("Tenor tidak tersedia untuk grade ini");
         }
 
-        // Simpan data loan jika valid
         this.amount = amount;
         this.tenor = tenor;
-        this.grade = borrowerGrade;
-        this.strategyType = borrowerGrade.getStrategyType();
+        determineStrategy(borrowerGrade);
+        this.state = LoanState.VALIDATED;
     }
 
     public void validate() {
-        this.state = LoanState.VALIDATED;
+        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        }
+        if (this.grade == null) {
+            throw new IllegalStateException("Grade borrower belum ditentukan");
+        }
+        if (this.amount.getAmount().compareTo(this.grade.getMaxAmount().getAmount()) > 0) {
+            throw new IllegalArgumentException("Amount melebihi limit grade");
+        }
+        if (this.tenor == null || !this.grade.getAllowedTenors().contains(this.tenor)) {
+            throw new IllegalArgumentException("Tenor tidak tersedia untuk grade ini");
+        }
     }
 
     public void startFunding() {
         this.state = LoanState.FUNDING;
+        this.fundingDeadline = LocalDate.now().plusDays(20); // Pendekatan kasar 14 hari kerja
     }
 
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        if (fundingDeadline != null && LocalDate.now().isAfter(fundingDeadline)) {
-            this.state = LoanState.CANCELLED;
-            throw new IllegalStateException("Deadline terlewat");
-        }
-        if (amount.getAmount().compareTo(new java.math.BigDecimal("100000")) < 0) {
-            throw new IllegalArgumentException("Minimum kontribusi adalah Rp 100.000");
-        }
-        
-        Money sisaTarget = this.amount.subtract(getTotalFunded());
-        Money acceptedAmount = amount.min(sisaTarget);
-        
-        double portion = acceptedAmount.getAmount().doubleValue() / this.amount.getAmount().doubleValue();
-        Funding funding = new Funding(new FundingId(java.util.UUID.randomUUID().toString()), lenderId, acceptedAmount, portion);
-        this.fundings.add(funding);
+        // TODO: Anggota 3
     }
 
     public void cancel(Borrower borrower,
@@ -150,7 +174,7 @@ public class Loan {
     }
 
     public void makeRepayment(PaymentId paymentId,
-            List<Lender> lenders) {
+                              List<Lender> lenders) {
         // TODO: Anggota 5
     }
 
@@ -171,58 +195,33 @@ public class Loan {
     }
 
     // Getters
-    public LoanId getLoanId() {
-        return loanId;
-    }
-
-    public BorrowerId getBorrowerId() {
-        return borrowerId;
-    }
-
-    public Money getAmount() {
-        return amount;
-    }
-
-    public Tenor getTenor() {
-        return tenor;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public String getStrategyType() {
-        return strategyType;
-    }
-
-    public LoanState getState() {
-        return state;
-    }
-
+    public LoanId getLoanId() { return loanId; }
+    public BorrowerId getBorrowerId() { return borrowerId; }
+    public Money getAmount() { return amount; }
+    public Tenor getTenor() { return tenor; }
+    public Grade getGrade() { return grade; }
+    public String getStrategyType() { return strategyType; }
+    public LoanState getState() { return state; }
     public LocalDate getFundingDeadline() {
         return fundingDeadline;
     }
-
-    public List<Funding> getFundings() {
-        return fundings;
-    }
-
-    public List<Payment> getPayments() {
-        return payments;
-    }
+    public List<Funding> getFundings() { return fundings; }
+    public List<Payment> getPayments() { return payments; }
 
     public Money getTotalFunded() {
         java.math.BigDecimal total = java.math.BigDecimal.ZERO;
-        for (Funding f : fundings) {
-            total = total.add(f.getAmount().getAmount());
+        for (Funding funding : fundings) {
+            total = total.add(funding.getAmount().getAmount());
         }
         return new Money(total);
     }
 
     public double getFundingPercentage() {
-        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
+        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
             return 0.0;
         }
-        return getTotalFunded().getAmount().doubleValue() / this.amount.getAmount().doubleValue();
+        java.math.BigDecimal fundedAmount = getTotalFunded().getAmount();
+        java.math.BigDecimal targetAmount = amount.getAmount();
+        return fundedAmount.divide(targetAmount, 4, java.math.RoundingMode.HALF_UP).doubleValue() * 100.0;
     }
 }
