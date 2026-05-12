@@ -1,370 +1,74 @@
 -------------------------------------------------------------------------------
 Test set: com.pq.bdd.cucumberRunner
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 12, Skipped: 0, Time elapsed: 0.309 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
-Validasi Pengajuan Pinjaman.Borrower grade A memiliki limit Rp 500 juta -- Time elapsed: 0.095 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade A' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
+Tests run: 14, Failures: 0, Errors: 14, Skipped: 0, Time elapsed: 0.388 s <<< FAILURE! -- in com.pq.bdd.cucumberRunner
+Repayment dan Penutupan Loan.Jadwal cicilan dibuat sekaligus saat loan DISBURSED -- Time elapsed: 0.098 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_yang_baru_disbursed(repaymentDanCloseSteps.java:35)
+	at ✽.loan tenor 6 bulan yang baru DISBURSED(classpath:features/repaymentDanClose.feature:5)
 
-@Given("borrower dengan grade A")
-public void borrower_dengan_grade_a() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("limit maksimal pinjamannya adalah {int}")
-public void limit_maksimal_pinjamannya_adalah(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
+Repayment dan Penutupan Loan.Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED -- Time elapsed: 0.011 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_yang_disbursed_pada_tanggal_januari(repaymentDanCloseSteps.java:70)
+	at ✽.loan yang DISBURSED pada tanggal 1 Januari 2025(classpath:features/repaymentDanClose.feature:10)
 
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Repayment dan Penutupan Loan.Tanggal cicilan berikutnya setiap 1 bulan setelahnya -- Time elapsed: 0.009 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_yang_disbursed_pada_tanggal_januari(repaymentDanCloseSteps.java:65)
+	at ✽.loan tenor 3 bulan yang DISBURSED pada tanggal 1 Januari 2025(classpath:features/repaymentDanClose.feature:14)
 
-Validasi Pengajuan Pinjaman.Borrower grade B memiliki limit Rp 200 juta -- Time elapsed: 0.011 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade B' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
+Repayment dan Penutupan Loan.Cicilan flat rate sama setiap bulan -- Time elapsed: 0.008 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_c_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:20)
+	at ✽.loan grade C dengan pokok 12000000 tenor 3 bulan rate 20 persen per tahun(classpath:features/repaymentDanClose.feature:20)
 
-@Given("borrower dengan grade B")
-public void borrower_dengan_grade_b() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("limit maksimal pinjamannya adalah {int}")
-public void limit_maksimal_pinjamannya_adalah(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
+Repayment dan Penutupan Loan.Perhitungan cicilan flat rate benar -- Time elapsed: 0.007 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_c_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:20)
+	at ✽.loan grade C dengan pokok 12000000 tenor 3 bulan rate 20 persen per tahun(classpath:features/repaymentDanClose.feature:26)
 
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Repayment dan Penutupan Loan.Cicilan effective rate mengecil setiap bulan -- Time elapsed: 0.011 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_a_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:15)
+	at ✽.loan grade A dengan pokok 12000000 tenor 3 bulan rate 12 persen per tahun(classpath:features/repaymentDanClose.feature:32)
 
-Validasi Pengajuan Pinjaman.Borrower grade C memiliki limit Rp 50 juta -- Time elapsed: 0.009 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade C' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
+Repayment dan Penutupan Loan.Komponen bunga effective rate dihitung dari sisa pokok -- Time elapsed: 0.010 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_grade_a_dengan_pokok_tenor_bulan_rate_persen_per_tahun(repaymentDanCloseSteps.java:15)
+	at ✽.loan grade A dengan pokok 12000000 tenor 3 bulan rate 12 persen per tahun(classpath:features/repaymentDanClose.feature:38)
 
-@Given("borrower dengan grade C")
-public void borrower_dengan_grade_c() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("limit maksimal pinjamannya adalah {int}")
-public void limit_maksimal_pinjamannya_adalah(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
+Repayment dan Penutupan Loan.Pembayaran cicilan berhasil mengubah status menjadi PAID -- Time elapsed: 0.008 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_status_repayment_dan_cicilan_pertama_unpaid(repaymentDanCloseSteps.java:50)
+	at ✽.loan dengan status REPAYMENT dan cicilan pertama UNPAID(classpath:features/repaymentDanClose.feature:45)
 
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Repayment dan Penutupan Loan.Pembayaran ditolak jika tidak ada cicilan UNPAID -- Time elapsed: 0.006 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_semua_cicilan_sudah_paid(repaymentDanCloseSteps.java:60)
+	at ✽.loan dengan semua cicilan sudah PAID(classpath:features/repaymentDanClose.feature:51)
 
-Validasi Pengajuan Pinjaman.Borrower grade D memiliki limit Rp 10 juta -- Time elapsed: 0.006 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade D' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
+Repayment dan Penutupan Loan.Pembayaran ditolak jika amount tidak sesuai -- Time elapsed: 0.006 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_cicilan_pertama_sebesar(repaymentDanCloseSteps.java:55)
+	at ✽.loan dengan cicilan pertama sebesar 1000000(classpath:features/repaymentDanClose.feature:56)
 
-@Given("borrower dengan grade D")
-public void borrower_dengan_grade_d() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("limit maksimal pinjamannya adalah {int}")
-public void limit_maksimal_pinjamannya_adalah(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
+Repayment dan Penutupan Loan.Distribusi ke lender dilakukan saat cicilan dibayar -- Time elapsed: 0.007 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_dua_lender_porsi_dan(repaymentDanCloseSteps.java:25)
+	at ✽.loan dengan dua lender porsi 0.7 dan 0.3(classpath:features/repaymentDanClose.feature:61)
 
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Repayment dan Penutupan Loan.Loan otomatis CLOSED setelah semua cicilan PAID -- Time elapsed: 0.006 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_dengan_status_repayment(repaymentDanCloseSteps.java:45)
+	at ✽.loan tenor 1 bulan dengan status REPAYMENT(classpath:features/repaymentDanClose.feature:69)
 
-Validasi Pengajuan Pinjaman.Borrower grade A tenor yang diizinkan adalah 3 6 12 24 bulan -- Time elapsed: 0.008 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade A' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
+Repayment dan Penutupan Loan.Loan tidak CLOSED jika masih ada cicilan UNPAID -- Time elapsed: 0.006 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_tenor_bulan_dengan_status_repayment(repaymentDanCloseSteps.java:45)
+	at ✽.loan tenor 3 bulan dengan status REPAYMENT(classpath:features/repaymentDanClose.feature:74)
 
-@Given("borrower dengan grade A")
-public void borrower_dengan_grade_a() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("tenor yang diizinkan adalah {int} {int} {int} {int}")
-public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2, Integer int3, Integer int4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Borrower grade D tenor yang diizinkan adalah 1 dan 3 bulan -- Time elapsed: 0.005 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade D' and 1 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade D")
-public void borrower_dengan_grade_d() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("tenor yang diizinkan adalah {int} {int}")
-public void tenor_yang_diizinkan_adalah(Integer int1, Integer int2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount nol -- Time elapsed: 0.008 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade C' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade C")
-public void borrower_dengan_grade_c() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan pinjaman sebesar {int}")
-public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan ditolak dengan pesan {string}")
-public void pengajuan_ditolak_dengan_pesan(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount negatif -- Time elapsed: 0.006 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade C' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade C")
-public void borrower_dengan_grade_c() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan pinjaman sebesar {int}")
-public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan ditolak dengan pesan {string}")
-public void pengajuan_ditolak_dengan_pesan(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika amount melebihi limit grade -- Time elapsed: 0.007 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade C' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade C")
-public void borrower_dengan_grade_c() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan pinjaman sebesar {int}")
-public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan ditolak dengan pesan {string}")
-public void pengajuan_ditolak_dengan_pesan(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan diterima jika amount dalam batas grade -- Time elapsed: 0.005 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade C' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade C")
-public void borrower_dengan_grade_c() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan pinjaman sebesar {int}")
-public void borrower_mengajukan_pinjaman_sebesar(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan tidak ditolak karena amount")
-public void pengajuan_tidak_ditolak_karena_amount() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan ditolak jika tenor tidak tersedia untuk grade -- Time elapsed: 0.006 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade D' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade D")
-public void borrower_dengan_grade_d() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan tenor {int} bulan")
-public void borrower_mengajukan_tenor_bulan(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan ditolak dengan pesan {string}")
-public void pengajuan_ditolak_dengan_pesan(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-Validasi Pengajuan Pinjaman.Pengajuan diterima jika tenor tersedia untuk grade -- Time elapsed: 0.005 s <<< ERROR!
-io.cucumber.junit.platform.engine.UndefinedStepException: 
-The step 'borrower dengan grade D' and 2 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@Given("borrower dengan grade D")
-public void borrower_dengan_grade_d() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When("borrower mengajukan tenor {int} bulan")
-public void borrower_mengajukan_tenor_bulan(Integer int1) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@Then("pengajuan tidak ditolak karena tenor")
-public void pengajuan_tidak_ditolak_karena_tenor() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at io.cucumber.core.runtime.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:69)
-	at io.cucumber.junit.platform.engine.TestCaseResultObserver.assertTestCasePassed(TestCaseResultObserver.java:22)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.lambda$runTestCase$4(CucumberEngineExecutionContext.java:114)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.platform.engine.CucumberEngineExecutionContext.runTestCase(CucumberEngineExecutionContext.java:109)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:168)
-	at io.cucumber.junit.platform.engine.NodeDescriptor$PickleDescriptor.execute(NodeDescriptor.java:90)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Repayment dan Penutupan Loan.Loan CLOSED tidak bisa diubah dalam kondisi apapun -- Time elapsed: 0.005 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at com.pq.bdd.steps.repaymentDanCloseSteps.loan_dengan_status_closed(repaymentDanCloseSteps.java:40)
+	at ✽.loan dengan status CLOSED(classpath:features/repaymentDanClose.feature:79)
 
