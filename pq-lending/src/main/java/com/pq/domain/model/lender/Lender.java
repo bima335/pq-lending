@@ -1,6 +1,8 @@
-package com.p2plending.domain.model.lender;
+// src/main/java/com/pq/domain/model/lender/Lender.java
+package com.pq.domain.model.lender;
 
-import com.p2plending.domain.model.valueobject.Money;
+import com.pq.domain.model.valueobject.LenderId;
+import com.pq.domain.model.valueobject.Money;
 
 public class Lender {
     private final LenderId lenderId;
@@ -14,12 +16,12 @@ public class Lender {
         this.virtualAccountBalance = virtualAccountBalance;
     }
 
-    // Dipakai saat menerima refund atau distribusi cicilan
-    public void addBalance(Money amount) {
-        this.virtualAccountBalance = virtualAccountBalance.add(amount);
-    }
-
     public LenderId getLenderId() { return lenderId; }
     public String getName() { return name; }
-    public Money getVirtualAccountBalance() { return virtualAccountBalance; }
+    public Money getVirtualAccountBalance() {
+        return virtualAccountBalance;
+    }
+    public void addBalance(Money amount) {
+        // TODO: implementasi
+    }
 }
