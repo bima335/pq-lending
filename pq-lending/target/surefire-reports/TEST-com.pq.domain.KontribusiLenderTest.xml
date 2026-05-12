@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.bdd.cucumberRunner" time="0.18" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.pq.domain.KontribusiLenderTest" time="0.072" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,13 +53,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="Kontribusi ditolak jika amount kurang dari minimum" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.067"/>
-  <testcase name="Kontribusi diterima jika amount memenuhi minimum" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.008"/>
-  <testcase name="Kontribusi di-cap jika melebihi sisa target" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.008"/>
-  <testcase name="Kontribusi ditolak dan loan cancelled jika deadline terlewat" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.005"/>
-  <testcase name="Porsi lender dihitung berdasarkan kontribusi terhadap target" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.005"/>
-  <testcase name="Porsi lender diakumulasi jika mendanai lebih dari sekali" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.005"/>
-  <testcase name="Porsi digunakan sebagai dasar distribusi cicilan" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.004"/>
-  <testcase name="Kontribusi diproses jika deadline belum terlewat" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.004"/>
-  <testcase name="Semua lender yang sudah berkontribusi di-refund saat deadline terlewat" classname="Kontribusi Lender dan Pengecekan Deadline" time="0.005"/>
+  <testcase name="testPorsiLenderDihitungBerdasarkanKontribusi" classname="com.pq.domain.KontribusiLenderTest" time="0.035"/>
+  <testcase name="testKontribusiDiterimaJikaMemenuhiMinimum" classname="com.pq.domain.KontribusiLenderTest" time="0.002"/>
+  <testcase name="testKontribusiDitolakJikaKurangDariMinimum" classname="com.pq.domain.KontribusiLenderTest" time="0.002"/>
+  <testcase name="testKontribusiDitolakDanCancelledJikaDeadlineTerlewat" classname="com.pq.domain.KontribusiLenderTest" time="0.001"/>
+  <testcase name="testKontribusiDicapJikaMelebihiSisaTarget" classname="com.pq.domain.KontribusiLenderTest" time="0.001"/>
+  <testcase name="testPorsiLenderDiakumulasiJikaMendanaiLebihDariSekali" classname="com.pq.domain.KontribusiLenderTest" time="0.004"/>
 </testsuite>

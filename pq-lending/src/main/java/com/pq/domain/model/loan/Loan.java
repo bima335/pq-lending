@@ -49,7 +49,20 @@ public class Loan {
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        // TODO: Anggota 3
+        if (fundingDeadline != null && LocalDate.now().isAfter(fundingDeadline)) {
+            this.state = LoanState.CANCELLED;
+            throw new IllegalStateException("Deadline terlewat");
+        }
+        if (amount.getAmount().compareTo(new java.math.BigDecimal("100000")) < 0) {
+            throw new IllegalArgumentException("Minimum kontribusi adalah Rp 100.000");
+        }
+        
+        Money sisaTarget = this.amount.subtract(getTotalFunded());
+        Money acceptedAmount = amount.min(sisaTarget);
+        
+        double portion = acceptedAmount.getAmount().doubleValue() / this.amount.getAmount().doubleValue();
+        Funding funding = new Funding(new FundingId(java.util.UUID.randomUUID().toString()), lenderId, acceptedAmount, portion);
+        this.fundings.add(funding);
     }
 
     public void cancel(Borrower borrower,
@@ -85,12 +98,17 @@ public class Loan {
     public List<Payment> getPayments() { return payments; }
 
     public Money getTotalFunded() {
-        // TODO: Anggota 3
-        return new Money(java.math.BigDecimal.ZERO);
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        for (Funding f : fundings) {
+            total = total.add(f.getAmount().getAmount());
+        }
+        return new Money(total);
     }
 
     public double getFundingPercentage() {
-        // TODO: Anggota 3
-        return 0.0;
+        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) == 0) {
+            return 0.0;
+        }
+        return getTotalFunded().getAmount().doubleValue() / this.amount.getAmount().doubleValue();
     }
 }
