@@ -96,9 +96,6 @@ public class Loan {
     }
 
     public void startFunding() {
-        if (this.state != LoanState.VALIDATED) {
-            throw new IllegalStateException("Hanya loan dengan status VALIDATED yang bisa masuk fase funding");
-        }
         this.state = LoanState.FUNDING;
         this.fundingDeadline = LocalDate.now().plusDays(20); // Pendekatan kasar 14 hari kerja
     }
