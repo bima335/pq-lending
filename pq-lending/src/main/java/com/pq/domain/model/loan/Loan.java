@@ -30,12 +30,29 @@ public class Loan {
         this.payments = new ArrayList<>();
     }
 
-    // TODO: semua method diimplementasi
-    // oleh masing-masing anggota
-    public void submit(Borrower borrower,
-                       Money amount,
-                       Tenor tenor) {
-        // TODO: Anggota 1
+    
+    public void submit(Borrower borrower, Money amount, Tenor tenor) {
+        // BR-02: Validasi Amount
+        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        }
+
+        Grade borrowerGrade = borrower.getCreditGrade();
+
+        if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
+            throw new IllegalArgumentException("Amount melebihi limit grade");
+        }
+
+        // BR-03: Validasi Tenor
+        if (!borrowerGrade.getAllowedTenors().contains(tenor)) {
+            throw new IllegalArgumentException("Tenor tidak tersedia untuk grade ini");
+        }
+
+        // Simpan data loan jika valid
+        this.amount = amount;
+        this.tenor = tenor;
+        this.grade = borrowerGrade;
+        this.strategyType = borrowerGrade.getStrategyType();
     }
 
     public void validate() {
@@ -66,7 +83,7 @@ public class Loan {
     }
 
     public void cancel(Borrower borrower,
-                       List<Lender> lenders) {
+            List<Lender> lenders) {
         // TODO: Anggota 4
     }
 
@@ -75,7 +92,7 @@ public class Loan {
     }
 
     public void makeRepayment(PaymentId paymentId,
-                              List<Lender> lenders) {
+            List<Lender> lenders) {
         // TODO: Anggota 5
     }
 
@@ -84,18 +101,45 @@ public class Loan {
     }
 
     // Getters
-    public LoanId getLoanId() { return loanId; }
-    public BorrowerId getBorrowerId() { return borrowerId; }
-    public Money getAmount() { return amount; }
-    public Tenor getTenor() { return tenor; }
-    public Grade getGrade() { return grade; }
-    public String getStrategyType() { return strategyType; }
-    public LoanState getState() { return state; }
+    public LoanId getLoanId() {
+        return loanId;
+    }
+
+    public BorrowerId getBorrowerId() {
+        return borrowerId;
+    }
+
+    public Money getAmount() {
+        return amount;
+    }
+
+    public Tenor getTenor() {
+        return tenor;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public String getStrategyType() {
+        return strategyType;
+    }
+
+    public LoanState getState() {
+        return state;
+    }
+
     public LocalDate getFundingDeadline() {
         return fundingDeadline;
     }
-    public List<Funding> getFundings() { return fundings; }
-    public List<Payment> getPayments() { return payments; }
+
+    public List<Funding> getFundings() {
+        return fundings;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
 
     public Money getTotalFunded() {
         java.math.BigDecimal total = java.math.BigDecimal.ZERO;
