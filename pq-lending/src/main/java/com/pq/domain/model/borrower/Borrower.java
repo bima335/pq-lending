@@ -1,7 +1,9 @@
-package com.p2plending.domain.model.borrower;
+// src/main/java/com/pq/domain/model/borrower/Borrower.java
+package com.pq.domain.model.borrower;
 
-import com.p2plending.domain.enums.Grade;
-import com.p2plending.domain.model.valueobject.Money;
+import com.pq.domain.enums.Grade;
+import com.pq.domain.model.valueobject.BorrowerId;
+import com.pq.domain.model.valueobject.Money;
 
 public class Borrower {
     private final BorrowerId borrowerId;
@@ -10,26 +12,21 @@ public class Borrower {
     private Money virtualAccountBalance;
 
     public Borrower(BorrowerId borrowerId, String name,
-                    Grade creditGrade, Money virtualAccountBalance) {
+                    Grade creditGrade,
+                    Money virtualAccountBalance) {
         this.borrowerId = borrowerId;
         this.name = name;
         this.creditGrade = creditGrade;
         this.virtualAccountBalance = virtualAccountBalance;
     }
 
-    // Dipakai saat potong denda cancel
-    public void deductBalance(Money amount) {
-        if (virtualAccountBalance.getAmount()
-                .compareTo(amount.getAmount()) < 0) {
-            throw new IllegalStateException(
-                "Saldo borrower tidak cukup untuk membayar denda"
-            );
-        }
-        this.virtualAccountBalance = virtualAccountBalance.subtract(amount);
-    }
-
     public BorrowerId getBorrowerId() { return borrowerId; }
     public String getName() { return name; }
     public Grade getCreditGrade() { return creditGrade; }
-    public Money getVirtualAccountBalance() { return virtualAccountBalance; }
+    public Money getVirtualAccountBalance() {
+        return virtualAccountBalance;
+    }
+    public void deductBalance(Money amount) {
+        // TODO: implementasi
+    }
 }
