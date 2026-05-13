@@ -22,10 +22,10 @@ public class Lender {
     }
 
     public void addBalance(Money amount) {
-        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Jumlah refund tidak boleh negatif");
-        }
-        this.virtualAccountBalance = new Money(
-                this.virtualAccountBalance.getAmount().add(amount.getAmount()));
+        this.virtualAccountBalance = this.virtualAccountBalance.add(amount);
+    }
+
+    public void deductBalance(Money amount) {
+        this.virtualAccountBalance = this.virtualAccountBalance.subtract(amount);
     }
 }
