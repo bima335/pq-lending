@@ -103,7 +103,33 @@ public class Loan {
     public void addFunding(LenderId lenderId,
                            Money amount,
                            Lender lender) {
-        // TODO: Anggota 3
+        if (this.fundingDeadline != null && LocalDate.now().isAfter(this.fundingDeadline)) {
+            this.state = LoanState.CANCELLED;
+            throw new IllegalStateException("Deadline terlewat");
+        }
+
+        if (amount.getAmount().compareTo(new java.math.BigDecimal("100000")) < 0) {
+            throw new IllegalArgumentException("Minimum kontribusi adalah Rp 100.000");
+        }
+
+        java.math.BigDecimal currentTotal = getTotalFunded().getAmount();
+        java.math.BigDecimal targetAmount = this.amount.getAmount();
+        java.math.BigDecimal remainingAmount = targetAmount.subtract(currentTotal);
+
+        java.math.BigDecimal actualAmount = amount.getAmount();
+        if (actualAmount.compareTo(remainingAmount) > 0) {
+            actualAmount = remainingAmount;
+        }
+
+        double portion = actualAmount.doubleValue() / targetAmount.doubleValue();
+
+        Funding funding = new Funding(
+                new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
+                lenderId,
+                new Money(actualAmount),
+                portion
+        );
+        this.fundings.add(funding);
     }
 
     public void cancel(Borrower borrower,
