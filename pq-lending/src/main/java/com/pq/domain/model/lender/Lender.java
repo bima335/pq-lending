@@ -21,6 +21,10 @@ public class Lender {
         return virtualAccountBalance;
     }
     public void addBalance(Money amount) {
-        // TODO: implementasi
+        this.virtualAccountBalance = this.virtualAccountBalance.add(amount);
+    }
+
+    public void deductBalance(Money amount) {
+        this.virtualAccountBalance = this.virtualAccountBalance.subtract(amount);
     }
 }
