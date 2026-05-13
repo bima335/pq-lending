@@ -173,13 +173,81 @@ public class Loan {
         }
     }
 
-    public void makeRepayment(PaymentId paymentId,
-                              List<Lender> lenders) {
-        // TODO: Anggota 5
+    public void makeRepayment(PaymentId paymentId, List<Lender> lenders) {
+        // Validasi state loan
+        if (this.state == LoanState.CLOSED) {
+            throw new IllegalStateException("Loan sudah ditutup");
+        }
+        if (this.state != LoanState.REPAYMENT) {
+            throw new IllegalStateException("Loan belum dalam masa repayment");
+        }
+
+        // 1. Cari cicilan berdasarkan paymentId
+        Payment targetPayment = null;
+        for (Payment payment : this.payments) {
+            if (payment.getPaymentId().getValue().equals(paymentId.getValue())) {
+                targetPayment = payment;
+                break;
+            }
+        }
+
+        if (targetPayment == null) {
+            throw new IllegalArgumentException("Cicilan tidak ditemukan");
+        }
+
+        // Validasi apakah cicilan sudah dibayar
+        if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.PAID) {
+            throw new IllegalStateException("Tidak ada cicilan yang perlu dibayar");
+        }
+
+        // 2. Update status cicilan menjadi PAID dan catat tanggal
+        targetPayment.markAsPaid();
+
+        // 3. Distribusi dana ke lender secara proporsional
+        java.math.BigDecimal amountToDistribute = targetPayment.getTotalAmount().getAmount();
+
+        if (lenders != null) {
+            for (Funding funding : this.fundings) {
+                for (Lender lender : lenders) {
+                    if (lender.getLenderId().getValue().equals(funding.getLenderId().getValue())) {
+                        // Hitung bagian lender: jumlah cicilan * porsi lender
+                        java.math.BigDecimal portionValue = java.math.BigDecimal.valueOf(funding.getPortion());
+                        java.math.BigDecimal lenderShare = amountToDistribute.multiply(portionValue)
+                                .setScale(0, java.math.RoundingMode.HALF_UP);
+                        
+                        lender.addBalance(new Money(lenderShare));
+                    }
+                }
+            }
+        }
+
+        // 4. Cek apakah ini cicilan terakhir untuk otomatisasi penutupan loan
+        this.close();
     }
 
     public void close() {
-        // TODO: Anggota 5
+        if (this.state == LoanState.CLOSED) {
+            throw new IllegalStateException("Loan sudah ditutup");
+        }
+        
+        // Penutupan hanya valid dilakukan saat masa REPAYMENT
+        if (this.state != LoanState.REPAYMENT) {
+            return;
+        }
+
+        // Cek apakah masih ada cicilan yang UNPAID
+        boolean allPaid = true;
+        for (Payment payment : this.payments) {
+            if (payment.getStatus() == com.pq.domain.model.enums.PaymentStatus.UNPAID) {
+                allPaid = false;
+                break;
+            }
+        }
+
+        // Jika semua sudah dibayar lunas, ubah status ke CLOSED
+        if (allPaid) {
+            this.state = LoanState.CLOSED;
+        }
     }
 
     public void setAmount(Money amount) {
