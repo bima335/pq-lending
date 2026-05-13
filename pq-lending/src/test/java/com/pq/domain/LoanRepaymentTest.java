@@ -35,7 +35,7 @@ class LoanRepaymentTest {
     void setUp() {
         mockBorrower = mock(Borrower.class);
         mockLenders = new ArrayList<>();
-        
+
         // Setup default loan (belum disubmit)
         loan = new Loan(new LoanId("L-123"), new BorrowerId("B-123"));
     }
@@ -44,36 +44,53 @@ class LoanRepaymentTest {
     // 1. PEMBUATAN JADWAL CICILAN (DISBURSE)
     // ==========================================
 
+    // Check
     @Test
     @DisplayName("Jadwal cicilan dibuat sekaligus saat loan DISBURSED")
     void testJadwalCicilanDibuatSaatDisbursed() {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.SIX);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
-        
-        // Asumsikan funding sudah 100% dan kita panggil disburse
-        // Act
-        loan.disburse(); 
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos validasi disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
+        loan.disburse();
 
         // Assert
-        assertEquals(LoanState.DISBURSED, loan.getState(), "Status loan harus DISBURSED");
+        assertEquals(LoanState.REPAYMENT, loan.getState(), "Status loan harus DISBURSED");
         assertEquals(6, loan.getPayments().size(), "Jumlah cicilan harus sesuai tenor (6 bulan)");
-        
+
         for (Payment payment : loan.getPayments()) {
             assertEquals(PaymentStatus.UNPAID, payment.getStatus(), "Cicilan baru harus berstatus UNPAID");
         }
     }
 
+    // Check
     @Test
     @DisplayName("Tanggal cicilan pertama adalah 1 bulan setelah DISBURSED")
     void testTanggalCicilanDanJatuhTempo() {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.THREE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
-        
-        // Act
+
+        // 1. Masuk ke fase funding
+        loan.startFunding();
+
+        // 2. Simulasi pendanaan 100% agar disburse() memproses jadwal cicilan
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse(); // Asumsi disburse mencatat tanggal hari ini
         LocalDate today = LocalDate.now();
 
@@ -88,15 +105,24 @@ class LoanRepaymentTest {
     // 2. PERHITUNGAN BUNGA (FLAT & EFFECTIVE)
     // ==========================================
 
+    // Check
     @Test
     @DisplayName("Cicilan Flat Rate sama setiap bulan (Grade C/D)")
     void testPerhitunganCicilanFlatRate() {
         // Arrange - Grade C (Flat Rate)
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.C);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.THREE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
-        
-        // Act
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse();
         List<Payment> payments = loan.getPayments();
 
@@ -109,19 +135,29 @@ class LoanRepaymentTest {
         assertEquals(0, cicilan2.compareTo(cicilan3), "Cicilan bulan 2 dan 3 harus sama");
     }
 
+    // Pending
     @Test
     @DisplayName("Cicilan Effective Rate mengecil setiap bulan (Grade A/B)")
     void testPerhitunganCicilanEffectiveRate() {
         // Arrange - Grade A (Effective Rate)
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.THREE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
-        
-        // Act
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse();
         List<Payment> payments = loan.getPayments();
 
-        // Assert
+        assertFalse(payments.isEmpty(), "Jadwal cicilan harus sudah terbentuk");
+
         BigDecimal cicilan1 = payments.get(0).getTotalAmount().getAmount();
         BigDecimal cicilan2 = payments.get(1).getTotalAmount().getAmount();
         BigDecimal cicilan3 = payments.get(2).getTotalAmount().getAmount();
@@ -134,23 +170,32 @@ class LoanRepaymentTest {
     // 3. PEMBAYARAN CICILAN (REPAYMENT)
     // ==========================================
 
+    // check
     @Test
     @DisplayName("Pembayaran ditolak jika amount tidak sesuai")
     void testPembayaranDitolakJikaAmountTidakSesuai() {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.ONE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse(); // Status menjadi REPAYMENT
-        
+
         Payment payment = loan.getPayments().get(0);
 
         // Act & Assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            // Coba bayar dengan jumlah ngawur (misal Rp 500.000)
-            loan.makeRepayment(payment.getPaymentId(), mockLenders /*, new Money(new BigDecimal("500000")) */); 
-            // Note: Metode makeRepayment di Loan.java Anda saat ini belum menerima parameter amount, 
-            // sebaiknya ditambahkan sesuai BR-15 jika borrower bisa input nominal.
+            Money invalidAmount = new Money(new BigDecimal("500000"));
+            loan.makeRepayment(payment.getPaymentId(), mockLenders, invalidAmount);
         });
 
         assertEquals("Jumlah pembayaran tidak sesuai", exception.getMessage());
@@ -161,15 +206,25 @@ class LoanRepaymentTest {
     void testPembayaranCicilanBerhasil() {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.THREE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse();
-        
+
         Payment cicilanPertama = loan.getPayments().get(0);
 
         // Act
         // Asumsi makeRepayment menerima PaymentId dan memproses pembayaran
-        loan.makeRepayment(cicilanPertama.getPaymentId(), mockLenders);
+        loan.makeRepayment(cicilanPertama.getPaymentId(), mockLenders, cicilanPertama.getTotalAmount());
 
         // Assert
         assertEquals(PaymentStatus.PAID, cicilanPertama.getStatus(), "Status cicilan pertama harus PAID");
@@ -186,17 +241,33 @@ class LoanRepaymentTest {
     void testLoanOtomatisClosed() {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.ONE);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
         loan.validate();
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse();
+
+        List<Payment> semuaCicilan = loan.getPayments();
+        for (Payment cicilan : semuaCicilan) {
+            // Sebelum dibayar, status loan masih REPAYMENT
+            assertEquals(LoanState.REPAYMENT, loan.getState());
+            
+            // Bayar cicilan
+            loan.makeRepayment(cicilan.getPaymentId(), mockLenders, cicilan.getTotalAmount());
+        }
+
+        for (Payment cicilan : semuaCicilan) {
+            assertEquals(PaymentStatus.PAID, cicilan.getStatus(), "Semua cicilan harus lunas");
+        }
         
-        Payment satuSatunyaCicilan = loan.getPayments().get(0);
-
-        // Act
-        loan.makeRepayment(satuSatunyaCicilan.getPaymentId(), mockLenders);
-
-        // Assert
-        assertEquals(PaymentStatus.PAID, satuSatunyaCicilan.getStatus(), "Cicilan lunas");
         assertEquals(LoanState.CLOSED, loan.getState(), "Loan otomatis CLOSED setelah semua cicilan lunas");
     }
 
@@ -204,14 +275,25 @@ class LoanRepaymentTest {
     @DisplayName("Loan berstatus CLOSED tidak bisa diubah")
     void testLoanClosedTidakBisaDiubah() {
         // Arrange
-        when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
-        loan.submit(mockBorrower, new Money(new BigDecimal("12000000")), Tenor.ONE);
+        when(mockBorrower.getCreditGrade()).thenReturn(Grade.C);
+        Money targetAmount = new Money(new BigDecimal("12000000"));
+        loan.submit(mockBorrower, targetAmount, Tenor.ONE);
+
         loan.validate();
+
+        // 1. Pindahkan ke fase funding
+        loan.startFunding();
+
+        // 2. Beri pendanaan hingga 100% agar lolos guard clause di disburse()
+        Lender mockLender = mock(Lender.class);
+        when(mockLender.getLenderId()).thenReturn(new com.pq.domain.model.valueobject.LenderId("LDR-1"));
+        loan.addFunding(new com.pq.domain.model.valueobject.LenderId("LDR-1"), targetAmount, mockLender);
+
         loan.disburse();
-        
+
         Payment cicilan = loan.getPayments().get(0);
-        loan.makeRepayment(cicilan.getPaymentId(), mockLenders);
-        
+        loan.makeRepayment(cicilan.getPaymentId(), mockLenders, cicilan.getTotalAmount());
+
         // Assert loan is CLOSED
         assertEquals(LoanState.CLOSED, loan.getState());
 
@@ -221,6 +303,6 @@ class LoanRepaymentTest {
             loan.cancel(mockBorrower, mockLenders);
         });
 
-        assertEquals("Loan sudah ditutup", exception.getMessage());
+        assertEquals("Loan tidak dapat dibatalkan setelah dana cair", exception.getMessage());
     }
 }
