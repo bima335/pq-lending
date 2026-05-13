@@ -20,6 +20,7 @@ public class Lender {
     public Money getVirtualAccountBalance() {
         return virtualAccountBalance;
     }
+
     public void addBalance(Money amount) {
         this.virtualAccountBalance = this.virtualAccountBalance.add(amount);
     }

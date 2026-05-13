@@ -1,5 +1,4 @@
 .vscode/
-**/target/
 
 # Maven build output
 target/
@@ -19,4 +18,3 @@ Thumbs.db
 
 # Log & temp files
 *.log
-pq-lending/target/
