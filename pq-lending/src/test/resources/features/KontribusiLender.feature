@@ -38,8 +38,8 @@ Feature: Kontribusi Lender dan Pengecekan Deadline
   Scenario: Porsi digunakan sebagai dasar distribusi cicilan
     Given loan dengan dua lender masing-masing porsi 0.6 dan 0.4
     When cicilan dibayar sebesar 1000000
-    Then lender pertama menerima 600000
-    And lender kedua menerima 400000
+    Then lender pertama mendapat 600000
+    And lender kedua mendapat 400000
 
   # BR-09: Pengecekan Funding Deadline
   Scenario: Kontribusi diproses jika deadline belum terlewat

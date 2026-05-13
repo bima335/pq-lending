@@ -77,31 +77,31 @@ public class loanValidationSteps {
         }
     }
 
-    @When("borrower mengajukan tenor {int} bulan")
-    public void borrower_mengajukan_tenor_bulan(Integer bulan) {
-        try {
-            Tenor tenor = Tenor.fromMonths(bulan);
-            loan = new Loan(
-                    new LoanId("LOAN-001"),
-                    borrower.getBorrowerId());
-            loan.submit(
-                    borrower,
-                    new Money(new BigDecimal("5000000")),
-                    tenor);
-            exception = null;
-        } catch (Exception e) {
-            exception = e;
-        }
-    }
+// @When("borrower mengajukan tenor {int} bulan")
+// public void borrower_mengajukan_tenor_bulan(Integer bulan) {
+//     try {
+//         Tenor tenor = Tenor.fromMonths(bulan);
+//         loan = new Loan(
+//                 new LoanId("LOAN-001"),
+//                 borrower.getBorrowerId());
+//         loan.submit(
+//                 borrower,
+//                 new Money(new BigDecimal("5000000")),
+//                 tenor);
+//         exception = null;
+//     } catch (Exception e) {
+//         exception = e;
+//     }
+// }
 
     // ===== THEN =====
 
-    @Then("limit maksimal pinjamannya adalah {int}")
-    public void limit_maksimal_pinjamannya_adalah(Integer expectedLimit) {
-        assertEquals(
-                new BigDecimal(expectedLimit),
-                borrower.getCreditGrade().getMaxAmount().getAmount());
-    }
+// @Then("limit maksimal pinjamannya adalah {int}")
+// public void limit_maksimal_pinjamannya_adalah(Integer expectedLimit) {
+//     assertEquals(
+//             new BigDecimal(expectedLimit),
+//             borrower.getCreditGrade().getMaxAmount().getAmount());
+// }
 
     @Then("tenor yang diizinkan adalah {string}")
     public void tenor_yang_diizinkan_adalah(String tenorsStr) {
@@ -118,12 +118,12 @@ public class loanValidationSteps {
         }
     }
 
-    @Then("pengajuan ditolak dengan pesan {string}")
-    public void pengajuan_ditolak_dengan_pesan(String pesan) {
-        assertNotNull(exception,
-                "Seharusnya ada exception tapi tidak ada");
-        assertEquals(pesan, exception.getMessage());
-    }
+// @Then("pengajuan ditolak dengan pesan {string}")
+// public void pengajuan_ditolak_dengan_pesan(String pesan) {
+//     assertNotNull(exception,
+//             "Seharusnya ada exception tapi tidak ada");
+//     assertEquals(pesan, exception.getMessage());
+// }
 
     @Then("pengajuan tidak ditolak karena amount sesuai dengan limit grade")
     public void pengajuan_tidak_ditolak_karena_amount_sesuai_dengan_limit_grade() {
@@ -132,10 +132,10 @@ public class loanValidationSteps {
                         + (exception != null ? exception.getMessage() : ""));
     }
 
-    @Then("pengajuan tidak ditolak karena tenor")
-    public void pengajuan_tidak_ditolak_karena_tenor() {
-        assertNull(exception,
-                "Seharusnya tidak ada exception: "
-                        + (exception != null ? exception.getMessage() : ""));
-    }
+// @Then("pengajuan tidak ditolak karena tenor")
+// public void pengajuan_tidak_ditolak_karena_tenor() {
+//     assertNull(exception,
+//             "Seharusnya tidak ada exception: "
+//                     + (exception != null ? exception.getMessage() : ""));
+// }
 }

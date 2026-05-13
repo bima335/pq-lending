@@ -40,17 +40,18 @@ public class Loan {
         }
         this.grade = grade;
         switch (grade.getStrategyType()) {
-            case "EFFECTIVE":
-                this.interestStrategy = new EffectiveRateStrategy();
-                break;
-            case "FLAT":
-                this.interestStrategy = new FlatRateStrategy();
-                break;
-            default:
-                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+        case "EFFECTIVE":
+            this.interestStrategy = new EffectiveRateStrategy();
+            break;
+        case "FLAT":
+            this.interestStrategy = new FlatRateStrategy();
+            break;
+        default:
+            throw new IllegalStateException("Unknown strategy type for grade: " + grade);
         }
         this.strategyType = this.interestStrategy.getClass().getSimpleName();
     }
+
     public InterestStrategy getInterestStrategy() {
         return interestStrategy;
     }
@@ -100,17 +101,38 @@ public class Loan {
         this.fundingDeadline = LocalDate.now().plusDays(20); // Pendekatan kasar 14 hari kerja
     }
 
-    public void addFunding(LenderId lenderId,
-                           Money amount,
-                           Lender lender) {
-        // TODO: Anggota 3
+    public void addFunding(LenderId lenderId, Money amount, Lender lender) {
+        if (this.fundingDeadline != null && LocalDate.now().isAfter(this.fundingDeadline)) {
+            this.state = LoanState.CANCELLED;
+            throw new IllegalStateException("Deadline terlewat");
+        }
+
+        if (amount.getAmount().compareTo(new java.math.BigDecimal("100000")) < 0) {
+            throw new IllegalArgumentException("Minimum kontribusi adalah Rp 100.000");
+        }
+
+        java.math.BigDecimal currentTotal = getTotalFunded().getAmount();
+        java.math.BigDecimal targetAmount = this.amount.getAmount();
+        java.math.BigDecimal remainingAmount = targetAmount.subtract(currentTotal);
+
+        java.math.BigDecimal actualAmount = amount.getAmount();
+        if (actualAmount.compareTo(remainingAmount) > 0) {
+            actualAmount = remainingAmount;
+        }
+
+        double portion = actualAmount.doubleValue() / targetAmount.doubleValue();
+
+        Funding funding = new Funding(
+                new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
+                lenderId,
+                new Money(actualAmount),
+                portion
+        );
+        this.fundings.add(funding);
     }
 
-    public void cancel(Borrower borrower,
-                       List<Lender> lenders) {
-        if (this.state == LoanState.DISBURSED
-                || this.state == LoanState.REPAYMENT
-                || this.state == LoanState.CLOSED) {
+    public void cancel(Borrower borrower, List<Lender> lenders) {
+        if (this.state == LoanState.DISBURSED || this.state == LoanState.REPAYMENT || this.state == LoanState.CLOSED) {
             throw new IllegalStateException("Loan tidak dapat dibatalkan setelah dana cair");
         }
 
@@ -128,8 +150,8 @@ public class Loan {
             rate = new java.math.BigDecimal("0.02");
         }
 
-        java.math.BigDecimal feeAmount = totalFunded.getAmount().multiply(rate)
-                .setScale(0, java.math.RoundingMode.HALF_UP);
+        java.math.BigDecimal feeAmount = totalFunded.getAmount().multiply(rate).setScale(0,
+                java.math.RoundingMode.HALF_UP);
         Money fee = new Money(feeAmount);
 
         if (borrower.getVirtualAccountBalance().getAmount().compareTo(feeAmount) < 0) {
@@ -263,18 +285,45 @@ public class Loan {
     }
 
     // Getters
-    public LoanId getLoanId() { return loanId; }
-    public BorrowerId getBorrowerId() { return borrowerId; }
-    public Money getAmount() { return amount; }
-    public Tenor getTenor() { return tenor; }
-    public Grade getGrade() { return grade; }
-    public String getStrategyType() { return strategyType; }
-    public LoanState getState() { return state; }
+    public LoanId getLoanId() {
+        return loanId;
+    }
+
+    public BorrowerId getBorrowerId() {
+        return borrowerId;
+    }
+
+    public Money getAmount() {
+        return amount;
+    }
+
+    public Tenor getTenor() {
+        return tenor;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public String getStrategyType() {
+        return strategyType;
+    }
+
+    public LoanState getState() {
+        return state;
+    }
+
     public LocalDate getFundingDeadline() {
         return fundingDeadline;
     }
-    public List<Funding> getFundings() { return fundings; }
-    public List<Payment> getPayments() { return payments; }
+
+    public List<Funding> getFundings() {
+        return fundings;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
 
     public Money getTotalFunded() {
         java.math.BigDecimal total = java.math.BigDecimal.ZERO;
