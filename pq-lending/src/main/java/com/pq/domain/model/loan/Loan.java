@@ -40,14 +40,14 @@ public class Loan {
         }
         this.grade = grade;
         switch (grade.getStrategyType()) {
-        case "EFFECTIVE":
-            this.interestStrategy = new EffectiveRateStrategy();
-            break;
-        case "FLAT":
-            this.interestStrategy = new FlatRateStrategy();
-            break;
-        default:
-            throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+            case "EFFECTIVE":
+                this.interestStrategy = new EffectiveRateStrategy();
+                break;
+            case "FLAT":
+                this.interestStrategy = new FlatRateStrategy();
+                break;
+            default:
+                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
         }
         this.strategyType = this.interestStrategy.getClass().getSimpleName();
     }
@@ -126,8 +126,7 @@ public class Loan {
                 new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
                 lenderId,
                 new Money(actualAmount),
-                portion
-        );
+                portion);
         this.fundings.add(funding);
     }
 
@@ -182,20 +181,21 @@ public class Loan {
                 int months = this.tenor.getMonths();
                 java.math.BigDecimal principalPerInstallment = this.amount.getAmount()
                         .divide(new java.math.BigDecimal(months), 0, java.math.RoundingMode.HALF_UP);
-                for (int i = 1; i <= months; i++) {
-                    PaymentId paymentId = new PaymentId("P" + i);
-                    java.time.LocalDate dueDate = java.time.LocalDate.now().plusMonths(i);
-                    Money principal = new Money(principalPerInstallment);
-                    Money interest = new Money(java.math.BigDecimal.ZERO);
-                    Money totalAmount = new Money(principalPerInstallment);
-                    this.payments.add(new Payment(paymentId, i, dueDate, principal, interest, totalAmount));
-                }
+                double annualRate = 0.12; // Anda bisa mengambil rate ini berdasarkan grade/konfigurasi
+                LocalDate startDate = LocalDate.now();
+
+                List<Payment> generatedPayments = this.interestStrategy.generateSchedule(
+                        this.amount,
+                        this.tenor,
+                        annualRate,
+                        startDate);
+                this.payments.addAll(generatedPayments);
                 this.state = LoanState.REPAYMENT;
             }
         }
     }
 
-    public void makeRepayment(PaymentId paymentId, List<Lender> lenders) {
+    public void makeRepayment(PaymentId paymentId, List<Lender> lenders, Money amount) {
         // Validasi state loan
         if (this.state == LoanState.CLOSED) {
             throw new IllegalStateException("Loan sudah ditutup");
@@ -217,6 +217,10 @@ public class Loan {
             throw new IllegalArgumentException("Cicilan tidak ditemukan");
         }
 
+        if (amount.getAmount().compareTo(targetPayment.getTotalAmount().getAmount()) != 0) {
+            throw new IllegalArgumentException("Jumlah pembayaran tidak sesuai");
+        }
+
         // Validasi apakah cicilan sudah dibayar
         if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.PAID) {
             throw new IllegalStateException("Tidak ada cicilan yang perlu dibayar");
@@ -236,7 +240,7 @@ public class Loan {
                         java.math.BigDecimal portionValue = java.math.BigDecimal.valueOf(funding.getPortion());
                         java.math.BigDecimal lenderShare = amountToDistribute.multiply(portionValue)
                                 .setScale(0, java.math.RoundingMode.HALF_UP);
-                        
+
                         lender.addBalance(new Money(lenderShare));
                     }
                 }
@@ -251,7 +255,7 @@ public class Loan {
         if (this.state == LoanState.CLOSED) {
             throw new IllegalStateException("Loan sudah ditutup");
         }
-        
+
         // Penutupan hanya valid dilakukan saat masa REPAYMENT
         if (this.state != LoanState.REPAYMENT) {
             return;
