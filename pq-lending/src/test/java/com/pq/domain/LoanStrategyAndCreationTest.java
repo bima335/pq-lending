@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class LoanStrategyAndCreationTest {
 
@@ -26,9 +27,20 @@ public class LoanStrategyAndCreationTest {
 
     @BeforeEach
     void setUp() {
-        borrowerA = new Borrower(new BorrowerId("B-1"), "Borrower A", Grade.A, new Money(BigDecimal.valueOf(100000)));
-        borrowerC = new Borrower(new BorrowerId("B-2"), "Borrower C", Grade.C, new Money(BigDecimal.valueOf(100000)));
-        borrowerD = new Borrower(new BorrowerId("B-3"), "Borrower D", Grade.D, new Money(BigDecimal.valueOf(100000)));
+        borrowerA = mock(Borrower.class);
+        when(borrowerA.getBorrowerId()).thenReturn(new BorrowerId("B-1"));
+        when(borrowerA.getCreditGrade()).thenReturn(Grade.A);
+        when(borrowerA.getVirtualAccountBalance()).thenReturn(new Money(BigDecimal.valueOf(100000)));
+
+        borrowerC = mock(Borrower.class);
+        when(borrowerC.getBorrowerId()).thenReturn(new BorrowerId("B-2"));
+        when(borrowerC.getCreditGrade()).thenReturn(Grade.C);
+        when(borrowerC.getVirtualAccountBalance()).thenReturn(new Money(BigDecimal.valueOf(100000)));
+
+        borrowerD = mock(Borrower.class);
+        when(borrowerD.getBorrowerId()).thenReturn(new BorrowerId("B-3"));
+        when(borrowerD.getCreditGrade()).thenReturn(Grade.D);
+        when(borrowerD.getVirtualAccountBalance()).thenReturn(new Money(BigDecimal.valueOf(100000)));
     }
 
     @Test
