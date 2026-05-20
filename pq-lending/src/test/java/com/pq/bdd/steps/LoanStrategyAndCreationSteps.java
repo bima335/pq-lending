@@ -278,7 +278,7 @@ public class LoanStrategyAndCreationSteps {
                 Grade.A, new Money(new BigDecimal("100000000")));
     }
 
-    @Then("tenor yang diizinkan adalah {string}")
+    @Then("tenor yang diizinkan adalah {string} bulan")
     public void tenor_yang_diizinkan_adalah(String tenorsStr) {
         String[] parts = tenorsStr.split(" ");
         List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();

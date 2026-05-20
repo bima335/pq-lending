@@ -26,10 +26,11 @@ public class CancelDanDisbursementSteps {
             BorrowerId borrowerId = new BorrowerId("B001");
             this.loan = new Loan(loanId, borrowerId);
             this.loan.setState(LoanState.FUNDING);
+            this.loan.determineStrategy(Grade.A);
         }
     }
 
-    @Given("loan dengan status {word}")
+    @Given("loan berada pada status {word}")
     public void loanDenganStatus(String status) {
         LoanState parsed = LoanState.valueOf(status);
         LoanId loanId = new LoanId("L001");
@@ -38,21 +39,14 @@ public class CancelDanDisbursementSteps {
         this.loan.setState(parsed);
     }
 
-    @Given("belum ada lender yang berkontribusi")
-    public void belumAdaLenderYangBerkontribusi() {
-        ensureLoanExists();
-        this.loan.getFundings().clear();
-        this.lenders.clear();
-    }
-
-    @Given("loan dengan target {long}")
-    public void loanDenganTarget(long target) {
+    @Given("loan pembatalan dengan target {int}")
+    public void loanPembatalanDenganTarget(int target) {
         ensureLoanExists();
         this.loan.setAmount(new Money(BigDecimal.valueOf(target)));
     }
 
-    @Given("total terkumpul saat ini adalah {long}")
-    public void totalTerkumpulSaatIniAdalah(long terkumpul) {
+    @Given("total terkumpul pembatalan saat ini adalah {int}")
+    public void totalTerkumpulPembatalanSaatIniAdalah(int terkumpul) {
         ensureLoanExists();
         LenderId lenderId = new LenderId("L001");
         Lender lender = new Lender(lenderId, "Lender1", new Money(BigDecimal.valueOf(1000000)));
@@ -62,14 +56,22 @@ public class CancelDanDisbursementSteps {
         this.loan.addFunding(lenderId, amount, lender);
     }
 
+    @Given("belum ada lender yang berkontribusi")
+    public void belumAdaLenderYangBerkontribusi() {
+        ensureLoanExists();
+        this.loan.getFundings().clear();
+        this.lenders.clear();
+    }
+
+
     @Given("saldo virtual account borrower adalah {long}")
     public void saldoVirtualAccountBorrowerAdalah(long saldo) {
         BorrowerId borrowerId = new BorrowerId("B001");
         this.borrower = new Borrower(borrowerId, "Borrower1", Grade.A, new Money(BigDecimal.valueOf(saldo)));
     }
 
-    @Given("loan dengan target {long} dan tenor {int} bulan")
-    public void loanDenganTargetDanTenorBulan(long target, int tenor) {
+    @Given("loan pembatalan dengan target {int} dan tenor {int} bulan")
+    public void loanDenganTargetDanTenorBulan(int target, int tenor) {
         ensureLoanExists();
         this.loan.setAmount(new Money(BigDecimal.valueOf(target)));
         this.loan.setTenor(Tenor.fromMonths(tenor));
@@ -87,7 +89,7 @@ public class CancelDanDisbursementSteps {
         }
     }
 
-    @When("lender mendanai sebesar {long}")
+    @When("lender mendanai loan sebesar {long}")
     public void lenderMendanaiSebesar(long amount) {
         ensureLoanExists();
         LenderId lenderId = new LenderId("L002");
@@ -127,7 +129,7 @@ public class CancelDanDisbursementSteps {
         borrowerMembatalkanPinjaman();
     }
 
-    @Then("status loan berubah menjadi {word}")
+    @Then("status loan sekarang adalah {word}")
     public void statusLoanBerubahMenjadi(String expected) {
         LoanState expectedState = LoanState.valueOf(expected);
         Assertions.assertEquals(expectedState, this.loan.getState());

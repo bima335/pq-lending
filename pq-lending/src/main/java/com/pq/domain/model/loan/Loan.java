@@ -178,6 +178,15 @@ public class Loan {
         if (getFundingPercentage() >= 100.0) {
             this.state = LoanState.DISBURSED;
             if (this.tenor != null && this.amount != null) {
+                // Ensure strategy is determined if not already set
+                if (this.interestStrategy == null && this.grade != null) {
+                    determineStrategy(this.grade);
+                }
+                
+                if (this.interestStrategy == null) {
+                    throw new IllegalStateException("Interest strategy must be determined before disbursement");
+                }
+                
                 int months = this.tenor.getMonths();
                 java.math.BigDecimal principalPerInstallment = this.amount.getAmount()
                         .divide(new java.math.BigDecimal(months), 0, java.math.RoundingMode.HALF_UP);
@@ -286,6 +295,10 @@ public class Loan {
 
     public void setState(LoanState state) {
         this.state = state;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 
     // Getters
