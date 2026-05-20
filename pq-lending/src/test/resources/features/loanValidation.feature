@@ -42,7 +42,7 @@ Feature: Validasi Pengajuan Pinjaman
     When borrower mengajukan pinjaman sebesar 100000000
     Then pengajuan ditolak dengan pesan "Amount melebihi limit grade"
 
-  Scenario: Pengajuan diterima jika amount dalam batas grade
+  Scenario: Pengajuan diterima jika amount dalam batas grade dan memenuhi batas minimal
     Given borrower dengan grade C
     When borrower mengajukan pinjaman sebesar 30000000
     Then pengajuan tidak ditolak karena amount sesuai dengan limit grade
