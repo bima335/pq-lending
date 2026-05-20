@@ -108,7 +108,8 @@ public class CancelDanDisbursementTest {
     void loanDisbursedWhenFundingReachesHundredPercent() {
         Loan loan = new Loan(new LoanId("L006"), new BorrowerId("B006"));
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setTenor(Tenor.THREE);
+                loan.setTenor(Tenor.THREE);
+                loan.determineStrategy(Grade.A);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(9000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
         loan.addFunding(new LenderId("L002"), new Money(BigDecimal.valueOf(1000000)),
@@ -136,7 +137,8 @@ public class CancelDanDisbursementTest {
     void createPaymentScheduleAfterDisburse() {
         Loan loan = new Loan(new LoanId("L008"), new BorrowerId("B008"));
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setTenor(Tenor.THREE);
+                loan.setTenor(Tenor.THREE);
+                loan.determineStrategy(Grade.A);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(10000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
 
@@ -145,4 +147,42 @@ public class CancelDanDisbursementTest {
         Assertions.assertEquals(3, loan.getPayments().size());
         Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
     }
+
+        @Test
+        void cancelAtExactly50PercentChargesOnePercent() {
+                Loan loan = new Loan(new LoanId("L009"), new BorrowerId("B009"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
+
+                Lender lender = new Lender(new LenderId("L010"), "LenderA", new Money(BigDecimal.valueOf(5000000)));
+                loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(5000000)), lender);
+
+                Borrower borrower = new Borrower(new BorrowerId("B009"), "Borrower9", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
+
+                loan.cancel(borrower, List.of(lender));
+
+                // 50% funding of 10_000_000 => totalFunding=5_000_000 => penalty=1% of 5_000_000 = 50_000
+                Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
+                Assertions.assertEquals(BigDecimal.valueOf(950000), borrower.getVirtualAccountBalance().getAmount());
+        }
+
+        @Test
+        void cancelAtExactly51PercentChargesTwoPercent() {
+                Loan loan = new Loan(new LoanId("L011"), new BorrowerId("B011"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
+
+                Lender lender = new Lender(new LenderId("L012"), "LenderB", new Money(BigDecimal.valueOf(5000000)));
+                loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(5100000)), lender);
+
+                Borrower borrower = new Borrower(new BorrowerId("B011"), "Borrower11", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
+
+                loan.cancel(borrower, List.of(lender));
+
+                // 51% funding of 10_000_000 => totalFunding=5_100_000 => penalty=2% of 5_100_000 = 102_000
+                Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
+                Assertions.assertEquals(BigDecimal.valueOf(898000), borrower.getVirtualAccountBalance().getAmount());
+        }
 }
