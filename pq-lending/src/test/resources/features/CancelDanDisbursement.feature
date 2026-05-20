@@ -26,6 +26,24 @@ Feature: Pembatalan Loan dan Pencairan Dana
     And semua lender mendapat refund penuh sesuai porsi
     And status loan berubah menjadi CANCELLED
 
+  Scenario: Cancel dengan kontribusi 50 persen kena denda 1 persen
+    Given loan dengan target 10000000
+    And total terkumpul saat ini adalah 5000000
+    And saldo virtual account borrower adalah 1000000
+    When borrower membatalkan pinjaman
+    Then denda yang dipotong adalah 50000
+    And semua lender mendapat refund penuh sesuai porsi
+    And status loan berubah menjadi CANCELLED
+
+  Scenario: Cancel dengan kontribusi 51 persen kena denda 2 persen
+    Given loan dengan target 10000000
+    And total terkumpul saat ini adalah 5100000
+    And saldo virtual account borrower adalah 1000000
+    When borrower membatalkan pinjaman
+    Then denda yang dipotong adalah 102000
+    And semua lender mendapat refund penuh sesuai porsi
+    And status loan berubah menjadi CANCELLED
+
   Scenario: Cancel ditolak jika saldo borrower tidak cukup untuk denda
     Given loan dengan target 10000000
     And total terkumpul saat ini adalah 7000000
