@@ -5,19 +5,13 @@ import java.util.Objects;
 
 public class Money implements Comparable<Money> {
     private final BigDecimal amount;
-    private final String currency;
 
     public Money(BigDecimal amount) {
         this.amount = amount;
-        this.currency = "IDR";
     }
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public String getCurrency() {
-        return currency;
     }
 
     public Money add(Money other) {
@@ -42,16 +36,16 @@ public class Money implements Comparable<Money> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money = (Money) o;
-        return amount.compareTo(money.amount) == 0 && Objects.equals(currency, money.currency);
+        return amount.compareTo(money.amount) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount.doubleValue(), currency);
+        return Objects.hash(amount);
     }
 
     @Override
     public String toString() {
-        return currency + " " + amount;
+        return amount.toString();
     }
 }

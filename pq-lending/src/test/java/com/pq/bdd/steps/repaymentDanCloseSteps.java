@@ -295,13 +295,15 @@ public class repaymentDanCloseSteps {
 
     @Then("lender pertama menerima {int}")
     public void lender_pertama_menerima(Integer expectedAmount) {
-        assertEquals(0, new BigDecimal(expectedAmount).compareTo(lenderBalances.get("Lender1")),
+        BigDecimal balance = lenderBalances.getOrDefault("Lender1", BigDecimal.ZERO);
+        assertEquals(0, new BigDecimal(expectedAmount).compareTo(balance),
             "Distribusi dana ke Lender 1 tidak sesuai");
     }
 
     @Then("lender kedua menerima {int}")
     public void lender_kedua_menerima(Integer expectedAmount) {
-        assertEquals(0, new BigDecimal(expectedAmount).compareTo(lenderBalances.get("Lender2")),
+        BigDecimal balance = lenderBalances.getOrDefault("Lender2", BigDecimal.ZERO);
+        assertEquals(0, new BigDecimal(expectedAmount).compareTo(balance),
             "Distribusi dana ke Lender 2 tidak sesuai");
     }
 

@@ -268,4 +268,30 @@ public class LoanStrategyAndCreationSteps {
         assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " + 
             (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
     }
+
+    // Ported from disabled loanValidationSteps
+    @Given("borrower mengajukan pinjaman")
+    public void borrower_mengajukan_pinjaman() {
+        // Grade A supaya limit tidak ikut campur
+        this.borrower = new Borrower(
+                new BorrowerId("BRW-" + System.nanoTime()), "Budi",
+                Grade.A, new Money(new BigDecimal("100000000")));
+    }
+
+    @Then("tenor yang diizinkan adalah {string}")
+    public void tenor_yang_diizinkan_adalah(String tenorsStr) {
+        String[] parts = tenorsStr.split(" ");
+        List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
+        assertEquals(parts.length, allowed.size());
+        for (String part : parts) {
+            Tenor expected = Tenor.fromMonths(Integer.parseInt(part));
+            assertTrue(allowed.contains(expected), "Tenor " + part + " tidak ditemukan di grade ini");
+        }
+    }
+
+    @Then("pengajuan tidak ditolak karena amount sesuai dengan limit grade")
+    public void pengajuan_tidak_ditolak_karena_amount_sesuai_dengan_limit_grade() {
+        assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " + 
+            (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
+    }
 }
