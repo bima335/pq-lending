@@ -80,7 +80,7 @@ class LoanRepaymentTest {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Masuk ke fase funding
@@ -112,7 +112,7 @@ class LoanRepaymentTest {
         // Arrange - Grade C (Flat Rate)
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.C);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Pindahkan ke fase funding
@@ -142,7 +142,7 @@ class LoanRepaymentTest {
         // Arrange - Grade A (Effective Rate)
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Pindahkan ke fase funding
@@ -177,7 +177,7 @@ class LoanRepaymentTest {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Pindahkan ke fase funding
@@ -207,7 +207,7 @@ class LoanRepaymentTest {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Pindahkan ke fase funding
@@ -242,7 +242,7 @@ class LoanRepaymentTest {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.A);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.THREE);
+        loan.submit(mockBorrower, targetAmount, Tenor.SIX);
         loan.validate();
 
         // 1. Pindahkan ke fase funding
@@ -277,7 +277,7 @@ class LoanRepaymentTest {
         // Arrange
         when(mockBorrower.getCreditGrade()).thenReturn(Grade.C);
         Money targetAmount = new Money(new BigDecimal("12000000"));
-        loan.submit(mockBorrower, targetAmount, Tenor.ONE);
+        loan.submit(mockBorrower, targetAmount, Tenor.TWELVE);
 
         loan.validate();
 
@@ -291,8 +291,10 @@ class LoanRepaymentTest {
 
         loan.disburse();
 
-        Payment cicilan = loan.getPayments().get(0);
-        loan.makeRepayment(cicilan.getPaymentId(), mockLenders, cicilan.getTotalAmount());
+        List<Payment> semuaCicilan = loan.getPayments();
+        for (Payment cicilan : semuaCicilan) {
+            loan.makeRepayment(cicilan.getPaymentId(), mockLenders, cicilan.getTotalAmount());
+        }
 
         // Assert loan is CLOSED
         assertEquals(LoanState.CLOSED, loan.getState());

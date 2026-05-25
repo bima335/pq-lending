@@ -52,7 +52,7 @@ public class LoanStrategyAndCreationSteps {
             // Logika sebagai 'When' (Fase Pembuatan & Penentuan Strategi)
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-                this.loan.determineStrategy(borrower.getCreditGrade());
+                this.loan.determineInterestStrategy(borrower.getCreditGrade());
                 this.loanCreationSucceeded = true;
                 this.strategyType = this.loan.getStrategyType();
             } catch (Exception e) {
@@ -90,7 +90,7 @@ public class LoanStrategyAndCreationSteps {
         
         // Try to change strategy (should fail or be immutable)
         assertThrows(Exception.class, () -> {
-            loan.determineStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
+            loan.determineInterestStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
         }, "Strategy harus immutable setelah loan dibuat");
     }
 
@@ -101,7 +101,7 @@ public class LoanStrategyAndCreationSteps {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
-            Tenor tenor = Tenor.THREE; // Default
+            Tenor tenor = Tenor.SIX; // Default
             
             // Map tenorMonths ke Tenor enum
             tenor = Tenor.fromMonths(tenorMonths);
@@ -138,7 +138,7 @@ public class LoanStrategyAndCreationSteps {
 
         this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
         Money amount = new Money(BigDecimal.valueOf(30000000L));
-        Tenor tenor = Tenor.THREE;
+        Tenor tenor = Tenor.SIX;
         
         this.loan.submit(borrower, amount, tenor);
         assertEquals(LoanState.VALIDATED, loan.getState());

@@ -108,8 +108,8 @@ public class CancelDanDisbursementTest {
     void loanDisbursedWhenFundingReachesHundredPercent() {
         Loan loan = new Loan(new LoanId("L006"), new BorrowerId("B006"));
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setTenor(Tenor.THREE);
-        loan.determineStrategy(Grade.A);
+        loan.setTenor(Tenor.SIX);
+        loan.determineInterestStrategy(Grade.A);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(9000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
         loan.addFunding(new LenderId("L002"), new Money(BigDecimal.valueOf(1000000)),
@@ -137,14 +137,14 @@ public class CancelDanDisbursementTest {
     void createPaymentScheduleAfterDisburse() {
         Loan loan = new Loan(new LoanId("L008"), new BorrowerId("B008"));
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setTenor(Tenor.THREE);
-        loan.determineStrategy(Grade.A);
+        loan.setTenor(Tenor.SIX);
+        loan.determineInterestStrategy(Grade.A);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(10000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
 
         loan.disburse();
 
-        Assertions.assertEquals(3, loan.getPayments().size());
+        Assertions.assertEquals(6, loan.getPayments().size());
         Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
     }
 

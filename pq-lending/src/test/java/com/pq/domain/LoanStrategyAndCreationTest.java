@@ -46,7 +46,7 @@ public class LoanStrategyAndCreationTest {
     @Test
     void testDetermineStrategy_GradeA_EffectiveRate() {
         Loan loan = new Loan(new LoanId("L-1"), borrowerA.getBorrowerId());
-        loan.determineStrategy(borrowerA.getCreditGrade());
+        loan.determineInterestStrategy(borrowerA.getCreditGrade());
         assertTrue(loan.getInterestStrategy() instanceof EffectiveRateStrategy);
         assertEquals("EffectiveRateStrategy", loan.getStrategyType());
     }
@@ -54,7 +54,7 @@ public class LoanStrategyAndCreationTest {
     @Test
     void testDetermineStrategy_GradeC_FlatRate() {
         Loan loan = new Loan(new LoanId("L-2"), borrowerC.getBorrowerId());
-        loan.determineStrategy(borrowerC.getCreditGrade());
+        loan.determineInterestStrategy(borrowerC.getCreditGrade());
         assertTrue(loan.getInterestStrategy() instanceof FlatRateStrategy);
         assertEquals("FlatRateStrategy", loan.getStrategyType());
     }
@@ -62,15 +62,15 @@ public class LoanStrategyAndCreationTest {
     @Test
     void testStrategyImmutable() {
         Loan loan = new Loan(new LoanId("L-3"), borrowerC.getBorrowerId());
-        loan.determineStrategy(borrowerC.getCreditGrade());
-        assertThrows(IllegalStateException.class, () -> loan.determineStrategy(borrowerA.getCreditGrade()));
+        loan.determineInterestStrategy(borrowerC.getCreditGrade());
+        assertThrows(IllegalStateException.class, () -> loan.determineInterestStrategy(borrowerA.getCreditGrade()));
     }
 
     @Test
     void testSubmit_Success() {
         Loan loan = new Loan(new LoanId("L-4"), borrowerC.getBorrowerId());
-        // Tenor 3 bulan masuk batas validasi limit (Grade C limit 50 juta)
-        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.THREE);
+        // Tenor 6 bulan masuk batas validasi limit (Grade C limit 50 juta)
+        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.SIX);
         assertEquals(LoanState.VALIDATED, loan.getState());
         assertTrue(loan.getInterestStrategy() instanceof FlatRateStrategy);
     }
@@ -78,7 +78,7 @@ public class LoanStrategyAndCreationTest {
     @Test
     void testSubmit_CannotBeCalledTwice() {
         Loan loan = new Loan(new LoanId("L-4a"), borrowerC.getBorrowerId());
-        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.THREE);
+        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.SIX);
         assertThrows(IllegalStateException.class, () ->
                 loan.submit(borrowerC, new Money(BigDecimal.valueOf(20_000_000)), Tenor.SIX)
         );
@@ -89,7 +89,7 @@ public class LoanStrategyAndCreationTest {
         Loan loan = new Loan(new LoanId("L-5"), borrowerC.getBorrowerId());
         assertThrows(IllegalArgumentException.class, () -> {
             // Grade C maksimal 50 juta, 100 juta harus ditolak
-            loan.submit(borrowerC, new Money(BigDecimal.valueOf(100_000_000)), Tenor.THREE);
+            loan.submit(borrowerC, new Money(BigDecimal.valueOf(100_000_000)), Tenor.SIX);
         });
     }
 
@@ -105,7 +105,7 @@ public class LoanStrategyAndCreationTest {
     @Test
     void testStartFunding() {
         Loan loan = new Loan(new LoanId("L-7"), borrowerC.getBorrowerId());
-        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.THREE);
+        loan.submit(borrowerC, new Money(BigDecimal.valueOf(30_000_000)), Tenor.SIX);
         loan.startFunding();
         assertEquals(LoanState.FUNDING, loan.getState());
         assertNotNull(loan.getFundingDeadline());
