@@ -50,10 +50,10 @@ Feature: Validasi Pengajuan Pinjaman
   # BR-03: Validasi Tenor
   Scenario: Pengajuan ditolak jika tenor tidak tersedia untuk grade
     Given borrower dengan grade D
-    When borrower mengajukan tenor 12 bulan
+    When borrower mengajukan tenor 36 bulan
     Then pengajuan ditolak dengan pesan "Tenor tidak tersedia untuk grade ini"
 
   Scenario: Pengajuan diterima jika tenor tersedia untuk grade
     Given borrower dengan grade D
-    When borrower mengajukan tenor 3 bulan
+    When borrower mengajukan tenor 6 bulan
     Then pengajuan tidak ditolak karena tenor
