@@ -12,6 +12,7 @@ import com.pq.domain.model.valueobject.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.math.BigDecimal;
 
 public class Loan {
     private final LoanId loanId;
@@ -40,14 +41,14 @@ public class Loan {
         }
         this.grade = grade;
         switch (grade.getStrategyType()) {
-            case "EFFECTIVE":
-                this.interestStrategy = new EffectiveRateStrategy();
-                break;
-            case "FLAT":
-                this.interestStrategy = new FlatRateStrategy();
-                break;
-            default:
-                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+        case "EFFECTIVE":
+            this.interestStrategy = new EffectiveRateStrategy();
+            break;
+        case "FLAT":
+            this.interestStrategy = new FlatRateStrategy();
+            break;
+        default:
+            throw new IllegalStateException("Unknown strategy type for grade: " + grade);
         }
         this.strategyType = this.interestStrategy.getClass().getSimpleName();
     }
@@ -63,8 +64,8 @@ public class Loan {
 
         Grade borrowerGrade = borrower.getCreditGrade();
 
-        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        if (amount == null || amount.getAmount().compareTo(new BigDecimal("1000000")) <= 0) {
+            throw new IllegalArgumentException("Amount kurang dari jumlah minimum");
         }
 
         if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
@@ -122,11 +123,8 @@ public class Loan {
 
         double portion = actualAmount.doubleValue() / targetAmount.doubleValue();
 
-        Funding funding = new Funding(
-                new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
-                lenderId,
-                new Money(actualAmount),
-                portion);
+        Funding funding = new Funding(new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
+                lenderId, new Money(actualAmount), portion);
         this.fundings.add(funding);
     }
 
@@ -184,11 +182,8 @@ public class Loan {
                 double annualRate = 0.12; // Anda bisa mengambil rate ini berdasarkan grade/konfigurasi
                 LocalDate startDate = LocalDate.now();
 
-                List<Payment> generatedPayments = this.interestStrategy.generateSchedule(
-                        this.amount,
-                        this.tenor,
-                        annualRate,
-                        startDate);
+                List<Payment> generatedPayments = this.interestStrategy.generateSchedule(this.amount, this.tenor,
+                        annualRate, startDate);
                 this.payments.addAll(generatedPayments);
                 this.state = LoanState.REPAYMENT;
             }
@@ -238,8 +233,8 @@ public class Loan {
                     if (lender.getLenderId().getValue().equals(funding.getLenderId().getValue())) {
                         // Hitung bagian lender: jumlah cicilan * porsi lender
                         java.math.BigDecimal portionValue = java.math.BigDecimal.valueOf(funding.getPortion());
-                        java.math.BigDecimal lenderShare = amountToDistribute.multiply(portionValue)
-                                .setScale(0, java.math.RoundingMode.HALF_UP);
+                        java.math.BigDecimal lenderShare = amountToDistribute.multiply(portionValue).setScale(0,
+                                java.math.RoundingMode.HALF_UP);
 
                         lender.addBalance(new Money(lenderShare));
                     }
