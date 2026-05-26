@@ -11,8 +11,7 @@ public enum Grade {
         }
         public List<Tenor> getAllowedTenors() {
             return List.of(
-                Tenor.THREE, Tenor.SIX,
-                Tenor.TWELVE, Tenor.TWENTY_FOUR
+                Tenor.SIX, Tenor.TWELVE, Tenor.EIGHTEEN, Tenor.TWENTY_FOUR, Tenor.THIRTY_SIX
             );
         }
         public String getStrategyType() {
@@ -25,7 +24,7 @@ public enum Grade {
         }
         public List<Tenor> getAllowedTenors() {
             return List.of(
-                Tenor.THREE, Tenor.SIX, Tenor.TWELVE
+                Tenor.SIX, Tenor.TWELVE, Tenor.EIGHTEEN, Tenor.TWENTY_FOUR
             );
         }
         public String getStrategyType() {
@@ -38,7 +37,7 @@ public enum Grade {
         }
         public List<Tenor> getAllowedTenors() {
             return List.of(
-                Tenor.ONE, Tenor.THREE, Tenor.SIX
+                Tenor.SIX, Tenor.TWELVE, Tenor.EIGHTEEN
             );
         }
         public String getStrategyType() {
@@ -50,7 +49,7 @@ public enum Grade {
             return new Money(new BigDecimal("10000000"));
         }
         public List<Tenor> getAllowedTenors() {
-            return List.of(Tenor.ONE, Tenor.THREE);
+            return List.of(Tenor.SIX, Tenor.TWELVE);
         }
         public String getStrategyType() {
             return "FLAT";

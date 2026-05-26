@@ -26,6 +26,7 @@ public class Loan {
     private LocalDate fundingDeadline;
     private final List<Funding> fundings;
     private final List<Payment> payments;
+    private java.math.BigDecimal totalFunding;
 
     public Loan(LoanId loanId, BorrowerId borrowerId) {
         this.loanId = loanId;
@@ -33,14 +34,15 @@ public class Loan {
         this.currentState = new SubmittedState(this);
         this.fundings = new ArrayList<>();
         this.payments = new ArrayList<>();
+        this.totalFunding = java.math.BigDecimal.ZERO;
     }
 
-    public void determineStrategy(Grade grade) {
+    public void determineInterestStrategy(Grade borrowerGrade) {
         if (this.interestStrategy != null) {
             throw new IllegalStateException("Strategy has already been determined and is immutable.");
         }
-        this.grade = grade;
-        switch (grade.getStrategyType()) {
+        this.grade = borrowerGrade;
+        switch (borrowerGrade.getStrategyType()) {
         case "EFFECTIVE":
             this.interestStrategy = new EffectiveRateStrategy();
             break;
