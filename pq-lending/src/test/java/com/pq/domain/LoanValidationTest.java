@@ -90,27 +90,28 @@ public class LoanValidationTest {
     class AllowedTenorTest {
 
         @Test
-        @DisplayName("Grade A mengizinkan tenor 3, 6, 12, dan 24 bulan")
+        @DisplayName("Grade A mengizinkan tenor 6, 12, 18, 24, dan 36 bulan")
         void gradeA_allowedTenors() {
             Borrower borrower = buildBorrower("BRW-001", "Budi", Grade.A);
             List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
 
-            assertEquals(4, allowed.size());
-            assertTrue(allowed.contains(Tenor.THREE));
+            assertEquals(5, allowed.size());
             assertTrue(allowed.contains(Tenor.SIX));
             assertTrue(allowed.contains(Tenor.TWELVE));
+            assertTrue(allowed.contains(Tenor.EIGHTEEN));
             assertTrue(allowed.contains(Tenor.TWENTY_FOUR));
+            assertTrue(allowed.contains(Tenor.THIRTY_SIX));
         }
 
         @Test
-        @DisplayName("Grade D hanya mengizinkan tenor 1 dan 3 bulan")
+        @DisplayName("Grade D hanya mengizinkan tenor 6 dan 12 bulan")
         void gradeD_allowedTenors() {
             Borrower borrower = buildBorrower("BRW-004", "Rina", Grade.D);
             List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
 
             assertEquals(2, allowed.size());
-            assertTrue(allowed.contains(Tenor.ONE));
-            assertTrue(allowed.contains(Tenor.THREE));
+            assertTrue(allowed.contains(Tenor.TWELVE));
+            assertTrue(allowed.contains(Tenor.SIX));
         }
     }
 
@@ -123,15 +124,15 @@ public class LoanValidationTest {
     class AmountValidationTest {
 
         @Test
-        @DisplayName("Pengajuan ditolak jika amount nol")
+        @DisplayName("Pengajuan ditolak jika amount <= 1.000.000")
         void submit_amountNol_throwsException() {
             Borrower borrower = buildBorrower("BRW-001", "Budi", Grade.A);
             Loan loan = buildLoan("LOAN-001", borrower);
 
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> loan.submit(borrower, new Money(BigDecimal.ZERO), Tenor.THREE));
-            assertEquals("Amount harus lebih dari 0", ex.getMessage());
+                    () -> loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.SIX));
+            assertEquals("Amount harus > 1.000.000", ex.getMessage());
         }
 
         @Test
@@ -142,8 +143,8 @@ public class LoanValidationTest {
 
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> loan.submit(borrower, new Money(new BigDecimal("-1000000")), Tenor.THREE));
-            assertEquals("Amount harus lebih dari 0", ex.getMessage());
+                    () -> loan.submit(borrower, new Money(new BigDecimal("-1000000")), Tenor.SIX));
+            assertEquals("Amount harus > 1.000.000", ex.getMessage());
         }
 
         @Test
@@ -155,7 +156,7 @@ public class LoanValidationTest {
 
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> loan.submit(borrower, new Money(new BigDecimal("100000000")), Tenor.THREE));
+                    () -> loan.submit(borrower, new Money(new BigDecimal("100000000")), Tenor.SIX));
             assertEquals("Amount melebihi limit grade", ex.getMessage());
         }
 
@@ -167,7 +168,7 @@ public class LoanValidationTest {
             Loan loan = buildLoan("LOAN-001", borrower);
 
             assertDoesNotThrow(
-                    () -> loan.submit(borrower, new Money(new BigDecimal("30000000")), Tenor.THREE));
+                    () -> loan.submit(borrower, new Money(new BigDecimal("30000000")), Tenor.SIX));
         }
     }
 
@@ -182,25 +183,25 @@ public class LoanValidationTest {
         @Test
         @DisplayName("Pengajuan ditolak jika tenor tidak tersedia untuk grade")
         void submit_tenorTidakTersedia_throwsException() {
-            // Grade D hanya mengizinkan tenor 1 & 3, mengajukan tenor 12
+            // Grade D hanya mengizinkan tenor 6 & 12, mengajukan tenor 18
             Borrower borrower = buildBorrower("BRW-004", "Rina", Grade.D);
             Loan loan = buildLoan("LOAN-001", borrower);
 
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
-                    () -> loan.submit(borrower, new Money(new BigDecimal("5000000")), Tenor.TWELVE));
+                    () -> loan.submit(borrower, new Money(new BigDecimal("5000000")), Tenor.EIGHTEEN));
             assertEquals("Tenor tidak tersedia untuk grade ini", ex.getMessage());
         }
 
         @Test
         @DisplayName("Pengajuan diterima jika tenor tersedia untuk grade")
         void submit_tenorTersedia_berhasil() {
-            // Grade D mengizinkan tenor 3
+            // Grade D mengizinkan tenor 6 & 12
             Borrower borrower = buildBorrower("BRW-004", "Rina", Grade.D);
             Loan loan = buildLoan("LOAN-001", borrower);
 
             assertDoesNotThrow(
-                    () -> loan.submit(borrower, new Money(new BigDecimal("5000000")), Tenor.THREE));
+                    () -> loan.submit(borrower, new Money(new BigDecimal("5000000")), Tenor.SIX));
         }
     }
 }
