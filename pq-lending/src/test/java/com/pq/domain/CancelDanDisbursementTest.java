@@ -18,91 +18,93 @@ import java.util.List;
 
 public class CancelDanDisbursementTest {
 
-    @Test
-    void cancelWithoutContributionsDoesNotChargeFee() {
-        Loan loan = new Loan(new LoanId("L001"), new BorrowerId("B001"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.FUNDING);
+        @Test
+        void cancelWithoutContributionsDoesNotChargeFee() {
+                Loan loan = new Loan(new LoanId("L001"), new BorrowerId("B001"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
 
-        Borrower borrower = new Borrower(new BorrowerId("B001"), "Borrower1", Grade.A,
-                new Money(BigDecimal.valueOf(1000000)));
+                Borrower borrower = new Borrower(new BorrowerId("B001"), "Borrower1", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
 
-        loan.cancel(borrower, List.of());
+                loan.cancel(borrower, List.of());
 
-        Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
-        Assertions.assertEquals(BigDecimal.valueOf(1000000), borrower.getVirtualAccountBalance().getAmount());
-    }
+                Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
+                Assertions.assertEquals(BigDecimal.valueOf(1000000), borrower.getVirtualAccountBalance().getAmount());
+        }
 
-    @Test
-    void cancelWith40PercentFundingChargesOnePercentFeeAndRefundsLender() {
-        Loan loan = new Loan(new LoanId("L002"), new BorrowerId("B002"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.FUNDING);
+        @Test
+        void cancelWith40PercentFundingChargesOnePercentFeeAndRefundsLender() {
+                Loan loan = new Loan(new LoanId("L002"), new BorrowerId("B002"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
 
-        Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
-        loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(4000000)), lender);
+                Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
+                loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(4000000)), lender);
 
-        Borrower borrower = new Borrower(new BorrowerId("B002"), "Borrower2", Grade.A,
-                new Money(BigDecimal.valueOf(1000000)));
+                Borrower borrower = new Borrower(new BorrowerId("B002"), "Borrower2", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
 
-        loan.cancel(borrower, List.of(lender));
+                loan.cancel(borrower, List.of(lender));
 
-        Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
-        Assertions.assertEquals(BigDecimal.valueOf(960000), borrower.getVirtualAccountBalance().getAmount());
-        Assertions.assertTrue(lender.getVirtualAccountBalance().getAmount().compareTo(BigDecimal.valueOf(5000000)) > 0);
-    }
+                Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
+                Assertions.assertEquals(BigDecimal.valueOf(960000), borrower.getVirtualAccountBalance().getAmount());
+                Assertions.assertTrue(lender.getVirtualAccountBalance().getAmount()
+                                .compareTo(BigDecimal.valueOf(5000000)) > 0);
+        }
 
-    @Test
-    void cancelWith70PercentFundingChargesTwoPercentFeeAndRefundsLender() {
-        Loan loan = new Loan(new LoanId("L003"), new BorrowerId("B003"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.FUNDING);
+        @Test
+        void cancelWith70PercentFundingChargesTwoPercentFeeAndRefundsLender() {
+                Loan loan = new Loan(new LoanId("L003"), new BorrowerId("B003"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
 
-        Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
-        loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(7000000)), lender);
+                Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
+                loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(7000000)), lender);
 
-        Borrower borrower = new Borrower(new BorrowerId("B003"), "Borrower3", Grade.A,
-                new Money(BigDecimal.valueOf(1000000)));
+                Borrower borrower = new Borrower(new BorrowerId("B003"), "Borrower3", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
 
-        loan.cancel(borrower, List.of(lender));
+                loan.cancel(borrower, List.of(lender));
 
-        Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
-        Assertions.assertEquals(BigDecimal.valueOf(860000), borrower.getVirtualAccountBalance().getAmount());
-        Assertions.assertTrue(lender.getVirtualAccountBalance().getAmount().compareTo(BigDecimal.valueOf(5000000)) > 0);
-    }
+                Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
+                Assertions.assertEquals(BigDecimal.valueOf(860000), borrower.getVirtualAccountBalance().getAmount());
+                Assertions.assertTrue(lender.getVirtualAccountBalance().getAmount()
+                                .compareTo(BigDecimal.valueOf(5000000)) > 0);
+        }
 
-    @Test
-    void cancelRejectedWhenBorrowerBalanceInsufficient() {
-        Loan loan = new Loan(new LoanId("L004"), new BorrowerId("B004"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.FUNDING);
+        @Test
+        void cancelRejectedWhenBorrowerBalanceInsufficient() {
+                Loan loan = new Loan(new LoanId("L004"), new BorrowerId("B004"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
 
-        Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
-        loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(7000000)), lender);
+                Lender lender = new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(5000000)));
+                loan.addFunding(lender.getLenderId(), new Money(BigDecimal.valueOf(7000000)), lender);
 
-        Borrower borrower = new Borrower(new BorrowerId("B004"), "Borrower4", Grade.A,
-                new Money(BigDecimal.valueOf(0)));
+                Borrower borrower = new Borrower(new BorrowerId("B004"), "Borrower4", Grade.A,
+                                new Money(BigDecimal.valueOf(0)));
 
-        IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class,
-                () -> loan.cancel(borrower, List.of(lender)));
+                IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class,
+                                () -> loan.cancel(borrower, List.of(lender)));
 
-        Assertions.assertEquals("Saldo tidak cukup untuk membayar denda", exception.getMessage());
-    }
+                Assertions.assertEquals("Saldo tidak cukup untuk membayar denda", exception.getMessage());
+        }
 
-    @Test
-    void cancelRejectedAfterLoanDisbursed() {
-        Loan loan = new Loan(new LoanId("L005"), new BorrowerId("B005"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.DISBURSED);
+        @Test
+        void cancelRejectedAfterLoanDisbursed() {
+                Loan loan = new Loan(new LoanId("L005"), new BorrowerId("B005"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.DISBURSED);
 
-        Borrower borrower = new Borrower(new BorrowerId("B005"), "Borrower5", Grade.A,
-                new Money(BigDecimal.valueOf(1000000)));
+                Borrower borrower = new Borrower(new BorrowerId("B005"), "Borrower5", Grade.A,
+                                new Money(BigDecimal.valueOf(1000000)));
 
-        IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class,
-                () -> loan.cancel(borrower, List.of()));
+                IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class,
+                                () -> loan.cancel(borrower, List.of()));
 
-        Assertions.assertEquals("Loan tidak dapat dibatalkan setelah dana cair", exception.getMessage());
-    }
+                Assertions.assertEquals("Loan tidak dapat dibatalkan setelah dana cair", exception.getMessage());
+        }
 
     @Test
     void loanDisbursedWhenFundingReachesHundredPercent() {
@@ -110,6 +112,7 @@ public class CancelDanDisbursementTest {
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
         loan.setTenor(Tenor.SIX);
         loan.determineInterestStrategy(Grade.A);
+        loan.setState(LoanState.FUNDING);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(9000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
         loan.addFunding(new LenderId("L002"), new Money(BigDecimal.valueOf(1000000)),
@@ -120,33 +123,34 @@ public class CancelDanDisbursementTest {
         Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
     }
 
-    @Test
-    void loanNotDisbursedWhenFundingBelowHundredPercent() {
-        Loan loan = new Loan(new LoanId("L007"), new BorrowerId("B007"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setState(LoanState.FUNDING);
-        loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(5000000)),
-                new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
+        @Test
+        void loanNotDisbursedWhenFundingBelowHundredPercent() {
+                Loan loan = new Loan(new LoanId("L007"), new BorrowerId("B007"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setState(LoanState.FUNDING);
+                loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(5000000)),
+                                new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
 
-        loan.disburse();
+                loan.disburse();
 
-        Assertions.assertEquals(LoanState.FUNDING, loan.getState());
-    }
+                Assertions.assertEquals(LoanState.FUNDING, loan.getState());
+        }
 
-    @Test
-    void createPaymentScheduleAfterDisburse() {
-        Loan loan = new Loan(new LoanId("L008"), new BorrowerId("B008"));
-        loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
-        loan.setTenor(Tenor.SIX);
-        loan.determineInterestStrategy(Grade.A);
-        loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(10000000)),
-                new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
+        @Test
+        void createPaymentScheduleAfterDisburse() {
+                Loan loan = new Loan(new LoanId("L008"), new BorrowerId("B008"));
+                loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+                loan.setTenor(Tenor.SIX);
+                loan.determineInterestStrategy(Grade.A);
+                loan.setState(LoanState.FUNDING);
+                loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(10000000)),
+                                new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
 
-        loan.disburse();
+                loan.disburse();
 
-        Assertions.assertEquals(6, loan.getPayments().size());
-        Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
-    }
+                Assertions.assertEquals(6, loan.getPayments().size());
+                Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
+        }
 
         @Test
         void cancelAtExactly50PercentChargesOnePercent() {
@@ -162,7 +166,8 @@ public class CancelDanDisbursementTest {
 
                 loan.cancel(borrower, List.of(lender));
 
-                // 50% funding of 10_000_000 => totalFunding=5_000_000 => penalty=1% of 5_000_000 = 50_000
+                // 50% funding of 10_000_000 => totalFunding=5_000_000 => penalty=1% of
+                // 5_000_000 = 50_000
                 Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
                 Assertions.assertEquals(BigDecimal.valueOf(950000), borrower.getVirtualAccountBalance().getAmount());
         }
@@ -181,7 +186,8 @@ public class CancelDanDisbursementTest {
 
                 loan.cancel(borrower, List.of(lender));
 
-                // 51% funding of 10_000_000 => totalFunding=5_100_000 => penalty=2% of 5_100_000 = 102_000
+                // 51% funding of 10_000_000 => totalFunding=5_100_000 => penalty=2% of
+                // 5_100_000 = 102_000
                 Assertions.assertEquals(LoanState.CANCELLED, loan.getState());
                 Assertions.assertEquals(BigDecimal.valueOf(898000), borrower.getVirtualAccountBalance().getAmount());
         }
