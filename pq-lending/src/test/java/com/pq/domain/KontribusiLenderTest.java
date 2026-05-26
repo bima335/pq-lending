@@ -50,9 +50,9 @@ class KontribusiLenderTest {
         loan = new Loan(new LoanId("LOAN-1"), new BorrowerId("BORROWER-1"));
         
         // Use reflection to bypass Anggota 1 & Anggota 2 un-implemented methods
-        setField(loan, "state", LoanState.FUNDING);
-        setField(loan, "amount", new Money(new BigDecimal("10000000")));
-        setField(loan, "fundingDeadline", LocalDate.now().plusDays(7));
+        loan.setState(LoanState.FUNDING);
+        loan.setAmount(new Money(new BigDecimal("10000000")));
+        loan.setFundingDeadline(LocalDate.now().plusDays(7));
         
         lenderId1 = new LenderId("LENDER-1");
         lenderId2 = new LenderId("LENDER-2");
@@ -93,7 +93,7 @@ class KontribusiLenderTest {
 
     @Test
     void testKontribusiDitolakDanCancelledJikaDeadlineTerlewat() {
-        setField(loan, "fundingDeadline", LocalDate.now().minusDays(1)); // Terlewat
+        loan.setFundingDeadline(LocalDate.now().minusDays(1)); // Terlewat
         
         Exception ex = assertThrows(IllegalStateException.class, () -> 
             loan.addFunding(lenderId1, new Money(new BigDecimal("1000000")), lender1)
