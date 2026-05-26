@@ -13,7 +13,6 @@ import com.pq.domain.model.loan.state.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigDecimal;
 
 public class Loan {
     private final LoanId loanId;
@@ -108,14 +107,29 @@ public class Loan {
 
     public void setState(LoanState state) {
         switch (state) {
-            case SUBMITTED: this.currentState = new SubmittedState(this); break;
-            case VALIDATED: this.currentState = new ValidatedState(this); break;
-            case FUNDING: this.currentState = new FundingState(this); break;
-            case CANCELLED: this.currentState = new CancelledState(this); break;
-            case DISBURSED: this.currentState = new DisbursedState(this); break;
-            case REPAYMENT: this.currentState = new RepaymentState(this); break;
-            case CLOSED: this.currentState = new ClosedState(this); break;
-            default: throw new IllegalArgumentException("Unknown state: " + state);
+        case SUBMITTED:
+            this.currentState = new SubmittedState(this);
+            break;
+        case VALIDATED:
+            this.currentState = new ValidatedState(this);
+            break;
+        case FUNDING:
+            this.currentState = new FundingState(this);
+            break;
+        case CANCELLED:
+            this.currentState = new CancelledState(this);
+            break;
+        case DISBURSED:
+            this.currentState = new DisbursedState(this);
+            break;
+        case REPAYMENT:
+            this.currentState = new RepaymentState(this);
+            break;
+        case CLOSED:
+            this.currentState = new ClosedState(this);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown state: " + state);
         }
     }
 
