@@ -4,6 +4,8 @@ import com.pq.domain.model.enums.PaymentStatus;
 import com.pq.domain.model.valueobject.Money;
 import com.pq.domain.model.valueobject.PaymentId;
 import java.time.LocalDate;
+import com.pq.domain.model.loan.paymentstate.PaymentState;
+import com.pq.domain.model.loan.paymentstate.UnpaidState;
 
 public class Payment {
     private final PaymentId paymentId;
@@ -14,6 +16,7 @@ public class Payment {
     private final Money interest;
     private final Money totalAmount;
     private PaymentStatus status;
+    private PaymentState currentState;
 
     public Payment(PaymentId paymentId,
             int installmentNumber,
@@ -28,11 +31,21 @@ public class Payment {
         this.interest = interest;
         this.totalAmount = totalAmount;
         this.status = PaymentStatus.UNPAID;
+        this.currentState = new UnpaidState(this);
     }
 
     public void markAsPaid() {
+        this.currentState.markAsPaid();
+    }
+
+    public void internalMarkAsPaid() {
         this.status = PaymentStatus.PAID;
         this.paidDate = LocalDate.now();
+    }
+
+    public void setCurrentState(PaymentState state) {
+        this.currentState = state;
+        this.status = state.getPaymentStatusEnum();
     }
 
     public PaymentId getPaymentId() {
