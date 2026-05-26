@@ -110,6 +110,7 @@ public class CancelDanDisbursementTest {
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
         loan.setTenor(Tenor.THREE);
         loan.determineStrategy(Grade.A);
+        loan.setState(LoanState.FUNDING);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(9000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
         loan.addFunding(new LenderId("L002"), new Money(BigDecimal.valueOf(1000000)),
@@ -139,6 +140,7 @@ public class CancelDanDisbursementTest {
         loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
         loan.setTenor(Tenor.THREE);
         loan.determineStrategy(Grade.A);
+        loan.setState(LoanState.FUNDING);
         loan.addFunding(new LenderId("L001"), new Money(BigDecimal.valueOf(10000000)),
                 new Lender(new LenderId("L001"), "Lender1", new Money(BigDecimal.valueOf(10000000))));
 

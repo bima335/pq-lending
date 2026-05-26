@@ -33,35 +33,35 @@ public class LoanCreationAndStrategyTest {
     @Test
     void testGradeAGetsEffectiveRateStrategy() {
         Borrower borrower = createBorrower(Grade.A);
-        loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.THREE);
+        loan.submit(borrower, new Money(new BigDecimal("2000000")), Tenor.THREE);
         Assertions.assertEquals("EffectiveRateStrategy", loan.getInterestStrategy().getClass().getSimpleName());
     }
 
     @Test
     void testGradeBGetsEffectiveRateStrategy() {
         Borrower borrower = createBorrower(Grade.B);
-        loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.THREE);
+        loan.submit(borrower, new Money(new BigDecimal("2000000")), Tenor.THREE);
         Assertions.assertEquals("EffectiveRateStrategy", loan.getInterestStrategy().getClass().getSimpleName());
     }
 
     @Test
     void testGradeCGetsFlatRateStrategy() {
         Borrower borrower = createBorrower(Grade.C);
-        loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.ONE);
+        loan.submit(borrower, new Money(new BigDecimal("2000000")), Tenor.ONE);
         Assertions.assertEquals("FlatRateStrategy", loan.getInterestStrategy().getClass().getSimpleName());
     }
 
     @Test
     void testGradeDGetsFlatRateStrategy() {
         Borrower borrower = createBorrower(Grade.D);
-        loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.ONE);
+        loan.submit(borrower, new Money(new BigDecimal("2000000")), Tenor.ONE);
         Assertions.assertEquals("FlatRateStrategy", loan.getInterestStrategy().getClass().getSimpleName());
     }
 
     @Test
     void testStrategyCannotBeChangedAfterDetermined() {
         Borrower borrower = createBorrower(Grade.C);
-        loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.ONE);
+        loan.submit(borrower, new Money(new BigDecimal("2000000")), Tenor.ONE);
         Assertions.assertThrows(IllegalStateException.class, () -> loan.determineStrategy(Grade.A));
     }
 
