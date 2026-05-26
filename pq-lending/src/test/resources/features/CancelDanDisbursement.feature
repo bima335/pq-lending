@@ -1,6 +1,6 @@
 Feature: Pembatalan Loan dan Pencairan Dana
 
-  # BR-10: Cancel oleh Borrower
+# BR-10: Cancel oleh Borrower
   Scenario: Cancel tanpa kontribusi tidak ada denda
     Given loan berada pada status FUNDING
     And belum ada lender yang berkontribusi
@@ -56,7 +56,7 @@ Feature: Pembatalan Loan dan Pencairan Dana
     When borrower mencoba membatalkan pinjaman
     Then pembatalan ditolak dengan pesan "Loan tidak dapat dibatalkan setelah dana cair"
 
-  # BR-11: Trigger Disbursement
+# BR-11: Trigger Disbursement
   Scenario: Loan otomatis DISBURSED saat funding mencapai 100 persen
     Given loan pembatalan dengan target 10000000
     And total terkumpul pembatalan saat ini adalah 9000000
@@ -74,3 +74,23 @@ Feature: Pembatalan Loan dan Pencairan Dana
     When funding mencapai 100 persen
     Then jadwal cicilan dibuat sebanyak 6
     And status loan sekarang adalah REPAYMENT
+
+# BR-10: state pattern - Cancel loan
+  Scenario: Cancel dari FundingState berhasil
+    Given Loan berapa pada FundingState dengan 40 persen terfunding
+    When borrower membatalkan pinjaman
+    Then loan berpindah ke CancelledState
+    And refund diberikan kepada semua lender sesuai porsi kontribusi
+
+    Scenario: Cancel dari DisbursedState ditolak
+    Given loan berada pada DisbursedState
+    When borrower mencoba membatalkan pinjaman
+    Then pembatalan ditolak dengan pesan "Loan tidak dapat dibatalkan setelah dana cair"
+
+# BR-11: state pattern - Disbursement Trigger
+  Scenario: FundingState otomatis pindah ke DisbursedState saat 100 persen
+    Given loan berada pada FundingState
+    When total kontribusi mencapai 100 persen dari target
+    Then loan berpindah ke DisbursedState
+    And jadwal cicilan dibuat otomatis
+    And loan berpindah ke RepaymentState
