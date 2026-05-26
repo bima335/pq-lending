@@ -26,7 +26,7 @@ public class CancelDanDisbursementSteps {
             BorrowerId borrowerId = new BorrowerId("B001");
             this.loan = new Loan(loanId, borrowerId);
             this.loan.setState(LoanState.FUNDING);
-            this.loan.determineStrategy(Grade.A);
+            this.loan.determineInterestStrategy(Grade.A);
         }
     }
 

@@ -132,7 +132,7 @@ public class LoanValidationTest {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
                     () -> loan.submit(borrower, new Money(new BigDecimal("1000000")), Tenor.SIX));
-            assertEquals("Amount harus > 1.000.000", ex.getMessage());
+            assertEquals("Amount kurang dari batas minimal", ex.getMessage());
         }
 
         @Test
@@ -144,7 +144,7 @@ public class LoanValidationTest {
             IllegalArgumentException ex = assertThrows(
                     IllegalArgumentException.class,
                     () -> loan.submit(borrower, new Money(new BigDecimal("-1000000")), Tenor.SIX));
-            assertEquals("Amount harus > 1.000.000", ex.getMessage());
+            assertEquals("Amount tidak valid", ex.getMessage());
         }
 
         @Test

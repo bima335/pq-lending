@@ -234,7 +234,7 @@ public class LoanStrategyAndCreationSteps {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             // Gunakan amount yang valid agar isolasi pengujian fokus hanya pada validasi tenor
-            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(1000000)));
+            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(5000000)));
             Tenor requestedTenor = null;
             try { requestedTenor = Tenor.fromMonths(months); } catch (Exception e) { /* Biarkan null agar gagal validasi */ }
             

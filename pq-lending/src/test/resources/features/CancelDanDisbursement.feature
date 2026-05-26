@@ -70,7 +70,7 @@ Feature: Pembatalan Loan dan Pencairan Dana
     Then status loan tetap FUNDING
 
   Scenario: Jadwal cicilan dibuat setelah loan DISBURSED
-    Given loan pembatalan dengan target 10000000 dan tenor 3 bulan
+    Given loan pembatalan dengan target 10000000 dan tenor 6 bulan
     When funding mencapai 100 persen
-    Then jadwal cicilan dibuat sebanyak 3
+    Then jadwal cicilan dibuat sebanyak 6
     And status loan sekarang adalah REPAYMENT

@@ -9,6 +9,8 @@ import com.pq.domain.model.loan.strategy.InterestStrategy;
 import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
 import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +64,11 @@ public class Loan {
 
         Grade borrowerGrade = borrower.getCreditGrade();
 
-        if (amount == null || amount.getAmount().compareTo(new java.math.BigDecimal("1000000")) <= 0) {
-            throw new IllegalArgumentException("Amount harus > 1.000.000");
+        if (amount == null || amount.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount tidak valid");
+        }
+        if (amount.getAmount().compareTo(new BigDecimal("1000000")) <= 0) {
+            throw new IllegalArgumentException("Amount kurang dari batas minimal");
         }
 
         if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
@@ -183,7 +188,7 @@ public class Loan {
             if (this.tenor != null && this.amount != null) {
                 // Ensure strategy is determined if not already set
                 if (this.interestStrategy == null && this.grade != null) {
-                    determineStrategy(this.grade);
+                    determineInterestStrategy(this.grade);
                 }
                 
                 if (this.interestStrategy == null) {
