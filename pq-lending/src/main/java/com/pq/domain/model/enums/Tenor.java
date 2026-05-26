@@ -1,7 +1,7 @@
 package com.pq.domain.model.enums;
 
 public enum Tenor {
-    ONE(1), THREE(3), SIX(6), TWELVE(12), TWENTY_FOUR(24);
+    SIX(6), TWELVE(12), EIGHTEEN(18), TWENTY_FOUR(24), THIRTY_SIX(36);
 
     private final int months;
 

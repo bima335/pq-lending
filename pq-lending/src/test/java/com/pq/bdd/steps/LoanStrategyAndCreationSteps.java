@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class LoanStrategyAndCreationSteps {
     
@@ -39,12 +40,10 @@ public class LoanStrategyAndCreationSteps {
     public void borrower_dengan_grade(String gradeStr) {
         Grade grade = Grade.valueOf(gradeStr.toUpperCase());
         Money balance = new Money(BigDecimal.valueOf(100000000L));
-        this.borrower = new Borrower(
-            new BorrowerId("BORROWER-" + System.nanoTime()), 
-            "Test Borrower", 
-            grade, 
-            balance
-        );
+        this.borrower = mock(Borrower.class);
+        when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
+        when(this.borrower.getCreditGrade()).thenReturn(grade);
+        when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
     }
 
     @When("loan berhasil dibuat")
@@ -53,7 +52,7 @@ public class LoanStrategyAndCreationSteps {
             // Logika sebagai 'When' (Fase Pembuatan & Penentuan Strategi)
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-                this.loan.determineStrategy(borrower.getCreditGrade());
+                this.loan.determineInterestStrategy(borrower.getCreditGrade());
                 this.loanCreationSucceeded = true;
                 this.strategyType = this.loan.getStrategyType();
             } catch (Exception e) {
@@ -91,7 +90,7 @@ public class LoanStrategyAndCreationSteps {
         
         // Try to change strategy (should fail or be immutable)
         assertThrows(Exception.class, () -> {
-            loan.determineStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
+            loan.determineInterestStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
         }, "Strategy harus immutable setelah loan dibuat");
     }
 
@@ -102,7 +101,7 @@ public class LoanStrategyAndCreationSteps {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
-            Tenor tenor = Tenor.THREE; // Default
+            Tenor tenor = Tenor.SIX; // Default
             
             // Map tenorMonths ke Tenor enum
             tenor = Tenor.fromMonths(tenorMonths);
@@ -132,15 +131,14 @@ public class LoanStrategyAndCreationSteps {
     @Given("loan dengan status VALIDATED")
     public void loan_dengan_status_validated() {
         Money balance = new Money(BigDecimal.valueOf(100000000L));
-        this.borrower = new Borrower(
-            new BorrowerId("BORROWER-" + System.nanoTime()), 
-            "Test Borrower", 
-            Grade.C, 
-            balance
-        );
+        this.borrower = mock(Borrower.class);
+        when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
+        when(this.borrower.getCreditGrade()).thenReturn(Grade.C);
+        when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
+
         this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
         Money amount = new Money(BigDecimal.valueOf(30000000L));
-        Tenor tenor = Tenor.THREE;
+        Tenor tenor = Tenor.SIX;
         
         this.loan.submit(borrower, amount, tenor);
         assertEquals(LoanState.VALIDATED, loan.getState());
@@ -173,12 +171,11 @@ public class LoanStrategyAndCreationSteps {
     @Given("loan baru masuk fase FUNDING")
     public void loan_baru_masuk_fase_funding() {
         Money balance = new Money(BigDecimal.valueOf(100000000L));
-        this.borrower = new Borrower(
-            new BorrowerId("BORROWER-" + System.nanoTime()), 
-            "Test Borrower", 
-            Grade.A, 
-            balance
-        );
+        this.borrower = mock(Borrower.class);
+        when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
+        when(this.borrower.getCreditGrade()).thenReturn(Grade.A);
+        when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
+
         this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
         Money amount = new Money(BigDecimal.valueOf(50000000L));
         Tenor tenor = Tenor.SIX;

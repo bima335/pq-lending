@@ -25,6 +25,7 @@ public class Loan {
     private LocalDate fundingDeadline;
     private final List<Funding> fundings;
     private final List<Payment> payments;
+    private java.math.BigDecimal totalFunding;
 
     public Loan(LoanId loanId, BorrowerId borrowerId) {
         this.loanId = loanId;
@@ -32,22 +33,20 @@ public class Loan {
         this.state = LoanState.SUBMITTED;
         this.fundings = new ArrayList<>();
         this.payments = new ArrayList<>();
+        this.totalFunding = java.math.BigDecimal.ZERO;
     }
 
-    public void determineStrategy(Grade grade) {
+    public void determineInterestStrategy(Grade borrowerGrade) {
         if (this.interestStrategy != null) {
             throw new IllegalStateException("Strategy has already been determined and is immutable.");
         }
-        this.grade = grade;
-        switch (grade.getStrategyType()) {
-            case "EFFECTIVE":
-                this.interestStrategy = new EffectiveRateStrategy();
-                break;
-            case "FLAT":
-                this.interestStrategy = new FlatRateStrategy();
-                break;
-            default:
-                throw new IllegalStateException("Unknown strategy type for grade: " + grade);
+        this.grade = borrowerGrade;
+        if (borrowerGrade == Grade.A || borrowerGrade == Grade.B) {
+            this.interestStrategy = new EffectiveRateStrategy();
+        } else if (borrowerGrade == Grade.C || borrowerGrade == Grade.D) {
+            this.interestStrategy = new FlatRateStrategy();
+        } else {
+            throw new IllegalArgumentException("Unknown grade: " + borrowerGrade);
         }
         this.strategyType = this.interestStrategy.getClass().getSimpleName();
     }
@@ -63,8 +62,8 @@ public class Loan {
 
         Grade borrowerGrade = borrower.getCreditGrade();
 
-        if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        if (amount == null || amount.getAmount().compareTo(new java.math.BigDecimal("1000000")) <= 0) {
+            throw new IllegalArgumentException("Amount harus > 1.000.000");
         }
 
         if (amount.getAmount().compareTo(borrowerGrade.getMaxAmount().getAmount()) > 0) {
@@ -77,13 +76,13 @@ public class Loan {
 
         this.amount = amount;
         this.tenor = tenor;
-        determineStrategy(borrowerGrade);
+        determineInterestStrategy(borrowerGrade);
         this.state = LoanState.VALIDATED;
     }
 
     public void validate() {
-        if (this.amount == null || this.amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount harus lebih dari 0");
+        if (this.amount == null || this.amount.getAmount().compareTo(new java.math.BigDecimal("1000000")) <= 0) {
+            throw new IllegalArgumentException("Amount harus > 1.000.000");
         }
         if (this.grade == null) {
             throw new IllegalStateException("Grade borrower belum ditentukan");
@@ -97,8 +96,12 @@ public class Loan {
     }
 
     public void startFunding() {
+        if (this.state != LoanState.VALIDATED) {
+            throw new IllegalStateException("Hanya bisa memulai funding jika status VALIDATED");
+        }
         this.state = LoanState.FUNDING;
-        this.fundingDeadline = LocalDate.now().plusDays(20); // Pendekatan kasar 14 hari kerja
+        this.fundingDeadline = LocalDate.now().plusDays(14);
+        this.totalFunding = java.math.BigDecimal.ZERO;
     }
 
     public void addFunding(LenderId lenderId, Money amount, Lender lender) {
