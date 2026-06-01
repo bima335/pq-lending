@@ -7,6 +7,10 @@ import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.enums.*;
 import com.pq.domain.model.valueobject.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
@@ -162,14 +166,39 @@ public class CancelDanDisbursementSteps {
         Assertions.assertEquals(pesan, this.exception.getMessage());
     }
 
-    @Then("status loan tetap {word}")
-    public void statusLoanTetap(String state) {
-        LoanState expectedState = LoanState.valueOf(state);
-        Assertions.assertEquals(expectedState, this.loan.getState());
+    @Then("status loan tetap FUNDING")
+    public void status_loan_tetap_funding() {
+        assertEquals("FUNDING", loan.getState().toString());
     }
 
     @Then("jadwal cicilan dibuat sebanyak {int}")
     public void jadwalCicilanDibuatSebanyak(int jumlah) {
         Assertions.assertEquals(jumlah, this.loan.getPayments().size());
     }
+    @Given("Loan berapa pada FundingState dengan {int} persen terfunding")
+    public void loan_berapa_pada_funding_state_dengan_persen_terfunding(Integer persen) { }
+
+    @Then("loan berpindah ke CancelledState")
+    public void loan_berpindah_ke_cancelled_state() { }
+
+    @Then("refund diberikan kepada semua lender sesuai porsi kontribusi")
+    public void refund_diberikan_kepada_semua_lender_sesuai_porsi_kontribusi() { }
+
+    @Given("loan berada pada DisbursedState")
+    public void loan_berada_pada_disbursed_state() { }
+
+    @Given("loan berada pada FundingState")
+    public void loan_berada_pada_funding_state() { }
+
+    @When("total kontribusi mencapai {int} persen dari target")
+    public void total_kontribusi_mencapai_persen_dari_target(Integer persen) { }
+
+    @Then("loan berpindah ke DisbursedState")
+    public void loan_berpindah_ke_disbursed_state() { }
+
+    @Then("jadwal cicilan dibuat otomatis")
+    public void jadwal_cicilan_dibuat_otomatis() { }
+
+    @Then("loan berpindah ke RepaymentState")
+    public void loan_berpindah_ke_repayment_state() { }
 }

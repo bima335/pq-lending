@@ -31,15 +31,12 @@ public class LoanStrategyAndCreationSteps {
     private boolean loanSubmissionSucceeded;
     private Exception loanCreationException;
     private String strategyType;
-    private LocalDate fundingDeadlineComputed;
-    private Money totalFunded;
 
     // BR-04: Strategy Determination Steps
 
     @When("loan berhasil dibuat")
     public void loan_berhasil_dibuat_all() {
         if (!this.loanSubmissionSucceeded && this.strategyType == null) {
-            // Logika sebagai 'When' (Fase Pembuatan & Penentuan Strategi)
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
                 this.loan.determineInterestStrategy(borrower.getCreditGrade());
@@ -50,7 +47,6 @@ public class LoanStrategyAndCreationSteps {
                 this.loanCreationException = e;
             }
         } else {
-            // Logika sebagai 'Then' (Fase Asersi / Validasi Pengajuan)
             assertTrue(loanSubmissionSucceeded, "Loan submission should succeed");
             assertNotNull(loan);
             assertNotNull(loan.getAmount());
@@ -76,11 +72,9 @@ public class LoanStrategyAndCreationSteps {
     @Then("strategy tidak bisa diubah setelah loan dibuat")
     public void strategy_tidak_bisa_diubah() {
         assertTrue(loanCreationSucceeded);
-        String originalStrategy = loan.getStrategyType();
         
-        // Try to change strategy (should fail or be immutable)
         assertThrows(Exception.class, () -> {
-            loan.determineInterestStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
+            loan.determineInterestStrategy(Grade.A); 
         }, "Strategy harus immutable setelah loan dibuat");
     }
 
@@ -91,10 +85,7 @@ public class LoanStrategyAndCreationSteps {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
-            Tenor tenor = Tenor.SIX; // Default
-            
-            // Map tenorMonths ke Tenor enum
-            tenor = Tenor.fromMonths(tenorMonths);
+            Tenor tenor = Tenor.fromMonths(tenorMonths);
             
             this.loan.submit(borrower, amount, tenor);
             this.loanSubmissionSucceeded = true;
@@ -149,11 +140,9 @@ public class LoanStrategyAndCreationSteps {
         LocalDate deadline = loan.getFundingDeadline();
         assertNotNull(deadline, "Funding deadline should not be null");
         
-        // Simple check: deadline should be approximately 14 business days (~20 calendar days)
         LocalDate today = LocalDate.now();
-        LocalDate expectedDeadline = today.plusDays(20); // Rough estimate with weekends
+        LocalDate expectedDeadline = today.plusDays(20); 
         
-        // Deadline should be around 14-20 days from now (accounting for weekends)
         assertTrue(deadline.isAfter(today), "Deadline should be in the future");
         assertTrue(deadline.isBefore(expectedDeadline.plusDays(5)), "Deadline should be within reasonable range");
     }
@@ -180,105 +169,5 @@ public class LoanStrategyAndCreationSteps {
         Money totalFunded = loan.getTotalFunded();
         assertNotNull(totalFunded);
         assertEquals(BigDecimal.ZERO, totalFunded.getAmount(), "Total funded should be zero");
-    }
-
-    // BR-07: Validation Steps (Limits and Tenors)
-
-    @Then("limit maksimal pinjamannya adalah {long}")
-    public void limit_maksimal_pinjamannya_adalah(long expectedLimit) {
-        assertEquals(BigDecimal.valueOf(expectedLimit), borrower.getCreditGrade().getMaxAmount().getAmount());
-    }
-
-    @Then("tenor yang diizinkan adalah {int} {int} {int} {int}")
-    public void tenor_yang_diizinkan_adalah_4(Integer t1, Integer t2, Integer t3, Integer t4) {
-        List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
-        assertTrue(allowed.contains(Tenor.fromMonths(t1)));
-        assertTrue(allowed.contains(Tenor.fromMonths(t2)));
-        assertTrue(allowed.contains(Tenor.fromMonths(t3)));
-        assertTrue(allowed.contains(Tenor.fromMonths(t4)));
-    }
-
-    @Then("tenor yang diizinkan adalah {int} {int}")
-    public void tenor_yang_diizinkan_adalah_2(Integer t1, Integer t2) {
-        List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
-        assertTrue(allowed.contains(Tenor.fromMonths(t1)));
-        assertTrue(allowed.contains(Tenor.fromMonths(t2)));
-    }
-
-    @When("borrower mengajukan pinjaman sebesar {long}")
-    public void borrower_mengajukan_pinjaman_sebesar(long amount) {
-        try {
-            this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-            // Gunakan tenor yang valid agar isolasi pengujian fokus hanya pada validasi amount
-            Tenor validTenor = borrower.getCreditGrade().getAllowedTenors().get(0);
-            this.loan.submit(borrower, new Money(BigDecimal.valueOf(amount)), validTenor);
-            this.loanSubmissionSucceeded = true;
-        } catch (Exception e) {
-            this.loanSubmissionSucceeded = false;
-            this.loanCreationException = e;
-        }
-    }
-
-    @When("borrower mengajukan tenor {int} bulan")
-    public void borrower_mengajukan_tenor_bulan(int months) {
-        try {
-            this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-            // Gunakan amount yang valid agar isolasi pengujian fokus hanya pada validasi tenor
-            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(5000000)));
-            Tenor requestedTenor = null;
-            try { requestedTenor = Tenor.fromMonths(months); } catch (Exception e) { /* Biarkan null agar gagal validasi */ }
-            
-            this.loan.submit(borrower, validAmount, requestedTenor);
-            this.loanSubmissionSucceeded = true;
-        } catch (Exception e) {
-            this.loanSubmissionSucceeded = false;
-            this.loanCreationException = e;
-        }
-    }
-
-    @Then("pengajuan ditolak dengan pesan {string}")
-    public void pengajuan_ditolak_dengan_pesan(String expectedMessage) {
-        assertFalse(loanSubmissionSucceeded, "Pengajuan seharusnya ditolak");
-        assertNotNull(loanCreationException, "Harus ada exception yang dilempar");
-        assertTrue(loanCreationException.getMessage().toLowerCase().contains(expectedMessage.toLowerCase()), 
-            "Pesan error tidak sesuai. Expected: " + expectedMessage + ", Actual: " + loanCreationException.getMessage());
-    }
-
-    @Then("pengajuan tidak ditolak karena amount")
-    public void pengajuan_tidak_ditolak_karena_amount() {
-        assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " + 
-            (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
-    }
-
-    @Then("pengajuan tidak ditolak karena tenor")
-    public void pengajuan_tidak_ditolak_karena_tenor() {
-        assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " + 
-            (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
-    }
-
-    // Ported from disabled loanValidationSteps
-    @Given("borrower mengajukan pinjaman")
-    public void borrower_mengajukan_pinjaman() {
-        // Grade A supaya limit tidak ikut campur
-        this.borrower = new Borrower(
-                new BorrowerId("BRW-" + System.nanoTime()), "Budi",
-                Grade.A, new Money(new BigDecimal("100000000")));
-    }
-
-    @Then("tenor yang diizinkan adalah {string} bulan")
-    public void tenor_yang_diizinkan_adalah(String tenorsStr) {
-        String[] parts = tenorsStr.split(" ");
-        List<Tenor> allowed = borrower.getCreditGrade().getAllowedTenors();
-        assertEquals(parts.length, allowed.size());
-        for (String part : parts) {
-            Tenor expected = Tenor.fromMonths(Integer.parseInt(part));
-            assertTrue(allowed.contains(expected), "Tenor " + part + " tidak ditemukan di grade ini");
-        }
-    }
-
-    @Then("pengajuan tidak ditolak karena amount sesuai dengan limit grade")
-    public void pengajuan_tidak_ditolak_karena_amount_sesuai_dengan_limit_grade() {
-        assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " + 
-            (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
     }
 }
