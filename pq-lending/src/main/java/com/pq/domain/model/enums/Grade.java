@@ -17,6 +17,9 @@ public enum Grade {
         public String getStrategyType() {
             return "EFFECTIVE";
         }
+        public double getAnnualRate() {
+            return 0.12;
+        }
     },
     B {
         public Money getMaxAmount() {
@@ -29,6 +32,9 @@ public enum Grade {
         }
         public String getStrategyType() {
             return "EFFECTIVE";
+        }
+        public double getAnnualRate() {
+            return 0.15;
         }
     },
     C {
@@ -43,6 +49,9 @@ public enum Grade {
         public String getStrategyType() {
             return "FLAT";
         }
+        public double getAnnualRate() {
+            return 0.18;
+        }
     },
     D {
         public Money getMaxAmount() {
@@ -54,9 +63,13 @@ public enum Grade {
         public String getStrategyType() {
             return "FLAT";
         }
+        public double getAnnualRate() {
+            return 0.24;
+        }
     };
 
     public abstract Money getMaxAmount();
     public abstract List<Tenor> getAllowedTenors();
     public abstract String getStrategyType();
+    public abstract double getAnnualRate();
 }

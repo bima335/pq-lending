@@ -55,7 +55,7 @@ public class FundingState extends State {
                 int months = loan.getTenor().getMonths();
                 java.math.BigDecimal principalPerInstallment = loan.getAmount().getAmount()
                         .divide(new java.math.BigDecimal(months), 0, java.math.RoundingMode.HALF_UP);
-                double annualRate = 0.12; 
+                double annualRate = loan.getGrade().getAnnualRate(); 
                 LocalDate startDate = LocalDate.now();
 
                 List<Payment> generatedPayments = loan.getInterestStrategy().generateSchedule(loan.getAmount(), loan.getTenor(),
