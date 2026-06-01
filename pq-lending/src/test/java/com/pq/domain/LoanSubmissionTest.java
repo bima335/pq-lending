@@ -17,8 +17,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Loan Validation Tests")
-public class LoanValidationTest {
+@DisplayName("Loan Submission Tests")
+public class LoanSubmissionTest {
 
     // =========================================================
     // Helper
