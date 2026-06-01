@@ -39,7 +39,7 @@ public class SubmittedState extends State {
 
         loan.setAmount(amount);
         loan.setTenor(tenor);
-        loan.determineStrategy(borrowerGrade);
+        loan.determineInterestStrategy(borrowerGrade);
         loan.setCurrentState(new ValidatedState(loan));
     }
 

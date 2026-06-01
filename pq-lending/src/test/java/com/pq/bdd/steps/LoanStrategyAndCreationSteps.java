@@ -182,3 +182,4 @@ public class LoanStrategyAndCreationSteps {
         assertEquals(BigDecimal.ZERO, totalFunded.getAmount(), "Total funded should be zero");
     }
 
+}
