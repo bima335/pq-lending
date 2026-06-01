@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class LoanStrategyAndCreationSteps {
-    
-    private final SharedTestContext context;
+
+    private final SharedTestContext sharedContext;
     private Borrower borrower;
     private Loan loan;
     private boolean loanCreationSucceeded;
@@ -33,15 +33,21 @@ public class LoanStrategyAndCreationSteps {
     private Exception loanCreationException;
     private String strategyType;
 
-    public LoanStrategyAndCreationSteps(SharedTestContext context) {
-        this.context = context;
+    public LoanStrategyAndCreationSteps(SharedTestContext sharedContext) {
+        this.sharedContext = sharedContext;
+    }
+
+    private void ensureBorrower() {
+        if (this.borrower == null && this.sharedContext.getBorrower() != null) {
+            this.borrower = this.sharedContext.getBorrower();
+        }
     }
 
     // BR-04: Strategy Determination Steps
 
     @When("loan berhasil dibuat")
     public void loan_berhasil_dibuat_all() {
-        this.borrower = context.getBorrower();
+        ensureBorrower();
         if (!this.loanSubmissionSucceeded && this.strategyType == null) {
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
@@ -78,9 +84,9 @@ public class LoanStrategyAndCreationSteps {
     @Then("strategy tidak bisa diubah setelah loan dibuat")
     public void strategy_tidak_bisa_diubah() {
         assertTrue(loanCreationSucceeded);
-        
+
         assertThrows(Exception.class, () -> {
-            loan.determineInterestStrategy(Grade.A); 
+            loan.determineInterestStrategy(Grade.A);
         }, "Strategy harus immutable setelah loan dibuat");
     }
 
@@ -88,12 +94,11 @@ public class LoanStrategyAndCreationSteps {
 
     @When("borrower mengajukan pinjaman sebesar {long} dengan tenor {int} bulan")
     public void borrower_mengajukan_pinjaman(long amountInRupiah, int tenorMonths) {
-        this.borrower = context.getBorrower();
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
             Tenor tenor = Tenor.fromMonths(tenorMonths);
-            
+
             this.loan.submit(borrower, amount, tenor);
             this.loanSubmissionSucceeded = true;
         } catch (Exception e) {
@@ -127,7 +132,7 @@ public class LoanStrategyAndCreationSteps {
         this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
         Money amount = new Money(BigDecimal.valueOf(30000000L));
         Tenor tenor = Tenor.SIX;
-        
+
         this.loan.submit(borrower, amount, tenor);
         assertEquals(LoanState.VALIDATED, loan.getState());
     }
@@ -146,10 +151,10 @@ public class LoanStrategyAndCreationSteps {
     public void funding_deadline_adalah_14_hari_kerja() {
         LocalDate deadline = loan.getFundingDeadline();
         assertNotNull(deadline, "Funding deadline should not be null");
-        
+
         LocalDate today = LocalDate.now();
-        LocalDate expectedDeadline = today.plusDays(20); 
-        
+        LocalDate expectedDeadline = today.plusDays(20);
+
         assertTrue(deadline.isAfter(today), "Deadline should be in the future");
         assertTrue(deadline.isBefore(expectedDeadline.plusDays(5)), "Deadline should be within reasonable range");
     }
@@ -165,7 +170,7 @@ public class LoanStrategyAndCreationSteps {
         this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
         Money amount = new Money(BigDecimal.valueOf(50000000L));
         Tenor tenor = Tenor.SIX;
-        
+
         this.loan.submit(borrower, amount, tenor);
         this.loan.startFunding();
         assertEquals(LoanState.FUNDING, loan.getState());

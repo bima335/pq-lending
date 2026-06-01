@@ -18,20 +18,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoanSubmissionSteps {
 
-    private final SharedTestContext context;
+    private final SharedTestContext sharedContext;
     private Borrower borrower;
     private Loan loan;
     private boolean loanSubmissionSucceeded;
     private Exception loanCreationException;
 
-    public LoanSubmissionSteps(SharedTestContext context) {
-        this.context = context;
+    public LoanSubmissionSteps(SharedTestContext sharedContext) {
+        this.sharedContext = sharedContext;
     }
 
     @Given("borrower dengan grade {word}")
     public void borrower_dengan_grade(String gradeStr) {
-        context.initBorrower(gradeStr);
-        this.borrower = context.getBorrower();
+        Grade grade = Grade.valueOf(gradeStr.toUpperCase());
+        Money balance = new Money(BigDecimal.valueOf(100000000L));
+        this.borrower = org.mockito.Mockito.mock(Borrower.class);
+        org.mockito.Mockito.when(this.borrower.getBorrowerId())
+                .thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
+        org.mockito.Mockito.when(this.borrower.getCreditGrade()).thenReturn(grade);
+        org.mockito.Mockito.when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
+        this.sharedContext.setBorrower(this.borrower);
     }
 
     @Given("borrower mengajukan pinjaman")
@@ -58,7 +64,8 @@ public class LoanSubmissionSteps {
     public void borrower_mengajukan_tenor_bulan(int months) {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(5000000)));
+            Money validAmount = new Money(
+                    borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(5000000)));
             Tenor requestedTenor = null;
             try {
                 requestedTenor = Tenor.fromMonths(months);
@@ -94,7 +101,8 @@ public class LoanSubmissionSteps {
         assertFalse(loanSubmissionSucceeded, "Pengajuan seharusnya ditolak");
         assertNotNull(loanCreationException, "Harus ada exception yang dilempar");
         assertTrue(loanCreationException.getMessage().toLowerCase().contains(expectedMessage.toLowerCase()),
-                "Pesan error tidak sesuai. Expected: " + expectedMessage + ", Actual: " + loanCreationException.getMessage());
+                "Pesan error tidak sesuai. Expected: " + expectedMessage + ", Actual: "
+                        + loanCreationException.getMessage());
     }
 
     @Then("pengajuan tidak ditolak karena amount")
@@ -117,7 +125,7 @@ public class LoanSubmissionSteps {
 
     @Then("tenor yang diizinkan adalah {string} bulan")
     public void tenor_yang_diizinkan_adalah_bulan(String allowedTenors) {
-    // Implementasikan pengecekan kecocokan tenor di sini, contoh:
+        // Implementasikan pengecekan kecocokan tenor di sini, contoh:
         assertNotNull(allowedTenors);
     }
 

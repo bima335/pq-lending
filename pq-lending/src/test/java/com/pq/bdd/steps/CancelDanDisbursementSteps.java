@@ -41,6 +41,8 @@ public class CancelDanDisbursementSteps {
         LoanId loanId = new LoanId("L001");
         BorrowerId borrowerId = new BorrowerId("B001");
         this.loan = new Loan(loanId, borrowerId);
+        this.loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+        this.loan.determineInterestStrategy(Grade.A);
         this.loan.setState(parsed);
     }
 
@@ -67,7 +69,6 @@ public class CancelDanDisbursementSteps {
         this.loan.getFundings().clear();
         this.lenders.clear();
     }
-
 
     @Given("saldo virtual account borrower adalah {long}")
     public void saldoVirtualAccountBorrowerAdalah(long saldo) {
@@ -104,7 +105,7 @@ public class CancelDanDisbursementSteps {
         this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
         this.loan.addFunding(lenderId, fundingAmount, lender);
         if (this.loan.getFundingPercentage() >= 100.0) {
-            this.loan.disburse();
+            this.loan.setCurrentState(new com.pq.domain.model.loan.state.DisbursedState(this.loan));
         }
     }
 
@@ -177,35 +178,46 @@ public class CancelDanDisbursementSteps {
     public void jadwalCicilanDibuatSebanyak(int jumlah) {
         Assertions.assertEquals(jumlah, this.loan.getPayments().size());
     }
+
     @Given("Loan berapa pada FundingState dengan {int} persen terfunding")
-    public void loan_berapa_pada_funding_state_dengan_persen_terfunding(Integer persen) { }
+    public void loan_berapa_pada_funding_state_dengan_persen_terfunding(Integer persen) {
+    }
 
     @Then("loan berpindah ke CancelledState")
-    public void loan_berpindah_ke_cancelled_state() { }
+    public void loan_berpindah_ke_cancelled_state() {
+    }
 
     @Then("refund diberikan kepada semua lender sesuai porsi kontribusi")
-    public void refund_diberikan_kepada_semua_lender_sesuai_porsi_kontribusi() { }
+    public void refund_diberikan_kepada_semua_lender_sesuai_porsi_kontribusi() {
+    }
 
     @Given("loan berada pada DisbursedState")
     public void loan_berada_pada_disbursed_state() {
         LoanId loanId = new LoanId("L001");
         BorrowerId borrowerId = new BorrowerId("B001");
         this.loan = new Loan(loanId, borrowerId);
+        this.loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
+        this.loan.determineInterestStrategy(Grade.A);
         this.loan.setState(LoanState.DISBURSED);
     }
 
     @Given("loan berada pada FundingState")
-    public void loan_berada_pada_funding_state() { }
+    public void loan_berada_pada_funding_state() {
+    }
 
     @When("total kontribusi mencapai {int} persen dari target")
-    public void total_kontribusi_mencapai_persen_dari_target(Integer persen) { }
+    public void total_kontribusi_mencapai_persen_dari_target(Integer persen) {
+    }
 
     @Then("loan berpindah ke DisbursedState")
-    public void loan_berpindah_ke_disbursed_state() { }
+    public void loan_berpindah_ke_disbursed_state() {
+    }
 
     @Then("jadwal cicilan dibuat otomatis")
-    public void jadwal_cicilan_dibuat_otomatis() { }
+    public void jadwal_cicilan_dibuat_otomatis() {
+    }
 
     @Then("loan berpindah ke RepaymentState")
-    public void loan_berpindah_ke_repayment_state() { }
+    public void loan_berpindah_ke_repayment_state() {
+    }
 }
