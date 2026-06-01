@@ -95,6 +95,7 @@ public class LoanStrategyAndCreationSteps {
     @When("borrower mengajukan pinjaman sebesar {long} dengan tenor {int} bulan")
     public void borrower_mengajukan_pinjaman(long amountInRupiah, int tenorMonths) {
         try {
+            ensureBorrower();
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
             Tenor tenor = Tenor.fromMonths(tenorMonths);

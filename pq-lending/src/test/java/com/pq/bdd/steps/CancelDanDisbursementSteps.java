@@ -105,7 +105,7 @@ public class CancelDanDisbursementSteps {
         this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
         this.loan.addFunding(lenderId, fundingAmount, lender);
         if (this.loan.getFundingPercentage() >= 100.0) {
-            this.loan.setCurrentState(new com.pq.domain.model.loan.state.DisbursedState(this.loan));
+            this.loan.disburse();
         }
     }
 
