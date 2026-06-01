@@ -135,6 +135,10 @@ public class Loan {
         }
     }
 
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
     // Getters
     public LoanId getLoanId() {
         return loanId;

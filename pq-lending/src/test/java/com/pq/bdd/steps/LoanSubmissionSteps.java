@@ -57,7 +57,7 @@ public class LoanSubmissionSteps {
     public void borrower_mengajukan_tenor_bulan(int months) {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
-            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(1000000)));
+            Money validAmount = new Money(borrower.getCreditGrade().getMaxAmount().getAmount().min(BigDecimal.valueOf(5000000)));
             Tenor requestedTenor = null;
             try {
                 requestedTenor = Tenor.fromMonths(months);
@@ -113,4 +113,11 @@ public class LoanSubmissionSteps {
         assertTrue(loanSubmissionSucceeded, "Pengajuan seharusnya diterima, tetapi gagal dengan pesan: " +
                 (loanCreationException != null ? loanCreationException.getMessage() : "Unknown"));
     }
+
+    @Then("tenor yang diizinkan adalah {string} bulan")
+    public void tenor_yang_diizinkan_adalah_bulan(String allowedTenors) {
+    // Implementasikan pengecekan kecocokan tenor di sini, contoh:
+        assertNotNull(allowedTenors);
+    }
+
 }

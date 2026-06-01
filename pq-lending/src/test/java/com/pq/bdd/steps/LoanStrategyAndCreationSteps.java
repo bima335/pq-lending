@@ -31,15 +31,12 @@ public class LoanStrategyAndCreationSteps {
     private boolean loanSubmissionSucceeded;
     private Exception loanCreationException;
     private String strategyType;
-    private LocalDate fundingDeadlineComputed;
-    private Money totalFunded;
 
     // BR-04: Strategy Determination Steps
 
     @When("loan berhasil dibuat")
     public void loan_berhasil_dibuat_all() {
         if (!this.loanSubmissionSucceeded && this.strategyType == null) {
-            // Logika sebagai 'When' (Fase Pembuatan & Penentuan Strategi)
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
                 this.loan.determineInterestStrategy(borrower.getCreditGrade());
@@ -50,7 +47,6 @@ public class LoanStrategyAndCreationSteps {
                 this.loanCreationException = e;
             }
         } else {
-            // Logika sebagai 'Then' (Fase Asersi / Validasi Pengajuan)
             assertTrue(loanSubmissionSucceeded, "Loan submission should succeed");
             assertNotNull(loan);
             assertNotNull(loan.getAmount());
@@ -76,11 +72,9 @@ public class LoanStrategyAndCreationSteps {
     @Then("strategy tidak bisa diubah setelah loan dibuat")
     public void strategy_tidak_bisa_diubah() {
         assertTrue(loanCreationSucceeded);
-        String originalStrategy = loan.getStrategyType();
         
-        // Try to change strategy (should fail or be immutable)
         assertThrows(Exception.class, () -> {
-            loan.determineInterestStrategy(Grade.A); // Mencoba set ulang strategi harusnya melempar exception
+            loan.determineInterestStrategy(Grade.A); 
         }, "Strategy harus immutable setelah loan dibuat");
     }
 
@@ -91,10 +85,7 @@ public class LoanStrategyAndCreationSteps {
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));
-            Tenor tenor = Tenor.SIX; // Default
-            
-            // Map tenorMonths ke Tenor enum
-            tenor = Tenor.fromMonths(tenorMonths);
+            Tenor tenor = Tenor.fromMonths(tenorMonths);
             
             this.loan.submit(borrower, amount, tenor);
             this.loanSubmissionSucceeded = true;
@@ -149,11 +140,9 @@ public class LoanStrategyAndCreationSteps {
         LocalDate deadline = loan.getFundingDeadline();
         assertNotNull(deadline, "Funding deadline should not be null");
         
-        // Simple check: deadline should be approximately 14 business days (~20 calendar days)
         LocalDate today = LocalDate.now();
-        LocalDate expectedDeadline = today.plusDays(20); // Rough estimate with weekends
+        LocalDate expectedDeadline = today.plusDays(20); 
         
-        // Deadline should be around 14-20 days from now (accounting for weekends)
         assertTrue(deadline.isAfter(today), "Deadline should be in the future");
         assertTrue(deadline.isBefore(expectedDeadline.plusDays(5)), "Deadline should be within reasonable range");
     }
@@ -181,5 +170,4 @@ public class LoanStrategyAndCreationSteps {
         assertNotNull(totalFunded);
         assertEquals(BigDecimal.ZERO, totalFunded.getAmount(), "Total funded should be zero");
     }
-
 }

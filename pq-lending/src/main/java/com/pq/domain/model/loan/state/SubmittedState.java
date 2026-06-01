@@ -23,9 +23,9 @@ public class SubmittedState extends State {
         Grade borrowerGrade = borrower.getCreditGrade();
 
         if (amount == null || amount.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount harus lebih dari 0");
+            throw new IllegalArgumentException("Amount tidak valid");
         }
-        if (amount.getAmount().compareTo(new BigDecimal("1000000")) < 0) {
+        if (amount.getAmount().compareTo(new BigDecimal("1000000")) <= 0) {
             throw new IllegalArgumentException("Amount kurang dari batas minimal");
         }
 

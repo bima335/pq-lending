@@ -38,7 +38,7 @@ public class KontribusiLenderSteps {
     public void loan_dengan_status_funding_dan_target(long target) {
         loan = new Loan(new LoanId("L1"), new BorrowerId("B1"));
         setField(loan, "amount", new Money(new BigDecimal(target)));
-        setField(loan, "state", LoanState.FUNDING);
+        setField(loan, "currentState", new com.pq.domain.model.loan.state.FundingState(loan));
         // default valid deadline
         setField(loan, "fundingDeadline", LocalDate.now().plusDays(5));
     }
@@ -92,7 +92,7 @@ public class KontribusiLenderSteps {
     public void loan_dengan_status_funding_dan_deadline_sudah_terlewat() {
         loan = new Loan(new LoanId("L1"), new BorrowerId("B1"));
         setField(loan, "amount", new Money(new BigDecimal("10000000")));
-        setField(loan, "state", LoanState.FUNDING);
+        setField(loan, "currentState", LoanState.FUNDING);
         setField(loan, "fundingDeadline", LocalDate.now().minusDays(1));
     }
 
@@ -140,7 +140,7 @@ public class KontribusiLenderSteps {
     public void loan_dengan_dua_lender_masing_masing_porsi_dan(double p1, double p2) {
         loan = new Loan(new LoanId("L1"), new BorrowerId("B1"));
         setField(loan, "amount", new Money(new BigDecimal("10000000")));
-        setField(loan, "state", LoanState.FUNDING);
+        setField(loan, "currentState", LoanState.FUNDING);
         setField(loan, "fundingDeadline", LocalDate.now().plusDays(5));
 
         long amount1 = (long) (10000000 * p1);
@@ -180,7 +180,7 @@ public class KontribusiLenderSteps {
     public void loan_dengan_status_funding_dan_deadline_belum_terlewat() {
         loan = new Loan(new LoanId("L1"), new BorrowerId("B1"));
         setField(loan, "amount", new Money(new BigDecimal("10000000")));
-        setField(loan, "state", LoanState.FUNDING);
+        setField(loan, "currentState", LoanState.FUNDING);
         setField(loan, "fundingDeadline", LocalDate.now().plusDays(5));
     }
 

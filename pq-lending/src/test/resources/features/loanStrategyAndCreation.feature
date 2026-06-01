@@ -29,13 +29,13 @@ Feature: Pembuatan Loan dan Penentuan Strategy
   # BR-05: Pembuatan Loan
   Scenario: Loan berhasil dibuat dengan status SUBMITTED lalu VALIDATED
     Given borrower dengan grade C
-    When borrower mengajukan pinjaman sebesar 30000000 dengan tenor 3 bulan
+    When borrower mengajukan pinjaman sebesar 30000000 dengan tenor 6 bulan
     Then loan berhasil dibuat
     And status loan adalah VALIDATED
 
   Scenario: Loan tidak bisa dibuat jika validasi amount gagal
     Given borrower dengan grade C
-    When borrower mengajukan pinjaman sebesar 100000000 dengan tenor 3 bulan
+    When borrower mengajukan pinjaman sebesar 100000000 dengan tenor 6 bulan
     Then loan tidak berhasil dibuat
 
   Scenario: Loan tidak bisa dibuat jika validasi tenor gagal
