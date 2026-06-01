@@ -1,6 +1,7 @@
 package com.pq.domain.model.loan.state;
 
 import com.pq.domain.model.enums.LoanState;
+import com.pq.domain.model.enums.PaymentStatus;
 import com.pq.domain.model.loan.Loan;
 import com.pq.domain.model.loan.Payment;
 import com.pq.domain.model.loan.Funding;
@@ -33,12 +34,20 @@ public class RepaymentState extends State {
             throw new IllegalArgumentException("Cicilan tidak ditemukan");
         }
 
-        if (amount.getAmount().compareTo(targetPayment.getTotalAmount().getAmount()) != 0) {
-            throw new IllegalArgumentException("Jumlah pembayaran tidak sesuai");
-        }
-
         if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.PAID) {
             throw new IllegalStateException("Tidak ada cicilan yang perlu dibayar");
+        }
+
+        java.math.BigDecimal expectedAmount;
+        if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.OVERDUE) {
+            expectedAmount = targetPayment.getTotalAmount().getAmount()
+                    .add(targetPayment.getPenalty().getAmount());
+        } else {
+            expectedAmount = targetPayment.getTotalAmount().getAmount();
+        }
+
+        if (amount.getAmount().compareTo(expectedAmount) != 0) {
+            throw new IllegalArgumentException("Jumlah pembayaran tidak sesuai");
         }
 
         targetPayment.markAsPaid();
@@ -66,7 +75,7 @@ public class RepaymentState extends State {
     public void close() {
         boolean allPaid = true;
         for (Payment payment : loan.getPayments()) {
-            if (payment.getStatus() == com.pq.domain.model.enums.PaymentStatus.UNPAID) {
+            if (payment.getStatus() == PaymentStatus.UNPAID || payment.getStatus() == PaymentStatus.OVERDUE) {
                 allPaid = false;
                 break;
             }

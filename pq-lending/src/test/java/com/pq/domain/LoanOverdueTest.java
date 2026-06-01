@@ -49,6 +49,7 @@ class LoanOverdueTest {
 
     private void bringLoanToRepayment(Money amount) {
         loan.submit(mockBorrower, amount, Tenor.SIX);
+        loan.validate();
         loan.startFunding();
         loan.addFunding(mockLender.getLenderId(), amount, mockLender);
         loan.disburse();
@@ -85,15 +86,15 @@ class LoanOverdueTest {
         bringLoanToRepayment(new Money(BigDecimal.valueOf(12_000_000)));
 
         Payment cicilan = loan.getPayments().get(0);
-        // denda = 0.1% × totalAmount × jumlahHariOverdue
+        // denda = 0.1% × totalAmount × (jumlahHariOverdue -3(grace period))
         // totalAmount cicilan flat Grade C, pokok 12jt/6 = 2.000.000, bunga = 12jt*0.18/12 = 180.000
         // totalAmount = 2.180.000 (tapi denda dihitung dari cicilan pokok per bulan = 2.000.000)
-        // denda = 0.001 × 2.000.000 × 7 = 14.000
+        // denda = 0.001 × 2.000.000 × (7 - 3) = 8.000
         LocalDate tujuhHariSetelahJatuhTempo = cicilan.getDueDate().plusDays(7);
 
         cicilan.checkOverdue(tujuhHariSetelahJatuhTempo);
 
-        BigDecimal expectedPenalty = BigDecimal.valueOf(14_000);
+        BigDecimal expectedPenalty = BigDecimal.valueOf(8_000);
         assertEquals(0, expectedPenalty.compareTo(cicilan.getPenalty().getAmount()),
                 "Denda 7 hari overdue harus 14.000, bukan " + cicilan.getPenalty().getAmount());
     }
@@ -138,7 +139,6 @@ class LoanOverdueTest {
         Money penalty = cicilan.getPenalty();
         Money totalBayar = new Money(cicilan.getTotalAmount().getAmount().add(penalty.getAmount()));
 
-        BigDecimal lenderBalanceBefore = mockLender.getVirtualAccountBalance().getAmount();
 
         loan.makeRepayment(cicilan.getPaymentId(), lenders, totalBayar);
 
