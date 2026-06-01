@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 
 public class LoanStrategyAndCreationSteps {
     
+    private final SharedTestContext context;
     private Borrower borrower;
     private Loan loan;
     private boolean loanCreationSucceeded;
@@ -32,10 +33,15 @@ public class LoanStrategyAndCreationSteps {
     private Exception loanCreationException;
     private String strategyType;
 
+    public LoanStrategyAndCreationSteps(SharedTestContext context) {
+        this.context = context;
+    }
+
     // BR-04: Strategy Determination Steps
 
     @When("loan berhasil dibuat")
     public void loan_berhasil_dibuat_all() {
+        this.borrower = context.getBorrower();
         if (!this.loanSubmissionSucceeded && this.strategyType == null) {
             try {
                 this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
@@ -82,6 +88,7 @@ public class LoanStrategyAndCreationSteps {
 
     @When("borrower mengajukan pinjaman sebesar {long} dengan tenor {int} bulan")
     public void borrower_mengajukan_pinjaman(long amountInRupiah, int tenorMonths) {
+        this.borrower = context.getBorrower();
         try {
             this.loan = new Loan(new LoanId("LOAN-" + System.nanoTime()), borrower.getBorrowerId());
             Money amount = new Money(BigDecimal.valueOf(amountInRupiah));

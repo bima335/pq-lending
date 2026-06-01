@@ -31,6 +31,7 @@ public class CancelDanDisbursementSteps {
             this.loan = new Loan(loanId, borrowerId);
             this.loan.setState(LoanState.FUNDING);
             this.loan.determineInterestStrategy(Grade.A);
+            this.loan.setTenor(com.pq.domain.model.enums.Tenor.SIX);
         }
     }
 
@@ -124,6 +125,7 @@ public class CancelDanDisbursementSteps {
                 this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
                 this.loan.addFunding(lenderId, new Money(BigDecimal.valueOf(needed)), lender);
             }
+            // FUNDING -> REPAYMENT (generate jadwal + pindah state sekaligus)
             this.loan.disburse();
         }
     }
@@ -185,7 +187,12 @@ public class CancelDanDisbursementSteps {
     public void refund_diberikan_kepada_semua_lender_sesuai_porsi_kontribusi() { }
 
     @Given("loan berada pada DisbursedState")
-    public void loan_berada_pada_disbursed_state() { }
+    public void loan_berada_pada_disbursed_state() {
+        LoanId loanId = new LoanId("L001");
+        BorrowerId borrowerId = new BorrowerId("B001");
+        this.loan = new Loan(loanId, borrowerId);
+        this.loan.setState(LoanState.DISBURSED);
+    }
 
     @Given("loan berada pada FundingState")
     public void loan_berada_pada_funding_state() { }

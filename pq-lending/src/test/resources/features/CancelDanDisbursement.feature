@@ -61,7 +61,7 @@ Feature: Pembatalan Loan dan Pencairan Dana
     Given loan pembatalan dengan target 10000000
     And total terkumpul pembatalan saat ini adalah 9000000
     When lender mendanai loan sebesar 1000000
-    Then status loan sekarang adalah DISBURSED
+    Then status loan sekarang adalah REPAYMENT
 
   Scenario: Loan tidak DISBURSED jika funding belum 100 persen
     Given loan pembatalan dengan target 10000000

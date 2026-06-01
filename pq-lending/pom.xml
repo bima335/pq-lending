@@ -64,6 +64,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Cucumber PicoContainer for shared state between step classes -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>7.14.0</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>

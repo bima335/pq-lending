@@ -18,19 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoanSubmissionSteps {
 
+    private final SharedTestContext context;
     private Borrower borrower;
     private Loan loan;
     private boolean loanSubmissionSucceeded;
     private Exception loanCreationException;
 
+    public LoanSubmissionSteps(SharedTestContext context) {
+        this.context = context;
+    }
+
     @Given("borrower dengan grade {word}")
     public void borrower_dengan_grade(String gradeStr) {
-        Grade grade = Grade.valueOf(gradeStr.toUpperCase());
-        Money balance = new Money(BigDecimal.valueOf(100000000L));
-        this.borrower = org.mockito.Mockito.mock(Borrower.class);
-        org.mockito.Mockito.when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
-        org.mockito.Mockito.when(this.borrower.getCreditGrade()).thenReturn(grade);
-        org.mockito.Mockito.when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
+        context.initBorrower(gradeStr);
+        this.borrower = context.getBorrower();
     }
 
     @Given("borrower mengajukan pinjaman")
