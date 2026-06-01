@@ -18,10 +18,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoanSubmissionSteps {
 
+    private final SharedTestContext sharedContext;
     private Borrower borrower;
     private Loan loan;
     private boolean loanSubmissionSucceeded;
     private Exception loanCreationException;
+
+    public LoanSubmissionSteps(SharedTestContext sharedContext) {
+        this.sharedContext = sharedContext;
+    }
 
     @Given("borrower dengan grade {word}")
     public void borrower_dengan_grade(String gradeStr) {
@@ -31,6 +36,7 @@ public class LoanSubmissionSteps {
         org.mockito.Mockito.when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
         org.mockito.Mockito.when(this.borrower.getCreditGrade()).thenReturn(grade);
         org.mockito.Mockito.when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
+        this.sharedContext.setBorrower(this.borrower);
     }
 
     @Given("borrower mengajukan pinjaman")

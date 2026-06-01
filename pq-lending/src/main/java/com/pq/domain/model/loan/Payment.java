@@ -3,9 +3,13 @@ package com.pq.domain.model.loan;
 import com.pq.domain.model.enums.PaymentStatus;
 import com.pq.domain.model.valueobject.Money;
 import com.pq.domain.model.valueobject.PaymentId;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import com.pq.domain.model.loan.paymentstate.PaymentState;
 import com.pq.domain.model.loan.paymentstate.UnpaidState;
+import com.pq.domain.model.loan.paymentstate.OverdueState;
 
 public class Payment {
     private final PaymentId paymentId;
@@ -17,6 +21,7 @@ public class Payment {
     private final Money totalAmount;
     private PaymentStatus status;
     private PaymentState currentState;
+    private Money accumulatedPenalty;
 
     public Payment(PaymentId paymentId,
             int installmentNumber,
@@ -32,6 +37,7 @@ public class Payment {
         this.totalAmount = totalAmount;
         this.status = PaymentStatus.UNPAID;
         this.currentState = new UnpaidState(this);
+        this.accumulatedPenalty = new Money(BigDecimal.ZERO);
     }
 
     public void markAsPaid() {
@@ -41,6 +47,32 @@ public class Payment {
     public void internalMarkAsPaid() {
         this.status = PaymentStatus.PAID;
         this.paidDate = LocalDate.now();
+    }
+
+    public void checkOverdue(LocalDate today) {
+        checkOverdue(today, null);
+    }
+
+    public void checkOverdue(LocalDate today, Money maxPenalty) {
+        long daysPastDue = ChronoUnit.DAYS.between(dueDate, today);
+        if (daysPastDue > 3) {
+            BigDecimal penalty = BigDecimal.valueOf(0.001)
+                    .multiply(principal.getAmount())
+                    .multiply(BigDecimal.valueOf(daysPastDue -3))
+                    .setScale(0, RoundingMode.HALF_UP);
+
+            if (maxPenalty != null && penalty.compareTo(maxPenalty.getAmount()) > 0) {
+                penalty = maxPenalty.getAmount();
+            }
+
+            this.accumulatedPenalty = new Money(penalty);
+            this.currentState = new OverdueState(this);
+            this.status = PaymentStatus.OVERDUE;
+        }
+    }
+
+    public Money getPenalty() {
+        return accumulatedPenalty;
     }
 
     public void setCurrentState(PaymentState state) {
