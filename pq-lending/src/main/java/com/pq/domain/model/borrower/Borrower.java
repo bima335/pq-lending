@@ -10,9 +10,7 @@ public class Borrower {
     private final Grade creditGrade;
     private Money virtualAccountBalance;
 
-    public Borrower(BorrowerId borrowerId, String name,
-            Grade creditGrade,
-            Money virtualAccountBalance) {
+    public Borrower(BorrowerId borrowerId, String name, Grade creditGrade, Money virtualAccountBalance) {
         this.borrowerId = borrowerId;
         this.name = name;
         this.creditGrade = creditGrade;
@@ -42,7 +40,6 @@ public class Borrower {
         if (this.virtualAccountBalance.getAmount().compareTo(amount.getAmount()) < 0) {
             throw new IllegalStateException("Saldo tidak cukup untuk membayar denda");
         }
-        this.virtualAccountBalance = new Money(
-                this.virtualAccountBalance.getAmount().subtract(amount.getAmount()));
+        this.virtualAccountBalance = new Money(this.virtualAccountBalance.getAmount().subtract(amount.getAmount()));
     }
 }

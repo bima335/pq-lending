@@ -36,16 +36,6 @@ public class LoanStrategyAndCreationSteps {
 
     // BR-04: Strategy Determination Steps
 
-    @Given("borrower dengan grade {word}")
-    public void borrower_dengan_grade(String gradeStr) {
-        Grade grade = Grade.valueOf(gradeStr.toUpperCase());
-        Money balance = new Money(BigDecimal.valueOf(100000000L));
-        this.borrower = mock(Borrower.class);
-        when(this.borrower.getBorrowerId()).thenReturn(new BorrowerId("BORROWER-" + System.nanoTime()));
-        when(this.borrower.getCreditGrade()).thenReturn(grade);
-        when(this.borrower.getVirtualAccountBalance()).thenReturn(balance);
-    }
-
     @When("loan berhasil dibuat")
     public void loan_berhasil_dibuat_all() {
         if (!this.loanSubmissionSucceeded && this.strategyType == null) {
