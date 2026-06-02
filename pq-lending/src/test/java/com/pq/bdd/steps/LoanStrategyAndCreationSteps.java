@@ -154,7 +154,7 @@ public class LoanStrategyAndCreationSteps {
         assertNotNull(deadline, "Funding deadline should not be null");
 
         LocalDate today = LocalDate.now();
-        LocalDate expectedDeadline = today.plusDays(20);
+        LocalDate expectedDeadline = today.plusDays(14);
 
         assertTrue(deadline.isAfter(today), "Deadline should be in the future");
         assertTrue(deadline.isBefore(expectedDeadline.plusDays(5)), "Deadline should be within reasonable range");
