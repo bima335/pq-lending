@@ -1,0 +1,48 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main # Ganti dengan branch utama Anda (misal: master)
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # PENTING: Disable shallow clones agar SonarCloud bisa membaca history/blame
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # PENTING: SonarScanner wajib jalan di Java 17+, meskipun kode Anda dikompilasi di Java 8 atau 11
+          distribution: 'temurin'
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token bawaan GitHub untuk Pull Request decoration
+          SONAR_TOKEN: ${{ 8616e7453886bb4ae627ee3bbacd42170b84cdf6 }}    # Token yang baru saja Anda buat
+        run: >
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
+          -Dsonar.projectKey=KUNCI_PROYEK_ANDA 
+          -Dsonar.organization=KUNCI_ORGANISASI_ANDA 
+          -Dsonar.host.url=https://sonarcloud.io
