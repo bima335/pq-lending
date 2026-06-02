@@ -4,7 +4,7 @@ import com.pq.domain.model.enums.LoanState;
 import com.pq.domain.model.enums.PaymentStatus;
 import com.pq.domain.model.loan.Loan;
 import com.pq.domain.model.loan.Payment;
-import com.pq.domain.model.loan.Funding;
+import com.pq.domain.model.loan.PaymentDistribution;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.valueobject.PaymentId;
 import com.pq.domain.model.valueobject.Money;
@@ -22,68 +22,58 @@ public class RepaymentState extends State {
 
     @Override
     public void makeRepayment(PaymentId paymentId, List<Lender> lenders, Money amount) {
-        Payment targetPayment = null;
-        for (Payment payment : loan.getPayments()) {
-            if (payment.getPaymentId().getValue().equals(paymentId.getValue())) {
-                targetPayment = payment;
-                break;
-            }
-        }
+        Payment payment = findPayment(paymentId);
+        verifyPayment(payment, amount);
+        payment.markAsPaid();
+        distributePayment(payment, lenders);
+        closeIfFullyPaid();
+    }
 
-        if (targetPayment == null) {
-            throw new IllegalArgumentException("Cicilan tidak ditemukan");
-        }
+    private Payment findPayment(PaymentId paymentId) {
+        return loan.getPayments().stream()
+                .filter(payment -> payment.getPaymentId().getValue().equals(paymentId.getValue()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Cicilan tidak ditemukan"));
+    }
 
-        if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.PAID) {
+    private void verifyPayment(Payment payment, Money amount) {
+        if (payment.getStatus() == PaymentStatus.PAID) {
             throw new IllegalStateException("Tidak ada cicilan yang perlu dibayar");
         }
 
-        java.math.BigDecimal expectedAmount;
-        if (targetPayment.getStatus() == com.pq.domain.model.enums.PaymentStatus.OVERDUE) {
-            expectedAmount = targetPayment.getTotalAmount().getAmount()
-                    .add(targetPayment.getPenalty().getAmount());
-        } else {
-            expectedAmount = targetPayment.getTotalAmount().getAmount();
-        }
-
-        if (amount.getAmount().compareTo(expectedAmount) != 0) {
+        Money expected = calculateExpectedAmount(payment);
+        if (amount.getAmount().compareTo(expected.getAmount()) != 0) {
             throw new IllegalArgumentException("Jumlah pembayaran tidak sesuai");
         }
-
-        targetPayment.markAsPaid();
-
-        java.math.BigDecimal amountToDistribute = targetPayment.getTotalAmount().getAmount();
-
-        if (lenders != null) {
-            for (Funding funding : loan.getFundings()) {
-                for (Lender lender : lenders) {
-                    if (lender.getLenderId().getValue().equals(funding.getLenderId().getValue())) {
-                        java.math.BigDecimal portionValue = java.math.BigDecimal.valueOf(funding.getPortion());
-                        java.math.BigDecimal lenderShare = amountToDistribute.multiply(portionValue).setScale(0,
-                                java.math.RoundingMode.HALF_UP);
-
-                        lender.addBalance(new Money(lenderShare));
-                    }
-                }
-            }
-        }
-
-        close(); // Try to close if all paid
     }
 
-    @Override
-    public void close() {
-        boolean allPaid = true;
-        for (Payment payment : loan.getPayments()) {
-            if (payment.getStatus() == PaymentStatus.UNPAID || payment.getStatus() == PaymentStatus.OVERDUE) {
-                allPaid = false;
-                break;
-            }
+    private Money calculateExpectedAmount(Payment payment) {
+        if (payment.getStatus() == PaymentStatus.OVERDUE) {
+            return new Money(payment.getTotalAmount().getAmount().add(payment.getPenalty().getAmount()));
         }
+        return payment.getTotalAmount();
+    }
+
+    private void distributePayment(Payment payment, List<Lender> lenders) {
+        if (lenders == null || lenders.isEmpty()) {
+            return;
+        }
+
+        new PaymentDistribution().distribute(loan.getFundings(), lenders, payment.getTotalAmount());
+    }
+
+    private void closeIfFullyPaid() {
+        boolean allPaid = loan.getPayments().stream()
+                .allMatch(payment -> payment.getStatus() == PaymentStatus.PAID);
 
         if (allPaid) {
             loan.setCurrentState(new ClosedState(loan));
         }
+    }
+
+    @Override
+    public void close() {
+        closeIfFullyPaid();
     }
 
     @Override
