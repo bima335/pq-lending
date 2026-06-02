@@ -9,6 +9,9 @@ import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.valueobject.LenderId;
 import com.pq.domain.model.enums.LoanState;
+import com.pq.domain.model.loan.decorator.BaseRefund;
+import com.pq.domain.model.loan.decorator.CancellationPenaltyDecorator;
+import com.pq.domain.model.loan.decorator.RefundOperation;
 
 import java.util.List;
 
@@ -60,23 +63,17 @@ public abstract class State {
             return;
         }
 
-        double percent = loan.getFundingPercentage();
-        java.math.BigDecimal rate = java.math.BigDecimal.ZERO;
-        if (percent > 0 && percent <= 50) {
-            rate = new java.math.BigDecimal("0.01");
-        } else if (percent > 50 && percent < 100) {
-            rate = new java.math.BigDecimal("0.02");
-        }
+        RefundOperation refundOperation = new CancellationPenaltyDecorator(new BaseRefund());
+        CancellationPenaltyDecorator penaltyDecorator = (CancellationPenaltyDecorator) refundOperation;
 
-        java.math.BigDecimal feeAmount = totalFunded.getAmount().multiply(rate).setScale(0,
-                java.math.RoundingMode.HALF_UP);
-        Money fee = new Money(feeAmount);
+        Money fee = penaltyDecorator.calculatePenaltyFee(loan);
 
-        if (borrower.getVirtualAccountBalance().getAmount().compareTo(feeAmount) < 0) {
+        if (borrower.getVirtualAccountBalance().getAmount()
+                .compareTo(fee.getAmount()) < 0) {
             throw new IllegalStateException("Saldo tidak cukup untuk membayar denda");
         }
 
-        if (feeAmount.compareTo(java.math.BigDecimal.ZERO) > 0) {
+        if (fee.getAmount().compareTo(java.math.BigDecimal.ZERO) > 0) {
             borrower.deductBalance(fee);
         }
 

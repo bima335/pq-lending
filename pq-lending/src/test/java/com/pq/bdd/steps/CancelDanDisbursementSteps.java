@@ -107,9 +107,8 @@ public class CancelDanDisbursementSteps {
         this.lenders.add(lender);
         this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
         this.loan.addFunding(lenderId, fundingAmount, lender);
-        if (this.loan.getFundingPercentage() >= 100.0) {
-            this.loan.disburse();
-        }
+        // AutoDisbursementObserver sudah otomatis memanggil disburse() via observer pattern
+        // ketika funding mencapai 100% — tidak perlu manual disburse() di sini
     }
 
     @When("funding mencapai {int} persen")
