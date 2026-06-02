@@ -4,7 +4,9 @@ import com.pq.domain.model.loan.Loan;
 import com.pq.domain.model.valueobject.LoanId;
 import com.pq.domain.repository.LoanRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,5 +22,10 @@ public class InMemoryLoanRepository implements LoanRepository {
     @Override
     public void save(Loan loan) {
         store.put(loan.getLoanId().getValue(), loan);
+    }
+
+    @Override
+    public List<Loan> findAll() {
+        return new ArrayList<>(store.values());
     }
 }
