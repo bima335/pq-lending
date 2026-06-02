@@ -40,7 +40,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token bawaan GitHub untuk Pull Request decoration
-          SONAR_TOKEN: ${{ "8616e7453886bb4ae627ee3bbacd42170b84cdf6" }}    # Token yang baru saja Anda buat
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # Token yang baru saja Anda buat
         run: >
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
           -Dsonar.projectKey=KUNCI_PROYEK_ANDA 
