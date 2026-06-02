@@ -33,6 +33,14 @@ public class Borrower {
         return virtualAccountBalance;
     }
 
+    public void addBalance(Money amount) {
+        if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Jumlah penambahan saldo tidak boleh negatif");
+        }
+        
+        this.virtualAccountBalance = new Money(this.virtualAccountBalance.getAmount().add(amount.getAmount()));
+    }
+
     public void deductBalance(Money amount) {
         if (amount.getAmount().compareTo(java.math.BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Jumlah potongan tidak boleh negatif");
