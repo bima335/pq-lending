@@ -11,6 +11,7 @@ import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
 import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
 import com.pq.domain.model.loan.state.*;
+import com.pq.domain.model.loan.observer.FundingObserver;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Loan {
     private final List<Funding> fundings;
     private final List<Payment> payments;
     private java.math.BigDecimal totalFunding;
+    private final List<FundingObserver> fundingObservers = new ArrayList<>();
 
     public Loan(LoanId loanId, BorrowerId borrowerId) {
         this.loanId = loanId;
@@ -51,6 +53,16 @@ public class Loan {
 
     public InterestStrategy getInterestStrategy() {
         return interestStrategy;
+    }
+
+    public void addObserver(FundingObserver observer) {
+        this.fundingObservers.add(observer);
+    }
+
+    public void notifyFundingObservers() {
+        for (FundingObserver observer : fundingObservers) {
+            observer.onFundingCompleted(this);
+        }
     }
 
     public void submit(Borrower borrower, Money amount, Tenor tenor) {

@@ -3,6 +3,7 @@ package com.pq.bdd.steps;
 import io.cucumber.java.en.*;
 import org.junit.jupiter.api.Assertions;
 import com.pq.domain.model.loan.*;
+import com.pq.domain.model.loan.observer.AutoDisbursementObserver;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.enums.*;
@@ -31,6 +32,8 @@ public class CancelDanDisbursementSteps {
             this.loan = new Loan(loanId, borrowerId);
             this.loan.setState(LoanState.FUNDING);
             this.loan.determineInterestStrategy(Grade.A);
+            this.loan.setTenor(Tenor.SIX);
+            this.loan.addObserver(new AutoDisbursementObserver());
         }
     }
 
@@ -43,6 +46,7 @@ public class CancelDanDisbursementSteps {
         this.loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
         this.loan.determineInterestStrategy(Grade.A);
         this.loan.setState(parsed);
+        this.loan.addObserver(new AutoDisbursementObserver());
     }
 
     @Given("loan pembatalan dengan target {int}")
@@ -126,7 +130,9 @@ public class CancelDanDisbursementSteps {
                 this.lenderInitialBalances.put(lenderId.getValue(), lender.getVirtualAccountBalance());
                 this.loan.addFunding(lenderId, new Money(BigDecimal.valueOf(needed)), lender);
             }
-            this.loan.disburse();
+            if (this.loan.getState() == LoanState.FUNDING || this.loan.getState() == LoanState.DISBURSED) {
+                this.loan.disburse();
+            }
         }
     }
 

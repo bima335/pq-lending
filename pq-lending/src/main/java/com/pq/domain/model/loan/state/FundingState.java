@@ -46,6 +46,9 @@ public class FundingState extends State {
         Funding funding = new Funding(new com.pq.domain.model.valueobject.FundingId("FND-" + System.nanoTime()),
                 lenderId, new Money(actualAmount), portion);
         loan.getFundings().add(funding);
+        if (loan.getFundingPercentage() >= 100.0) {
+            loan.notifyFundingObservers();
+        }
     }
 
     @Override
