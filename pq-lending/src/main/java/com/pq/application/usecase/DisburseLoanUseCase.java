@@ -3,7 +3,6 @@ package com.pq.application.usecase;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.loan.Loan;
 import com.pq.domain.model.valueobject.LoanId;
-import com.pq.domain.model.valueobject.Money;
 import com.pq.domain.repository.BorrowerRepository;
 import com.pq.domain.repository.LoanRepository;
 

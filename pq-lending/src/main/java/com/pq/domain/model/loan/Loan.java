@@ -7,8 +7,6 @@ import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.loan.strategy.InterestStrategy;
 import com.pq.domain.model.loan.strategy.InterestStrategyFactory;
-import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
-import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
 import com.pq.domain.model.loan.state.*;
 import com.pq.domain.model.loan.observer.FundingObserver;
