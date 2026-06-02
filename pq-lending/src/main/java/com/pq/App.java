@@ -1,13 +1,9 @@
 package com.pq;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import com.pq.presentation.CLIApplication;
+
+public class App {
+    public static void main(String[] args) {
+        new CLIApplication().run();
     }
 }
