@@ -26,7 +26,6 @@ public class Loan {
     private LocalDate fundingDeadline;
     private final List<Funding> fundings;
     private final List<Payment> payments;
-    private java.math.BigDecimal totalFunding;
     private final List<FundingObserver> fundingObservers = new ArrayList<>();
 
     public Loan(LoanId loanId, BorrowerId borrowerId) {
@@ -35,7 +34,6 @@ public class Loan {
         this.currentState = new SubmittedState(this);
         this.fundings = new ArrayList<>();
         this.payments = new ArrayList<>();
-        this.totalFunding = java.math.BigDecimal.ZERO;
     }
 
     public void determineInterestStrategy(Grade borrowerGrade) {
@@ -74,6 +72,8 @@ public class Loan {
     public void startFunding() {
         this.currentState.startFunding();
     }
+
+
 
     public void addFunding(LenderId lenderId, Money amount, Lender lender) {
         this.currentState.addFunding(lenderId, amount, lender);
