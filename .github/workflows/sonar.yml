@@ -38,11 +38,12 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and analyze
+        working-directory: ./pq-lending
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token bawaan GitHub untuk Pull Request decoration
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # Token yang baru saja Anda buat
         run: >
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
-          -Dsonar.projectKey=KUNCI_PROYEK_ANDA 
-          -Dsonar.organization=KUNCI_ORGANISASI_ANDA 
+          -Dsonar.projectKey=bima335_pq-lending 
+          -Dsonar.organization=bima-anugrah-prasetyo-335 
           -Dsonar.host.url=https://sonarcloud.io
