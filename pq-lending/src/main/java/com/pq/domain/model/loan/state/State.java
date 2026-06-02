@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class State {
     protected final Loan loan;
 
-    public State(Loan loan) {
+    protected State(Loan loan) {
         this.loan = loan;
     }
 

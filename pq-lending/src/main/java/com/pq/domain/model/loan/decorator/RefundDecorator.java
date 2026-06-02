@@ -7,7 +7,7 @@ public abstract class RefundDecorator implements RefundOperation {
 
     protected final RefundOperation wrapped;
 
-    public RefundDecorator(RefundOperation wrapped) {
+    protected RefundDecorator(RefundOperation wrapped) {
         this.wrapped = wrapped;
     }
 
