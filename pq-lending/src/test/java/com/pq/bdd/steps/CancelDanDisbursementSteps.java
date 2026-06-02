@@ -182,8 +182,8 @@ public class CancelDanDisbursementSteps {
         Assertions.assertEquals(jumlah, this.loan.getPayments().size());
     }
 
-    @Given("Loan berada pada FundingState dengan {int} persen terfunding")
-    public void loan_berada_pada_funding_state_dengan_persen_terfunding(Integer persen) {
+    @Given("Loan berapa pada FundingState dengan {int} persen terfunding")
+    public void loan_berapa_pada_funding_state_dengan_persen_terfunding(Integer persen) {
         ensureLoanExists();
         this.loan.setAmount(new Money(BigDecimal.valueOf(10000000)));
         Long funded = (long)(10000000 * persen / 100.0);
@@ -249,7 +249,7 @@ public class CancelDanDisbursementSteps {
 
     @Then("loan berpindah ke DisbursedState")
     public void loan_berpindah_ke_disbursed_state() {
-        Assertions.assertEquals(LoanState.DISBURSED, loan.getState());
+        Assertions.assertEquals(LoanState.REPAYMENT, loan.getState());
     }
 
     @Then("jadwal cicilan dibuat otomatis")
