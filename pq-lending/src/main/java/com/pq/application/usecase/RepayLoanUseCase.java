@@ -32,20 +32,14 @@ public class RepayLoanUseCase {
     public void execute(String loanIdStr, Money repaymentAmount) {
         LoanId loanId = new LoanId(loanIdStr);
 
-        // 1. Ambil data Loan
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(() -> new IllegalArgumentException("Pinjaman tidak ditemukan."));
 
-        // 2. Ambil data Borrower berdasarkan ID yang ada di dalam Loan
         Borrower borrower = borrowerRepository.findById(loan.getBorrowerId())
                 .orElseThrow(() -> new IllegalStateException("Data Peminjam tidak valid."));
 
-        // 3. Potong saldo Borrower (Menggunakan fungsi deductBalance yang baru Anda buat)
-        // Jika saldo tidak cukup, fungsi ini akan otomatis melempar IllegalStateException
         borrower.deductBalance(repaymentAmount);
 
-        // 4. Kumpulkan daftar Lender yang berhak menerima pengembalian dana
-        // Kita ambil dari daftar "Funding" yang ada di dalam entitas Loan
         List<Lender> lenders = new ArrayList<>();
         for (Funding funding : loan.getFundings()) {
             Lender lender = lenderRepository.findById(funding.getLenderId())
@@ -53,15 +47,10 @@ public class RepayLoanUseCase {
             lenders.add(lender);
         }
 
-        // 5. Buat ID Pembayaran baru
         PaymentId paymentId = new PaymentId(UUID.randomUUID().toString());
 
-        // 6. Eksekusi Domain: Catat pembayaran & distribusikan dana
-        // Asumsi: Logika penambahan saldo ke masing-masing Lender (addBalance) 
-        // terjadi di dalam class state (RepaymentState) saat makeRepayment dipanggil.
         loan.makeRepayment(paymentId, lenders, repaymentAmount);
 
-        // 7. Simpan semua perubahan ke dalam Repository
         borrowerRepository.save(borrower);
         loanRepository.save(loan);
         
