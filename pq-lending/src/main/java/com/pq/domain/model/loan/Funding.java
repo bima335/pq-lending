@@ -37,6 +37,10 @@ public class Funding {
         return portion;
     }
 
+    public LocalDateTime getFundedAt() {
+    return fundedAt;
+}
+
     public void setPortion(double portion) {
         this.portion = portion;
     }

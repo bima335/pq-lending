@@ -53,19 +53,16 @@ public class FundingState extends State {
 
     @Override
     public void disburse() {
-        if (loan.getFundingPercentage() >= 100.0) {
-            if (loan.getTenor() != null && loan.getAmount() != null) {
-                int months = loan.getTenor().getMonths();
-                java.math.BigDecimal principalPerInstallment = loan.getAmount().getAmount()
-                        .divide(new java.math.BigDecimal(months), 0, java.math.RoundingMode.HALF_UP);
-                double annualRate = loan.getGrade().getAnnualRate(); 
-                LocalDate startDate = LocalDate.now();
+        if (loan.getFundingPercentage() >= 100.0 && loan.getTenor() != null && loan.getAmount() != null) {
+            
+            double annualRate = loan.getGrade().getAnnualRate(); 
+            LocalDate startDate = LocalDate.now();
 
-                List<Payment> generatedPayments = loan.getInterestStrategy().generateSchedule(loan.getAmount(), loan.getTenor(),
-                        annualRate, startDate);
-                loan.getPayments().addAll(generatedPayments);
-                loan.setCurrentState(new RepaymentState(loan));
-            }
+            List<Payment> generatedPayments = loan.getInterestStrategy()
+                    .generateSchedule(loan.getAmount(), loan.getTenor(), annualRate, startDate);
+                    
+            loan.getPayments().addAll(generatedPayments);
+            loan.setCurrentState(new RepaymentState(loan));
         }
     }
     

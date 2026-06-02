@@ -1,7 +1,6 @@
 package com.pq.domain.model.loan.state;
 
 import com.pq.domain.model.loan.Loan;
-import com.pq.domain.model.loan.Payment;
 import com.pq.domain.model.valueobject.Money;
 import com.pq.domain.model.enums.Tenor;
 import com.pq.domain.model.valueobject.PaymentId;
@@ -18,7 +17,7 @@ import java.util.List;
 public abstract class State {
     protected final Loan loan;
 
-    public State(Loan loan) {
+    protected State(Loan loan) {
         this.loan = loan;
     }
 

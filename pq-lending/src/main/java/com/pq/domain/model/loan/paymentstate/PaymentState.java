@@ -6,7 +6,7 @@ import com.pq.domain.model.enums.PaymentStatus;
 public abstract class PaymentState {
     protected final Payment payment;
 
-    public PaymentState(Payment payment) {
+    protected PaymentState(Payment payment) {
         this.payment = payment;
     }
 
