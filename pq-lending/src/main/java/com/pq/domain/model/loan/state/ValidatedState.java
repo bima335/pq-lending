@@ -36,7 +36,7 @@ public class ValidatedState extends State {
 
     @Override
     public void startFunding() {
-        loan.setFundingDeadline(java.time.LocalDate.now().plusDays(20));
+        loan.setFundingDeadline(java.time.LocalDate.now().plusDays(14));
         loan.setCurrentState(new FundingState(loan));
     }
 
