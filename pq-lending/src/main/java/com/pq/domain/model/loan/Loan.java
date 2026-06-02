@@ -6,6 +6,7 @@ import com.pq.domain.model.enums.Tenor;
 import com.pq.domain.model.borrower.Borrower;
 import com.pq.domain.model.lender.Lender;
 import com.pq.domain.model.loan.strategy.InterestStrategy;
+import com.pq.domain.model.loan.strategy.InterestStrategyFactory;
 import com.pq.domain.model.loan.strategy.EffectiveRateStrategy;
 import com.pq.domain.model.loan.strategy.FlatRateStrategy;
 import com.pq.domain.model.valueobject.*;
@@ -39,19 +40,12 @@ public class Loan {
 
     public void determineInterestStrategy(Grade borrowerGrade) {
         if (this.interestStrategy != null) {
-            throw new IllegalStateException("Strategy has already been determined and is immutable.");
+            throw new IllegalStateException(
+                    "Strategy has already been determined and is immutable.");
         }
         this.grade = borrowerGrade;
-        switch (borrowerGrade.getStrategyType()) {
-        case "EFFECTIVE":
-            this.interestStrategy = new EffectiveRateStrategy();
-            break;
-        case "FLAT":
-            this.interestStrategy = new FlatRateStrategy();
-            break;
-        default:
-            throw new IllegalStateException("Unknown strategy type for grade: " + grade);
-        }
+        this.interestStrategy = InterestStrategyFactory
+                .create(borrowerGrade.getStrategyType());
         this.strategyType = this.interestStrategy.getClass().getSimpleName();
     }
 
@@ -109,29 +103,29 @@ public class Loan {
 
     public void setState(LoanState state) {
         switch (state) {
-        case SUBMITTED:
-            this.currentState = new SubmittedState(this);
-            break;
-        case VALIDATED:
-            this.currentState = new ValidatedState(this);
-            break;
-        case FUNDING:
-            this.currentState = new FundingState(this);
-            break;
-        case CANCELLED:
-            this.currentState = new CancelledState(this);
-            break;
-        case DISBURSED:
-            this.currentState = new DisbursedState(this);
-            break;
-        case REPAYMENT:
-            this.currentState = new RepaymentState(this);
-            break;
-        case CLOSED:
-            this.currentState = new ClosedState(this);
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown state: " + state);
+            case SUBMITTED:
+                this.currentState = new SubmittedState(this);
+                break;
+            case VALIDATED:
+                this.currentState = new ValidatedState(this);
+                break;
+            case FUNDING:
+                this.currentState = new FundingState(this);
+                break;
+            case CANCELLED:
+                this.currentState = new CancelledState(this);
+                break;
+            case DISBURSED:
+                this.currentState = new DisbursedState(this);
+                break;
+            case REPAYMENT:
+                this.currentState = new RepaymentState(this);
+                break;
+            case CLOSED:
+                this.currentState = new ClosedState(this);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown state: " + state);
         }
     }
 
